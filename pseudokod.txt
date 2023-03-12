@@ -1,0 +1,90 @@
+
+scen-system:
+	för att hantera ett spel med flera olika lägen behöver man något sorts scen-system.
+	detta inkapslar koden för varje specific scen till tre funktioner (initialisering, uppdatering
+	och ritning), som kan existera i en	separat källfil.
+
+	när scenen byts körs initialiseringsfunktionen, och vid nästa bildruta körs uppdaterings- och
+	ritningsfunktionen för den nya scenen
+
+main:
+	består av 3 callback-funktioner i LÖVE:
+
+	love.load:
+		initialisera saker - ladda bilder, typsnitt, sparad speldata mm...
+
+	love.update:
+		(kör beräkningar och uppdatera staten för spelet.)
+
+		kör uppdateringsfunktionen för nuvarande scenen.
+
+		eventuell gemensam kod som ska köras (felsökningsfunktioner osv.)
+
+	love.draw:
+		kör ritningsfunktion för nuvarande scenen.
+
+
+
+
+läsaBana (läser en bana):
+	banorna har ett sånt här format:
+	{
+		// Rutan som spelaren kan skapa och kasta lådor från:
+		throwBoundary = {
+			x = 100, y = 200,
+			w = 100, h = 300, // 100x300 ruta med övre vänstra hörnet (100,200)
+		},
+		// Lådkluster som man kan skicka lådor på.
+		boxclusters = {
+			{
+				x = 200, y = 100, // Övre vänstra hörnet för lådklustret.
+				w = 20, h = 20, // Storleken på lådorna.
+				aX = 5, aY = 5 // Antal lådor.
+				// I detta exemplet består lådklustret av 5x5 lådor, som är 20x20 stora.
+			},
+			...
+		}
+		// "Terräng", statiska rektanglar som lådor oftast ligger på.
+		terrain = {
+			{
+				x = 200, y = 200,
+				w = 100, h = 50 // 100x50 ruta med övre vänstra hörnet (200,200)
+			},
+			...
+		}
+	}
+
+	läs in datan för den valda banan (se över ^^)
+
+	kopiera bana.throwBoundary till variabeln för dimensionerna av kastrutan
+		(denna kommer ritas som en ruta grafiskt, och styr var spelaren kan skapa lådor)
+
+	iterera över värdena i arrayen bana.boxclusters (clust):
+		iterera för x = 0 -> (clust.aX - 1):
+			iterera för y = 0 -> (clust.aY -1):
+				skapa en fysiklåda med masscentrum i ( (clust.x + x * clust.w) + clust.w/2, (clust.y + y * clust.h) + clust.h/2 )
+					med bredden clust.w, clust.h
+				ge lådan en slumpmässig fyllfärg
+
+	iterera över värderna i arrayen bana.terrain (chnk):
+		skapa en statisk ruta med masscentrum i (chnk.x + chnk.w/2, chnk.y + chnk.h/2) med dimensionerna chnk.w gånger chnk.h
+
+
+
+kastaLåda (detta körs om muspekare hålls ner):
+	få musposition, X & Y
+
+	om musposition inte är innanför kastrutan, avbryt
+
+	skapa fysiklåda med masscentrum vid mus.X och mus.Y
+	håll fast lådan vid punkten musen är vid
+
+	medans muspekare hålls ner:
+		beräkna differensen mellan nuvarande musposition och lådans masscentrum (dragvektor)
+		kastvektor blir inverse dragvektor (-dragvektor.x, -dragvektor.y)
+
+	(nu är muspekaren släppt)
+	släpp lådan, applicera en impuls (kastvektor.x, kastvektor.y) från lådans masscentrum.
+	lådan åker iväg!!!
+
+
