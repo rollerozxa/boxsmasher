@@ -27,10 +27,17 @@ offset = {
 
 scenes = {}
 
+-- Keeps track of held down keys to prevent repeating actions.
+-- (Principia reference, hehe: https://principia-web.se/wiki/Sparsifier)
+sparsifier = {}
+
 require("fonts")
 require("util")
 
 require("game")
+
+-- debug stuffs
+local avlusn = require("avlusn")
 
 bf = require("breezefield")
 
@@ -68,6 +75,18 @@ function love.update(dt)
 	if love.keyboard.isDown('lctrl') and love.keyboard.isDown('q') then
 		love.event.quit()
 	end
+
+	-- Debug options (accessible with F3+<arbitrary>, see avlusn.lua)
+	if love.keyboard.isDown('f3') then
+		-- Iterate over each debug entry, toggle the activation of the given debug functionality
+		-- if keybind is triggered.
+		for id, def in pairs(avlusn) do
+			if love.keyboard.isDown(def.keybind) and not sparsifier[def.keybind] then
+				avlusn[id].enabled = not avlusn[id].enabled
+			end
+			sparsifier[def.keybind] = love.keyboard.isDown(def.keybind)
+		end
+	end
 end
 
 -- On draw callback
@@ -86,6 +105,14 @@ function love.draw()
 	-- Call scene's draw function
 	if scenes[game.state].draw ~= nil then
 		scenes[game.state].draw()
+	end
+
+	-- Call debug functionalities' draw functions
+	-- (if they're enabled)
+	for id, def in pairs(avlusn) do
+		if def.enabled then
+			def.draw()
+		end
 	end
 end
 
