@@ -32,6 +32,8 @@ require("util")
 
 require("game")
 
+bf = require("breezefield")
+
 -- On load callback
 function love.load()
 	-- resizable = true makes Android landscape.
