@@ -73,13 +73,13 @@ function coolRandomColour()
 	while not happy do
 		-- Random RGB values, clamped within 0.3 and 0.9.
 		c = {
-			r = math.clamp(math.random(0,1), 0.3, 0.9),
-			g = math.clamp(math.random(0,1), 0.3, 0.9),
-			b = math.clamp(math.random(0,1), 0.3, 0.9)
+			r = math.clamp(math.random(0,1), 0.2, 0.8),
+			g = math.clamp(math.random(0,1), 0.2, 0.8),
+			b = math.clamp(math.random(0,1), 0.2, 0.8)
 		}
 
-		if (c.r == 0.3 and c.g == 0.3 and c.b == 0.3)
-		or (c.r == 0.9 and c.g == 0.9 and c.b == 0.9) then
+		if (c.r == 0.2 and c.g == 0.2 and c.b == 0.2)
+		or (c.r == 0.8 and c.g == 0.8 and c.b == 0.8) then
 			-- all-black isn't a fun colour (I want something colourful!!!)
 		else
 			happy = true

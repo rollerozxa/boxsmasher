@@ -114,7 +114,7 @@ function scenes.game.update(dt)
 end
 
 function scenes.game.draw()
-	drawBG(0.6, 0.6, 1)
+	drawBG(0.1, 0.15, 0.1)
 
 	-- Draw physics objects using Breezefield.
 	world:draw()
