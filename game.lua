@@ -2,28 +2,7 @@
 scenes.game = {}
 
 -- Sample level for testing.
-local lvl = {
-	throwBoundary = {
-		x = 100, y = 200,
-		w = 100, h = 300,
-	},
-	boxclusters = {
-		{
-			x = 200, y = 100,
-			w = 20, h = 20,
-			aX = 5, aY = 5
-		},
-	},
-	terrain = {
-		{
-			x = 200, y = 200,
-			w = 100, h = 50
-		}, {
-			x = 620, y = 600,
-			w = 250, h = 150
-		}
-	}
-}
+local lvl = require('levels.TESTLEVEL')
 
 -- Variables to store references of various physics objects.
 local objects = { scene = {} }
@@ -34,8 +13,9 @@ local joints = {}
 local function newBox(x,y,w,h)
 
 	-- New dynamic rectangle collider, the box!
-	local newBox = world:newCollider("Rectangle", { x,y,w,h })
-	newBox:setMass(0.04)
+	local newBox = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
+	--newBox:setType("static")
+	newBox:setMass(0.05)
 
 	-- Give the box a random colour, save it to the box object's userdata so
 	-- it can be accessed in the draw method.
@@ -61,12 +41,15 @@ function scenes.game.init()
 	-- Hello (physics) world.
 	world = bf.newWorld(0, 90.81, true)
 
+	-- Load the level.
+
+	-- Iterate over terrain objects, and create static colliders for them.
 	for _, ter in pairs(lvl.terrain) do
 		-- Box2D works with the center of mass (for rectangles they're in the middle of the rectangle),
 		-- but level definition works with rectangles with origin being top left. We need to convert these.
 		local dim = {
-			ter.x-(ter.w/2),
-			ter.y-(ter.h/2),
+			ter.x+(ter.w/2),
+			ter.y+(ter.h/2),
 			ter.w, ter.h}
 
 		-- Make a static collider with the dimensions of the terrain object
@@ -77,10 +60,12 @@ function scenes.game.init()
 		table.insert(objects.scene, rect)
 	end
 
-	-- TEMPx86
-	for x = 1, 10, 1 do
-		for y = 1, 10, 1 do
-			newBox(400+(x*21), 200+(y*21), 20, 20)
+	-- Iterate over box clusters, and create the boxes within them.
+	for _, clust in ipairs(lvl.boxclusters) do
+		for x = 1, clust.aX, 1 do
+			for y = 1, clust.aY, 1 do
+				newBox(clust.x + (x * clust.w), clust.y + (y * clust.h), 20, 20)
+			end
 		end
 	end
 end
