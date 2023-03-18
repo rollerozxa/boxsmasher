@@ -74,17 +74,20 @@ function scenes.game.update(dt)
 	-- Iterate physics.
 	world:update(dt)
 
-	-- Box throwing code. When holding down mouse...
+	-- Ball throwing code. When holding down mouse...
 	if love.mouse.isDown(1) then
 
 		-- Get mouse position, convert it from the scaled screen resolution
 		-- to internal coordinates.
 		local mx, my = unscaled(love.mouse.getPosition())
 
-		-- Just started holding the mouse? Create a box at the mouse's position,
+		-- Just started holding the mouse? Create a ball at the mouse's position,
 		-- add a mouse joint to keep it static until thrown.
 		if not helddown then
-			objects.box = world:newCollider("Rectangle", {mx, my, 30, 30})
+			objects.box = world:newCollider("Circle", {mx, my, 30})
+			-- Set the thrown object to a "bullet", which uses more detailed collision detection
+			-- to prevent it jumping over bodies if the velocity is high enough
+			objects.box:setBullet(true)
 			joints.boxMouse = love.physics.newMouseJoint(objects.box.body, mx, my)
 			joints.boxMouse:setTarget(mx, my)
 		end
@@ -93,7 +96,7 @@ function scenes.game.update(dt)
 		helddown = true
 
 		-- Calculate "throw vector", like a slingshot. It is inverse of the vector
-		-- that is the difference in coordinates between the created box and mouse.
+		-- that is the difference in coordinates between the created ball and mouse.
 		local ox, oy = objects.box:getPosition()
 		throw.x = -(mx-ox)
 		throw.y = -(my-oy)
@@ -104,9 +107,9 @@ function scenes.game.update(dt)
 		joints.boxMouse:destroy()
 		helddown = false
 
-		-- Apply a linear impulse with the throw vector that makes the box go wheee
+		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
-		objects.box:applyLinearImpulse(throw.x*5, throw.y*5)
+		objects.box:applyLinearImpulse(throw.x*12, throw.y*12)
 	end
 end
 
@@ -121,7 +124,8 @@ function scenes.game.draw()
 	local bndry = lvl.throwBoundary
 	love.graphics.rectangle('line', bndry.x, bndry.y, bndry.w, bndry.h)
 
-	if objects.box then
+	-- If holding down, show the throw vector.
+	if objects.box and helddown then
 		local ox, oy = objects.box:getPosition()
 		love.graphics.setColor(1,0,0)
 		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
