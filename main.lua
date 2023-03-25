@@ -4,7 +4,7 @@
 game = {
 	level = 1,
 	levelsUnlocked = 1,
-	state = "game",
+	state = "mainmenu",
 }
 
 -- Base internal resolution ("canvas" resolution)
@@ -27,13 +27,17 @@ offset = {
 
 scenes = {}
 
+oldmousedown = false
+
 -- Keeps track of held down keys to prevent repeating actions.
 -- (Principia reference, hehe: https://principia-web.se/wiki/Sparsifier)
 sparsifier = {}
 
 require("fonts")
 require("util")
+require("gtk")
 
+require("mainmenu")
 require("game")
 
 -- debug stuffs
@@ -58,7 +62,10 @@ function love.load()
 	-- Load fonts into table variable
 	fonts = initFonts()
 
-	sounds = { }
+	sounds = {
+		click = newSound("click"),
+		pop = newSound("pop"),
+	}
 
 	-- Hardcode initial state init
 	scenes[game.state].init()
@@ -70,6 +77,8 @@ function love.update(dt)
 	if scenes[game.state].update ~= nil then
 		scenes[game.state].update(dt)
 	end
+
+	oldmousedown = love.mouse.isDown(1)
 
 	-- Check for quit keybind (ctrl+q, hardcoded in Android too I think)
 	if love.keyboard.isDown('lctrl') and love.keyboard.isDown('q') then

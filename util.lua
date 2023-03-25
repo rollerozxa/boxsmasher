@@ -103,3 +103,59 @@ function outOfBounds(x,y)
 	return (x < 0 or x > base_resolution.x)
 		or (y < 0 or y > base_resolution.y)
 end
+
+-- Helper function to load in a sound file
+function newSound(filename)
+	return love.audio.newSource("sounds/"..filename..".ogg", "static")
+end
+
+-- Draw some text that's centered within the specified rectangle
+function drawCenteredText(x, y, w, h, text)
+	-- Get the current font, calculate the width and height of its
+	-- glyphs to be able to center the text properly.
+	local font   = love.graphics.getFont()
+	local textW  = font:getWidth(text)
+	local textH  = font:getHeight()
+
+	love.graphics.print(text, x+w/2, y+h/2, 0, 1, 1, textW/2, textH/2)
+end
+
+-- Print text with an outline that extends to the outside of the text glyphs.
+function printOutlined(text, x, y, rds)
+	love.graphics.setColor(0,0,0)
+	for oux = -rds, rds, 1 do
+		for ouy = -rds, rds, 1 do
+			love.graphics.print(text, x+oux, y+ouy)
+		end
+	end
+	love.graphics.setColor(1,1,1)
+	love.graphics.print(text, x, y)
+end
+
+function mouseCollision(x,y,w,h)
+	-- Safe area around the cursor that still treats it as a press, for fat fingered fucks
+	local safearea = 8
+	return checkCollision(
+		x+offset.x, y+offset.y, w, h,
+		love.mouse.getX()-safearea, love.mouse.getY()-safearea, safearea*2, safearea*2)
+end
+
+function mouseCollisionScaled(x,y,w,h)
+	return mouseCollision(scaledX(x), scaledY(y), scaledX(w), scaledY(h))
+end
+
+function scaledX(x)
+	x = x or 1
+
+	return x * resolution.x / base_resolution.x
+end
+
+function scaledY(y)
+	y = y or 1
+
+	return y * resolution.y / base_resolution.y
+end
+
+function mouseClick()
+	return love.mouse.isDown(1) and not oldmousedown
+end

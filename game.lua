@@ -73,6 +73,10 @@ function scenes.game.init()
 		rect.fixture:setFriction(0.6)
 		rect.fixture:setRestitution(0.25)
 
+		function rect:draw()
+			-- no-op
+		end
+
 		table.insert(terrain, rect)
 	end
 
@@ -135,6 +139,7 @@ function scenes.game.update(dt)
 			box:destroy()
 			boxes[key] = nil
 			boxNum = boxNum - 1
+			sounds.pop:play()
 		end
 	end
 end
@@ -148,6 +153,7 @@ function scenes.game.draw()
 	-- Draw the throw boundary
 	love.graphics.setColor(1,1,1)
 	local bndry = lvl.throwBoundary
+	love.graphics.setLineWidth(2)
 	love.graphics.rectangle('line', bndry.x, bndry.y, bndry.w, bndry.h)
 
 	-- If holding down, show the throw vector.
@@ -156,6 +162,14 @@ function scenes.game.draw()
 		love.graphics.setColor(1,0,0)
 		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
 	end
+
+	-- Draw terrain rectangles (Breezefield is able to draw them itself but
+	-- getting the representation of a Box2D shape is weird, just do it ourself).
+	love.graphics.setColor(125/256, 227/256, 102/256)
+	for _, ter in pairs(lvl.terrain) do
+		love.graphics.rectangle('fill', ter.x, ter.y, ter.w, ter.h)
+	end
+
 	love.graphics.setFont(fonts.sans.medium)
 	love.graphics.print(string.format("Boxes left: %d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 10, 10)
 end

@@ -12,11 +12,11 @@ function initFonts()
 	local fontfaces = {sans = 'undefined-medium'}
 
 	local fontsizes = {
-		small = 18,
-		medium = 20,
-		big = 24,
-		mediumbig = 30,
-		bigger = 40}
+		tiny = 10,
+		small = 20,
+		medium = 30,
+		big = 40,
+		biggest = 90}
 
 	local fonts = {}
 
