@@ -97,3 +97,9 @@ function unscaled(x, y)
 		(x - offset.x) / (resolution.x / base_resolution.x),
 		(y - offset.y) / (resolution.y / base_resolution.y)
 end
+
+-- Check whether a given position is out of bounds
+function outOfBounds(x,y)
+	return (x < 0 or x > base_resolution.x)
+		or (y < 0 or y > base_resolution.y)
+end

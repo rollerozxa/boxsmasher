@@ -4,8 +4,18 @@ scenes.game = {}
 -- Sample level for testing.
 local lvl = require('levels.TESTLEVEL')
 
--- Variables to store references of various physics objects.
-local objects = { scene = {} }
+
+-- Table to store static terrain geometry objects
+local terrain = {}
+-- Store physics objects of boxes in levels
+local boxes = {}
+-- Store the current ball's physics object for reference
+local ball = nil
+-- Amount of boxes in level (decrements when they fall off the level)
+local boxNum = 0
+-- Total boxes in the level on start
+local totalBoxes = 0
+-- Misc. joint table (mouse joints and whatnot)
 local joints = {}
 
 -- Adds a new hittable box into the world, with proper draw function and
@@ -13,22 +23,27 @@ local joints = {}
 local function newBox(x,y,w,h)
 
 	-- New dynamic rectangle collider, the box!
-	local newBox = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
+	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
 	--newBox:setType("static")
-	newBox:setMass(0.05)
+	box:setMass(0.04)
 
 	-- Give the box a random colour, save it to the box object's userdata so
 	-- it can be accessed in the draw method.
-	newBox.colour = coolRandomColour()
+	box.colour = coolRandomColour()
 
 	-- Redefine the box object's draw method, draw a filled box with the colour
 	-- stored in userdata (the colour method variable)
-	function newBox:draw()
+	function box:draw()
 		love.graphics.setColor(self.colour.r, self.colour.g, self.colour.b)
-		rotatedRectangle('fill', self:getX(), self:getY(), 20, 20, self:getAngle())
+		rotatedRectangle('fill', self:getX(), self:getY(), w, h, self:getAngle())
 		love.graphics.setColor(0,0,0)
-		rotatedRectangle('line', self:getX(), self:getY(), 20, 20, self:getAngle())
+		rotatedRectangle('line', self:getX(), self:getY(), w, h, self:getAngle())
 	end
+	-- Add the box object to the boxes table (actually a reference) so it can be iterated over.
+	table.insert(boxes, box)
+
+	-- One more box in the level!
+	boxNum = boxNum + 1
 end
 
 -- Keep track of left mouse button state
@@ -56,18 +71,21 @@ function scenes.game.init()
 		local rect = world:newCollider("Rectangle", dim)
 		rect:setType("static")
 		rect.fixture:setFriction(0.6)
+		rect.fixture:setRestitution(0.25)
 
-		table.insert(objects.scene, rect)
+		table.insert(terrain, rect)
 	end
 
 	-- Iterate over box clusters, and create the boxes within them.
 	for _, clust in ipairs(lvl.boxclusters) do
 		for x = 1, clust.aX, 1 do
 			for y = 1, clust.aY, 1 do
-				newBox(clust.x + (x * clust.w), clust.y + (y * clust.h), 20, 20)
+				newBox(clust.x + (x * clust.w), clust.y + (y * clust.h), clust.w, clust.h)
 			end
 		end
 	end
+
+	totalBoxes = boxNum
 end
 
 function scenes.game.update(dt)
@@ -84,11 +102,11 @@ function scenes.game.update(dt)
 		-- Just started holding the mouse? Create a ball at the mouse's position,
 		-- add a mouse joint to keep it static until thrown.
 		if not helddown then
-			objects.box = world:newCollider("Circle", {mx, my, 30})
+			ball = world:newCollider("Circle", {mx, my, 30})
 			-- Set the thrown object to a "bullet", which uses more detailed collision detection
 			-- to prevent it jumping over bodies if the velocity is high enough
-			objects.box:setBullet(true)
-			joints.boxMouse = love.physics.newMouseJoint(objects.box.body, mx, my)
+			ball:setBullet(true)
+			joints.boxMouse = love.physics.newMouseJoint(ball.body, mx, my)
 			joints.boxMouse:setTarget(mx, my)
 		end
 
@@ -97,7 +115,7 @@ function scenes.game.update(dt)
 
 		-- Calculate "throw vector", like a slingshot. It is inverse of the vector
 		-- that is the difference in coordinates between the created ball and mouse.
-		local ox, oy = objects.box:getPosition()
+		local ox, oy = ball:getPosition()
 		throw.x = -(mx-ox)
 		throw.y = -(my-oy)
 
@@ -109,7 +127,15 @@ function scenes.game.update(dt)
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
-		objects.box:applyLinearImpulse(throw.x*12, throw.y*12)
+		ball:applyLinearImpulse(throw.x*20, throw.y*20)
+	end
+
+	for key, box in pairs(boxes) do
+		if outOfBounds(box:getPosition()) then
+			box:destroy()
+			boxes[key] = nil
+			boxNum = boxNum - 1
+		end
 	end
 end
 
@@ -125,9 +151,11 @@ function scenes.game.draw()
 	love.graphics.rectangle('line', bndry.x, bndry.y, bndry.w, bndry.h)
 
 	-- If holding down, show the throw vector.
-	if objects.box and helddown then
-		local ox, oy = objects.box:getPosition()
+	if ball and helddown then
+		local ox, oy = ball:getPosition()
 		love.graphics.setColor(1,0,0)
 		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
 	end
+	love.graphics.setFont(fonts.sans.medium)
+	love.graphics.print(string.format("Boxes left: %d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 10, 10)
 end
