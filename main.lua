@@ -41,7 +41,7 @@ require("mainmenu")
 require("game")
 
 -- debug stuffs
-local avlusn = require("avlusn")
+avlusn = require("avlusn")
 
 bf = require("breezefield")
 

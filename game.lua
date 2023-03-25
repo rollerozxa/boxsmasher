@@ -4,7 +4,6 @@ scenes.game = {}
 -- Sample level for testing.
 local lvl = require('levels.TESTLEVEL')
 
-
 -- Table to store static terrain geometry objects
 local terrain = {}
 -- Store physics objects of boxes in levels
@@ -38,7 +37,14 @@ local function newBox(x,y,w,h)
 		rotatedRectangle('fill', self:getX(), self:getY(), w, h, self:getAngle())
 		love.graphics.setColor(0,0,0)
 		rotatedRectangle('line', self:getX(), self:getY(), w, h, self:getAngle())
+
+		if avlusn.box_pos.enabled then
+			love.graphics.setColor(1,1,1)
+			love.graphics.setFont(fonts.sans.tiny)
+			love.graphics.print('{'..math.floor(self:getX())..','..math.floor(self:getY())..'}', self:getX(), self:getY())
+		end
 	end
+
 	-- Add the box object to the boxes table (actually a reference) so it can be iterated over.
 	table.insert(boxes, box)
 

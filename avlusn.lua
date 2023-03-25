@@ -5,12 +5,12 @@
 -- To enable debugging options in Android, you can hardcode the option to be enabled and push to your device.
 
 return {
-
 	-- Draw coordinates, and visualise the current cursor position both scaled and unscaled.
 	coords = {
 		enabled = false,
 		keybind = 'c',
 		draw = function()
+			love.graphics.setFont(fonts.sans.small)
 			local mx, my = love.mouse.getPosition()
 			local umx, umy = unscaled(love.mouse.getPosition())
 
@@ -40,7 +40,22 @@ return {
 		enabled = false,
 		keybind = 'f',
 		draw = function()
-			love.graphics.print("FPS: "..love.timer.getFPS()..", Running at "..resolution.x.."x"..resolution.y, 5, 10)
+			love.graphics.setFont(fonts.sans.small)
+			local c = coolRandomColour()
+			love.graphics.setColor(c.r,c.g,c.b)
+			love.graphics.print("Gosh, debug! FPS: "..love.timer.getFPS()..", Running at "..resolution.x.."x"..resolution.y, 5, 10)
+
+			local mx, my = love.mouse.getPosition()
+			math.randomseed(mx+my)
+			love.graphics.print("interesting numbers: "..math.random()..", "..math.random()..", "..math.random()..". Gosh!", 5, resolution.y-25)
 		end
 	},
+
+	box_pos = {
+		enabled = false,
+		keybind = 'p',
+		draw = function()
+			-- nothing
+		end
+	}
 }
