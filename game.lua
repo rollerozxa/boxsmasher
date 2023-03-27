@@ -55,6 +55,9 @@ end
 -- Keep track of left mouse button state
 local helddown = false
 
+-- Have we grabbed a ball?
+local grabbedBall = false
+
 -- Throw vector
 local throw = {x = 0, y = 0}
 
@@ -104,36 +107,46 @@ function scenes.game.update(dt)
 
 	-- Ball throwing code. When holding down mouse...
 	if love.mouse.isDown(1) then
-
 		-- Get mouse position, convert it from the scaled screen resolution
 		-- to internal coordinates.
 		local mx, my = unscaled(love.mouse.getPosition())
 
-		-- Just started holding the mouse? Create a ball at the mouse's position,
-		-- add a mouse joint to keep it static until thrown.
-		if not helddown then
-			ball = world:newCollider("Circle", {mx, my, 30})
-			-- Set the thrown object to a "bullet", which uses more detailed collision detection
-			-- to prevent it jumping over bodies if the velocity is high enough
-			ball:setBullet(true)
-			joints.boxMouse = love.physics.newMouseJoint(ball.body, mx, my)
-			joints.boxMouse:setTarget(mx, my)
+		-- Check if cursor is within the throw boundary. You can only create boxes inside the boundary,
+		-- *but* you should be able to drag it out outside of the boundary.
+		local bndry = lvl.throwBoundary
+		local withinBoundary = checkCollision(mx,my,5,5, bndry.x, bndry.y, bndry.w, bndry.h)
+		if withinBoundary or grabbedBall then
+			-- Just started holding the mouse? Create a ball at the mouse's position,
+			-- add a mouse joint to keep it static until thrown.
+			if not helddown then
+				ball = world:newCollider("Circle", {mx, my, 30})
+				-- Set the thrown object to a "bullet", which uses more detailed collision detection
+				-- to prevent it jumping over bodies if the velocity is high enough
+				ball:setBullet(true)
+
+				joints.boxMouse = love.physics.newMouseJoint(ball.body, mx, my)
+				joints.boxMouse:setTarget(mx, my)
+
+				-- We now have a ball grabbed, don't boundary check anymore.
+				grabbedBall = true
+			end
+
+			-- Now we're holding it down...
+			helddown = true
+
+			-- Calculate "throw vector", like a slingshot. It is inverse of the vector
+			-- that is the difference in coordinates between the created ball and mouse.
+			local ox, oy = ball:getPosition()
+			throw.x = -(mx-ox)
+			throw.y = -(my-oy)
 		end
-
-		-- Now we're holding it down...
-		helddown = true
-
-		-- Calculate "throw vector", like a slingshot. It is inverse of the vector
-		-- that is the difference in coordinates between the created ball and mouse.
-		local ox, oy = ball:getPosition()
-		throw.x = -(mx-ox)
-		throw.y = -(my-oy)
 
 	-- When helddown is true, but mouse is not held (i.e. mouse has been released, we're throwing it!)
 	elseif helddown then
 		-- Destroy mouse joint, don't make it static anymore.
 		joints.boxMouse:destroy()
 		helddown = false
+		grabbedBall = false
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
