@@ -16,6 +16,7 @@ function initFonts()
 		small = 20,
 		medium = 30,
 		big = 40,
+		bigger = 50,
 		biggest = 90}
 
 	local fonts = {}

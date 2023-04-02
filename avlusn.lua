@@ -7,32 +7,51 @@
 return {
 	-- Draw coordinates, and visualise the current cursor position both scaled and unscaled.
 	coords = {
-		enabled = false,
+		enabled = true,
 		keybind = 'c',
 		draw = function()
 			love.graphics.setFont(fonts.sans.small)
 			local mx, my = love.mouse.getPosition()
 			local umx, umy = unscaled(love.mouse.getPosition())
 
-			local resolution = {
-				x = love.graphics.getWidth(),
-				y = love.graphics.getHeight()
-			}
-
 			love.graphics.setLineWidth(4)
 			love.graphics.setColor(0,1,0)
-			love.graphics.line(mx, 0, mx, resolution.y)
-			love.graphics.line(umx, 0, umx, resolution.y)
+			love.graphics.line(mx, 0, mx, base_resolution.y)
+			love.graphics.line(umx, 0, umx, base_resolution.y)
 			love.graphics.setColor(1,0.1,0.1)
-			love.graphics.line(0, my, resolution.x, my)
-			love.graphics.line(0, umy, resolution.x, umy)
-			love.graphics.setLineWidth(1)
+			love.graphics.line(0, my, base_resolution.x, my)
+			love.graphics.line(0, umy, base_resolution.x, umy)
+
+			love.graphics.setColor(1,1,0)
+			love.graphics.rectangle("line", 0, 0, resolution.x, resolution.y)
+			love.graphics.rectangle("line", 0, 0, base_resolution.x, base_resolution.y)
 
 			love.graphics.setColor(1,1,1)
+			love.graphics.setLineWidth(1)
 
 			local coord = {"scaled = {",mx,",",my,"}, unscaled = {",umx,",",umy,"}"}
 
 			love.graphics.print("Gosh, coords!\n"..table.concat(coord), 5, 460)
+		end
+	},
+
+	grid = {
+		enabled = false,
+		keybind = 'g',
+		draw = function()
+			love.graphics.setColor(0,1,1)
+			love.graphics.setLineWidth(1)
+			local cellSize = 80
+
+			for x = cellSize, resolution.x, cellSize do
+				love.graphics.line(x, 0, x, resolution.y)
+			end
+
+			for y = cellSize, resolution.y, cellSize do
+				love.graphics.line(0, y, resolution.x, y)
+			end
+
+			love.graphics.print("Debug Grid On", 5, 460)
 		end
 	},
 
@@ -56,6 +75,14 @@ return {
 		keybind = 'p',
 		draw = function()
 			-- nothing
+		end
+	},
+
+	phys_pause = {
+		enabled = false,
+		keybind = 'i',
+		draw = function()
+			love.graphics.print("Physics iteration paused", 500, 0)
 		end
 	}
 }

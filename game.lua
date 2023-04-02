@@ -103,7 +103,9 @@ end
 
 function scenes.game.update(dt)
 	-- Iterate physics.
-	world:update(dt)
+	if not avlusn.phys_pause.enabled then
+		world:update(dt)
+	end
 
 	-- Ball throwing code. When holding down mouse...
 	if love.mouse.isDown(1) then

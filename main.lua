@@ -126,6 +126,8 @@ function love.draw()
 	-- (if they're enabled)
 	for id, def in pairs(avlusn) do
 		if def.enabled then
+			love.graphics.setColor(1,1,1)
+			love.graphics.setFont(fonts.sans.medium)
 			def.draw()
 		end
 	end
