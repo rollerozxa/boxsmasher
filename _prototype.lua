@@ -1,4 +1,4 @@
-bf = require("breezefield")
+bf = require("lib.breezefield")
 
 local resolution = {
 	--x = 720,

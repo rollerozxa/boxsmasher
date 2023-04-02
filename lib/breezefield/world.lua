@@ -9,8 +9,8 @@
 --]]
 -- TODO make updating work from here too
 -- TODO: update test and tutorial
-local Collider = require('breezefield/collider')
-local set_funcs, lp, lg, COLLIDER_TYPES = unpack(require("breezefield/utils"))
+local Collider = require('lib/breezefield/collider')
+local set_funcs, lp, lg, COLLIDER_TYPES = unpack(require("lib/breezefield/utils"))
 
 
 local World = {}

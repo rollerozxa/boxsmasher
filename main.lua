@@ -36,6 +36,7 @@ sparsifier = {}
 require("fonts")
 require("util")
 require("gtk")
+require("savegame")
 
 require("mainmenu")
 require("game")
@@ -43,7 +44,10 @@ require("game")
 -- debug stuffs
 avlusn = require("avlusn")
 
-bf = require("breezefield")
+-- Load the Breezefield library into 'bf'
+bf = require("lib.breezefield")
+-- Load the JSON library into 'json'
+json = require("lib.json")
 
 -- On load callback
 function love.load()
@@ -66,6 +70,8 @@ function love.load()
 		click = newSound("click"),
 		pop = newSound("pop"),
 	}
+
+	savegame.load()
 
 	-- Hardcode initial state init
 	scenes[game.state].init()

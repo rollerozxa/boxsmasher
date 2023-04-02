@@ -17,3 +17,4 @@ There is a prototype in _prototype.lua. Rename it to main.lua and run...
 - LÖVE game framework
 	- Box2D physics library as part of LÖVE's physics module
 - breezefield (wrapper around LÖVE's physics module)
+- json.lua (Lua JSON (de)serialisation library)
