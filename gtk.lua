@@ -24,10 +24,12 @@ gtk = {}
 
 local sparsifier = {}
 
-function gtk.update(gui)
+function gtk.update(gui, is_overlay)
 	for id, el in pairs(gui) do
 		-- Allow hiding elements with an .is_visible() callback.
-		if el.is_visible and not el.is_visible() then
+		if el.is_visible and not el.is_visible()
+			or (not is_overlay and game.overlay)
+		then
 			-- Override type to "none" to preserve indentation
 			el.type = "none"
 		end
@@ -48,7 +50,7 @@ function gtk.update(gui)
 	end
 end
 
-function gtk.draw(gui)
+function gtk.draw(gui, is_overlay)
 	for id, el in pairs(gui) do
 		-- Allow hiding elements with an .is_visible() callback.
 		if el.is_visible and not el.is_visible() then
@@ -57,26 +59,32 @@ function gtk.draw(gui)
 		end
 
 		if el.type == "button" then
+			-- Darken background colour of button if hovered
 			if mouseCollisionScaled(el.x, el.y, el.size.x, el.size.y) then
 				love.graphics.setColor(0,0,0.1)
 			else
-				love.graphics.setColor(0.1,0.1,0.1)
+				love.graphics.setColor(0.2,0.2,0.2)
 			end
 
+			-- Draw background
 			love.graphics.rectangle("fill", el.x, el.y, el.size.x, el.size.y)
-			love.graphics.setColor(1,1,1)
+
 			-- Allow for custom drawing on the button that can override the text
+			love.graphics.setColor(1,1,1)
 			if not el.on_draw or not el.on_draw() then
 				love.graphics.setFont(fonts.sans.big)
+				-- Draw text in the middle of the button's rect
 				drawCenteredText(el.x, el.y+2, el.size.x, el.size.y, el.label)
 			end
 		elseif el.type == "tex_button" then
+			-- Darken texture button if hovered
 			if mouseCollisionScaled(el.x, el.y, el.size.x, el.size.y) then
 				love.graphics.setColor(0.1,0.1,0.1)
 			else
 				love.graphics.setColor(1,1,1)
 			end
 
+			-- ???
 			if not el.scale then
 				el.scale = 1
 			end

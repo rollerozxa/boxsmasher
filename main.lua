@@ -5,6 +5,7 @@ game = {
 	level = 1,
 	levelsUnlocked = 1,
 	state = "mainmenu",
+	overlay = false
 }
 
 -- Base internal resolution ("canvas" resolution)
@@ -25,7 +26,10 @@ offset = {
 	y = 0
 }
 
+-- Scene and overlay table
+-- (Stores all scenes and overlays)
 scenes = {}
+overlays = {}
 
 oldmousedown = false
 
@@ -84,6 +88,12 @@ function love.update(dt)
 		scenes[game.state].update(dt)
 	end
 
+	if game.overlay then
+		if overlays[game.overlay].update ~= nil then
+			overlays[game.overlay].update()
+		end
+	end
+
 	oldmousedown = love.mouse.isDown(1)
 
 	-- Check for quit keybind (ctrl+q, hardcoded in Android too I think)
@@ -120,6 +130,12 @@ function love.draw()
 	-- Call scene's draw function
 	if scenes[game.state].draw ~= nil then
 		scenes[game.state].draw()
+	end
+
+	if game.overlay then
+		if overlays[game.overlay].draw ~= nil then
+			overlays[game.overlay].draw()
+		end
 	end
 
 	-- Call debug functionalities' draw functions
