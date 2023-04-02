@@ -11,8 +11,8 @@ return {
 	boxclusters = {
 		{
 			x = 450, y = 150,
-			w = 20, h = 20,
-			aX = 20, aY = 20
+			w = 40, h = 40,
+			aX = 2, aY = 2
 		},
 	},
 	terrain = {

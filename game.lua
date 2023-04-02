@@ -1,8 +1,8 @@
 
 scenes.game = {}
 
--- Sample level for testing.
-local lvl = require('levels.TESTLEVEL')
+-- Level table variable to be filled in
+local lvl
 
 -- Table to store static terrain geometry objects
 local terrain = {}
@@ -66,6 +66,7 @@ function scenes.game.init()
 	world = bf.newWorld(0, 90.81, true)
 
 	-- Load the level.
+	lvl = require('levels.'..game.level)
 
 	-- Iterate over terrain objects, and create static colliders for them.
 	for _, ter in pairs(lvl.terrain) do
@@ -166,15 +167,16 @@ function scenes.game.update(dt)
 end
 
 function scenes.game.draw()
-	drawBG(0.1, 0.15, 0.1)
+	drawBG(0.15, 0.2, 0.15)
+
+	love.graphics.setLineWidth(2)
+	love.graphics.setColor(1,1,1)
 
 	-- Draw physics objects using Breezefield.
 	world:draw()
 
 	-- Draw the throw boundary
-	love.graphics.setColor(1,1,1)
 	local bndry = lvl.throwBoundary
-	love.graphics.setLineWidth(2)
 	love.graphics.rectangle('line', bndry.x, bndry.y, bndry.w, bndry.h)
 
 	-- If holding down, show the throw vector.
