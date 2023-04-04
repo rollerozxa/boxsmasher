@@ -29,7 +29,7 @@ function scenes.selectlevel.update()
 	for i = 0,24 do
 		local x = (i % 5) + 1
 		local y = math.floor(i / 5)
-		local levelnum = ((scenes.selectlevel.page - 1) * 25 ) + i + 1
+		local levelnum = i + 1
 
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseClick() and canPlay(levelnum) then
 			game.level = levelnum
@@ -49,7 +49,7 @@ function scenes.selectlevel.draw()
 	for i = 0,31 do
 		local x = (i % 8) + 1
 		local y = math.floor(i / 8)
-		local levelnum = ((scenes.selectlevel.page - 1) * 25 ) + i + 1
+		local levelnum = i + 1
 
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) then
 			love.graphics.setColor(0,0,0.1)
