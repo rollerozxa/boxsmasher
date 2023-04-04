@@ -8,7 +8,7 @@ local gui = {
 		size = { x = 300, y = 96 },
 		label = "Play",
 		on_click = function()
-			switchState("game")
+			switchState("selectlevel")
 		end
 	}
 }

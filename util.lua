@@ -127,6 +127,11 @@ function outOfBounds(x,y)
 		or (y < 0 or y > base_resolution.y)
 end
 
+-- Helper function to load in an image file
+function newImage(filename)
+	return love.graphics.newImage("assets/"..filename..".png")
+end
+
 -- Helper function to load in a sound file
 function newSound(filename)
 	return love.audio.newSource("sounds/"..filename..".ogg", "static")

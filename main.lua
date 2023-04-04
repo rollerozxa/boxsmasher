@@ -42,8 +42,10 @@ require("util")
 require("gtk")
 require("savegame")
 
+
 require("mainmenu")
 require("game")
+require("selectlevel")
 require("success")
 
 -- debug stuffs
@@ -71,7 +73,11 @@ function love.load()
 		love.window.setFullscreen(true)
 	end
 
-	assets = { }
+	assets = {
+		back_btn = newImage("back_btn"),
+		lvlok = newImage("lvlok"),
+		lock = newImage("lock"),
+	}
 
 	-- Load fonts into table variable
 	fonts = initFonts()
