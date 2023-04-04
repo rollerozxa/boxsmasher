@@ -164,6 +164,10 @@ function scenes.game.update(dt)
 			sounds.pop:play()
 		end
 	end
+
+	if tableEmpty(boxes) then
+		switchOverlay('success')
+	end
 end
 
 function scenes.game.draw()

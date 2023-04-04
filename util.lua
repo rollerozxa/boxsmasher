@@ -17,6 +17,17 @@ function drawBG(r,g,b)
 	love.graphics.pop()
 end
 
+-- Check if a table is empty
+function tableEmpty(self)
+	-- Any non-empty table can be iterated over like this, returning false. (table is not empty)
+    for _, _ in pairs(self) do
+        return false
+    end
+
+	-- Nothing to iterate over? Empty table.
+    return true
+end
+
 -- State switcher helper
 function switchState(state)
 	game.state = state

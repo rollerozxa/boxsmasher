@@ -44,6 +44,7 @@ require("savegame")
 
 require("mainmenu")
 require("game")
+require("success")
 
 -- debug stuffs
 avlusn = require("avlusn")
@@ -52,6 +53,11 @@ avlusn = require("avlusn")
 bf = require("lib.breezefield")
 -- Load the JSON library into 'json'
 json = require("lib.json")
+
+-- Dummy translation function
+function S(text, ...)
+	return string.format(text, ...)
+end
 
 -- On load callback
 function love.load()
@@ -73,6 +79,7 @@ function love.load()
 	sounds = {
 		click = newSound("click"),
 		pop = newSound("pop"),
+		success = newSound("success")
 	}
 
 	savegame.load()
