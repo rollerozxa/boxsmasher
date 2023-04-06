@@ -1,4 +1,6 @@
 
+-- util.lua: Miscellaneous utility functions.
+
 -- Background drawer helper
 function drawBG(r,g,b)
 	-- Copy the current coordinate transform and disable scale
@@ -160,6 +162,7 @@ function printOutlined(text, x, y, rds)
 	love.graphics.print(text, x, y)
 end
 
+-- Check if mouse is inside of the specified rectangle, give or take a small safe area.
 function mouseCollision(x,y,w,h)
 	-- Safe area around the cursor that still treats it as a press, for fat fingered fucks
 	local safearea = 8
@@ -168,22 +171,21 @@ function mouseCollision(x,y,w,h)
 		love.mouse.getX()-safearea, love.mouse.getY()-safearea, safearea*2, safearea*2)
 end
 
+-- mouseCollision() but scaled
 function mouseCollisionScaled(x,y,w,h)
-	return mouseCollision(scaledX(x), scaledY(y), scaledX(w), scaledY(h))
+	local x, y = scaled(x, y)
+	local w, h = scaled(w, h)
+	return mouseCollision(x, y, w, h)
 end
 
-function scaledX(x)
-	x = x or 1
-
-	return x * resolution.x / base_resolution.x
+-- Convert an internal coordinate into the scaled counterpart.
+function scaled(x,y)
+	return
+		x * resolution.x / base_resolution.x,
+		y * resolution.y / base_resolution.y
 end
 
-function scaledY(y)
-	y = y or 1
-
-	return y * resolution.y / base_resolution.y
-end
-
+-- Sparsified check for mouse click (not held down).
 function mouseClick()
 	return love.mouse.isDown(1) and not oldmousedown
 end

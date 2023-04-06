@@ -37,11 +37,16 @@ oldmousedown = false
 -- (Principia reference, hehe: https://principia-web.se/wiki/Sparsifier)
 sparsifier = {}
 
+-- Dummy translation function
+-- (Future proofing for when a translation system is implemented)
+function S(text, ...)
+	return string.format(text, ...)
+end
+
 require("fonts")
 require("util")
 require("gtk")
 require("savegame")
-
 
 require("mainmenu")
 require("game")
@@ -55,11 +60,6 @@ avlusn = require("avlusn")
 bf = require("lib.breezefield")
 -- Load the JSON library into 'json'
 json = require("lib.json")
-
--- Dummy translation function
-function S(text, ...)
-	return string.format(text, ...)
-end
 
 -- On load callback
 function love.load()
@@ -91,7 +91,9 @@ function love.load()
 	savegame.load()
 
 	-- Hardcode initial state init
-	scenes[game.state].init()
+	if scenes[game.state].init ~= nil then
+		scenes[game.state].init()
+	end
 end
 
 -- On update callback

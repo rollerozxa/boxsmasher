@@ -1,4 +1,6 @@
 
+-- mainmenu.lua: Main menu scene.
+
 scenes.mainmenu = {}
 
 local gui = {
@@ -6,16 +8,12 @@ local gui = {
 		type = "button",
 		x = 490, y = 8*32,
 		size = { x = 300, y = 96 },
-		label = "Play",
+		label = S("Play"),
 		on_click = function()
 			switchState("selectlevel")
 		end
 	}
 }
-
-function scenes.mainmenu.init()
-
-end
 
 function scenes.mainmenu.update()
 	gtk.update(gui)
@@ -27,6 +25,5 @@ function scenes.mainmenu.draw()
 	gtk.draw(gui)
 
 	love.graphics.setFont(fonts.sans.biggest)
-
 	printOutlined("Box Boom!", 410, 53, 6)
 end

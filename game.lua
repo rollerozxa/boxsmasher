@@ -1,4 +1,6 @@
 
+-- game.lua: Main game scene.
+
 scenes.game = {}
 
 -- Level table variable to be filled in
@@ -198,5 +200,5 @@ function scenes.game.draw()
 	end
 
 	love.graphics.setFont(fonts.sans.medium)
-	love.graphics.print(string.format("Boxes left: %d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 10, 10)
+	love.graphics.print(S("Boxes left: %d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 10, 10)
 end

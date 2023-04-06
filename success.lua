@@ -1,4 +1,6 @@
 
+-- success.lua: Level complete overlay shown on level completion.
+
 overlays.success = {}
 
 local gui = {
@@ -6,7 +8,7 @@ local gui = {
 		type = "button",
 		x = 390, y = 540,
 		size = { x = 200, y = 96 },
-		label = "Back",
+		label = S("Back"),
 		on_click = function()
 			switchOverlay(false)
 			switchState("mainmenu")
@@ -17,8 +19,9 @@ local gui = {
 		type = "button",
 		x = 620, y = 540,
 		size = { x = 270, y = 96 },
-		label = "Next level",
+		label = S("Next level"),
 		on_click = function()
+			-- Increment level and restart game scene, so next level is played.
 			game.level = game.level + 1
 
 			switchOverlay(false)
@@ -30,6 +33,7 @@ local gui = {
 function overlays.success.init()
 	sounds.success:clone():play()
 
+	-- If this is the latest level, unlock the next level.
 	if game.level == game.levelsUnlocked then
 		game.levelsUnlocked = game.levelsUnlocked + 1
 		savegame.set('levelsUnlocked', game.levelsUnlocked)
@@ -46,7 +50,7 @@ function overlays.success.draw()
 
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.setFont(fonts.sans.bigger)
-	drawCenteredText(4, 64, base_resolution.x, 64, "Level Complete!")
+	drawCenteredText(4, 64, base_resolution.x, 64, S("Level Complete!"))
 
 	local texts = {
 		S("Level: %s", game.level),
