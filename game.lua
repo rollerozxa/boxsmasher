@@ -120,7 +120,7 @@ function scenes.game.update(dt)
 		-- *but* you should be able to drag it out outside of the boundary.
 		local bndry = lvl.throwBoundary
 		local withinBoundary = checkCollision(mx,my,5,5, bndry.x, bndry.y, bndry.w, bndry.h)
-		if withinBoundary or grabbedBall then
+		if (withinBoundary and not oldmousedown) or grabbedBall then
 			-- Just started holding the mouse? Create a ball at the mouse's position,
 			-- add a mouse joint to keep it static until thrown.
 			if not helddown then
