@@ -3,6 +3,20 @@
 
 scenes.game = {}
 
+local gui = {
+	menu = {
+		type = "tex_button",
+		x = base_resolution.x-64, y = 0,
+		size = { x = 64, y = 64 },
+		texture = "menu",
+		scale = 2,
+		on_click = function()
+			switchOverlay('pause')
+		end,
+		keybind = 'escape'
+	},
+}
+
 -- Level table variable to be filled in
 local lvl
 
@@ -26,7 +40,7 @@ local function newBox(x,y,w,h)
 	-- New dynamic rectangle collider, the box!
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
 	--newBox:setType("static")
-	box:setMass(0.04)
+	box:setMass(0.05)
 
 	-- Give the box a random colour, save it to the box object's userdata so
 	-- it can be accessed in the draw method.
@@ -105,6 +119,8 @@ function scenes.game.init()
 end
 
 function scenes.game.update(dt)
+	gtk.update(gui)
+
 	-- Iterate physics.
 	if not avlusn.phys_pause.enabled then
 		world:update(dt)
@@ -201,4 +217,6 @@ function scenes.game.draw()
 
 	love.graphics.setFont(fonts.sans.medium)
 	love.graphics.print(S("Boxes left: %d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 10, 10)
+
+	gtk.draw(gui)
 end

@@ -51,7 +51,9 @@ require("savegame")
 require("mainmenu")
 require("game")
 require("selectlevel")
+
 require("success")
+require("pause")
 
 -- debug stuffs
 avlusn = require("avlusn")
@@ -77,6 +79,7 @@ function love.load()
 		back_btn = newImage("back_btn"),
 		lvlok = newImage("lvlok"),
 		lock = newImage("lock"),
+		menu = newImage("menu"),
 	}
 
 	-- Load fonts into table variable
