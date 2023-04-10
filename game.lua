@@ -30,6 +30,8 @@ local ball = nil
 local boxNum = 0
 -- Total boxes in the level on start
 local totalBoxes = 0
+-- The amount of balls left
+local ballsLeft = 0
 -- Misc. joint table (mouse joints and whatnot)
 local joints = {}
 
@@ -40,7 +42,7 @@ local function newBox(x,y,w,h)
 	-- New dynamic rectangle collider, the box!
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
 	--newBox:setType("static")
-	box:setMass(0.05)
+	box:setMass(box:getMass()*0.25)
 
 	-- Give the box a random colour, save it to the box object's userdata so
 	-- it can be accessed in the draw method.
@@ -79,10 +81,13 @@ local throw = {x = 0, y = 0}
 
 function scenes.game.init()
 	-- Hello (physics) world.
-	world = bf.newWorld(0, 90.81, true)
+	world = bf.newWorld(0, 90.82*1.5, true)
 
 	-- Load the level.
 	lvl = require('levels.'..game.level)
+
+	-- Set the amount of balls for the level.
+	ballsLeft = lvl.ballsLeft
 
 	-- Iterate over terrain objects, and create static colliders for them.
 	for _, ter in pairs(lvl.terrain) do
@@ -96,8 +101,13 @@ function scenes.game.init()
 		-- Make a static collider with the dimensions of the terrain object
 		local rect = world:newCollider("Rectangle", dim)
 		rect:setType("static")
-		rect.fixture:setFriction(0.6)
-		rect.fixture:setRestitution(0.25)
+
+		rect.colour = ter.colour or { 125/256, 227/256, 102/256 }
+		local friction = ter.friction or 0.5
+		local restitution = ter.restitution or 0.33
+
+		rect.fixture:setFriction(friction)
+		rect.fixture:setRestitution(restitution)
 
 		function rect:draw()
 			-- no-op
@@ -179,7 +189,7 @@ function scenes.game.update(dt)
 			box:destroy()
 			boxes[key] = nil
 			boxNum = boxNum - 1
-			sounds.pop:play()
+			sounds.pop:clone():play()
 		end
 	end
 
@@ -210,8 +220,8 @@ function scenes.game.draw()
 
 	-- Draw terrain rectangles (Breezefield is able to draw them itself but
 	-- getting the representation of a Box2D shape is weird, just do it ourself).
-	love.graphics.setColor(125/256, 227/256, 102/256)
 	for _, ter in pairs(lvl.terrain) do
+		love.graphics.setColor(ter.colour or { 125/256, 227/256, 102/256 })
 		love.graphics.rectangle('fill', ter.x, ter.y, ter.w, ter.h)
 	end
 
