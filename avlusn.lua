@@ -29,7 +29,7 @@ return {
 			love.graphics.setColor(1,1,1)
 			love.graphics.setLineWidth(1)
 
-			local coord = {"scaled = {",mx,",",my,"}, unscaled = {",umx,",",umy,"}"}
+			local coord = {"scaled = {",mx,",",my,"}\nunscaled = {",umx,",",umy,"}\nozxa units = {",math.floor(mx/40),",",math.floor(my/40),"}"}
 
 			love.graphics.print("Gosh, coords!\n"..table.concat(coord), 5, 460)
 		end
@@ -41,14 +41,14 @@ return {
 		draw = function()
 			love.graphics.setColor(0,1,1)
 			love.graphics.setLineWidth(1)
-			local cellSize = 80
+			local cellSize = 40
 
-			for x = cellSize, resolution.x, cellSize do
-				love.graphics.line(x, 0, x, resolution.y)
+			for x = cellSize, base_resolution.x, cellSize do
+				love.graphics.line(x, 0, x, base_resolution.y)
 			end
 
-			for y = cellSize, resolution.y, cellSize do
-				love.graphics.line(0, y, resolution.x, y)
+			for y = cellSize, base_resolution.y, cellSize do
+				love.graphics.line(0, y, base_resolution.x, y)
 			end
 
 			love.graphics.print("Debug Grid On", 5, 460)
