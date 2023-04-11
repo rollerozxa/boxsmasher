@@ -83,6 +83,16 @@ function scenes.game.init()
 	-- Hello (physics) world.
 	world = bf.newWorld(0, 90.82*1.5, true)
 
+	-- Reset variables that might have stored stuff previously from a different level.
+	-- (See above for what they are about)
+	terrain = {}
+	boxes = {}
+	ball = nil
+	boxNum = 0
+	totalBoxes = 0
+	ballsLeft = 0
+	joints = {}
+
 	-- Load the level.
 	lvl = require('levels.'..game.level)
 
@@ -181,7 +191,7 @@ function scenes.game.update(dt)
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
-		ball:applyLinearImpulse(throw.x*20, throw.y*20)
+		ball:applyLinearImpulse(throw.x*22, throw.y*22)
 	end
 
 	for key, box in pairs(boxes) do

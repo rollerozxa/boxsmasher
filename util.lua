@@ -125,8 +125,10 @@ end
 
 -- Check whether a given position is out of bounds
 function outOfBounds(x,y)
-	return (x < 0 or x > base_resolution.x)
-		or (y < 0 or y > base_resolution.y)
+	local safe = 40
+
+	return (x < -safe or x > base_resolution.x+safe)
+		or (y < -safe or y > base_resolution.y+safe)
 end
 
 -- Helper function to load in an image file
