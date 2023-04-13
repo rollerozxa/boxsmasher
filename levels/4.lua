@@ -2,6 +2,7 @@
 -- Author: ROllerozxa
 
 local lvl = {
+	ballsLeft = 2,
 	throwBoundary = {
 		x = 20, y = 120,
 		w = 220, h = 440,

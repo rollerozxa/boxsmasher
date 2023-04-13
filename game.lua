@@ -76,6 +76,9 @@ local helddown = false
 -- Have we grabbed a ball?
 local grabbedBall = false
 
+-- Random colour for box HUD
+local randc
+
 -- Throw vector
 local throw = {x = 0, y = 0}
 
@@ -93,11 +96,13 @@ function scenes.game.init()
 	ballsLeft = 0
 	joints = {}
 
+	randc = coolRandomColour()
+
 	-- Load the level.
 	lvl = require('levels.'..game.level)
 
 	-- Set the amount of balls for the level.
-	ballsLeft = lvl.ballsLeft
+	ballsLeft = lvl.ballsLeft or 99
 
 	-- Iterate over terrain objects, and create static colliders for them.
 	for _, ter in pairs(lvl.terrain) do
@@ -147,7 +152,7 @@ function scenes.game.update(dt)
 	end
 
 	-- Ball throwing code. When holding down mouse...
-	if love.mouse.isDown(1) then
+	if love.mouse.isDown(1) and ballsLeft > 0 then
 		-- Get mouse position, convert it from the scaled screen resolution
 		-- to internal coordinates.
 		local mx, my = unscaled(love.mouse.getPosition())
@@ -188,10 +193,11 @@ function scenes.game.update(dt)
 		joints.boxMouse:destroy()
 		helddown = false
 		grabbedBall = false
+		ballsLeft = ballsLeft - 1
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
-		ball:applyLinearImpulse(throw.x*22, throw.y*22)
+		ball:applyLinearImpulse(throw.x*25, throw.y*25)
 	end
 
 	for key, box in pairs(boxes) do
@@ -219,14 +225,9 @@ function scenes.game.draw()
 
 	-- Draw the throw boundary
 	local bndry = lvl.throwBoundary
+	love.graphics.setLineWidth(5)
 	love.graphics.rectangle('line', bndry.x, bndry.y, bndry.w, bndry.h)
-
-	-- If holding down, show the throw vector.
-	if ball and helddown then
-		local ox, oy = ball:getPosition()
-		love.graphics.setColor(1,0,0)
-		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
-	end
+	love.graphics.setLineWidth(2)
 
 	-- Draw terrain rectangles (Breezefield is able to draw them itself but
 	-- getting the representation of a Box2D shape is weird, just do it ourself).
@@ -235,8 +236,32 @@ function scenes.game.draw()
 		love.graphics.rectangle('fill', ter.x, ter.y, ter.w, ter.h)
 	end
 
+	-- If holding down, show the throw vector.
+	if ball and helddown then
+		local ox, oy = ball:getPosition()
+		love.graphics.setColor(1,0,0)
+		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
+	end
+
 	love.graphics.setFont(fonts.sans.medium)
-	love.graphics.print(S("Boxes left: %d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 10, 10)
+
+	love.graphics.setColor(randc.r, randc.g, randc.b)
+	love.graphics.rectangle('fill', 10, 10, 40, 40)
+	love.graphics.setColor(0,0,0)
+	love.graphics.rectangle('line', 10, 10, 40, 40)
+
+	love.graphics.setColor(1,1,1)
+
+	love.graphics.print(string.format("%d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 60, 15)
+
+	love.graphics.setLineWidth(4)
+	love.graphics.circle("line", 30, 80, 20)
+
+	if ballsLeft < 1 then
+		love.graphics.setColor(1,0,0)
+	end
+
+	love.graphics.print(string.format("x%d", ballsLeft), 60, 70)
 
 	gtk.draw(gui)
 end

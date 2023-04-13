@@ -2,6 +2,7 @@
 -- Author: ROllerozxa
 
 return {
+	ballsLeft = 1,
 	throwBoundary = {
 		x = 20, y = 120,
 		w = 220, h = 440,

@@ -11,7 +11,7 @@ local gui = {
 		label = S("Back"),
 		on_click = function()
 			switchOverlay(false)
-			switchState("mainmenu")
+			switchState("selectlevel")
 		end
 	},
 
