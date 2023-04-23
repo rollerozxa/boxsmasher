@@ -22,15 +22,20 @@ function canPlay(levelnum)
 	return (levelnum <= game.levelsUnlocked)
 end
 
+-- Calculate the coordinate of a cell from its order in the level grid,
+-- left to right and top to bottom starting with 1.
+local function getCell(i)
+	return
+		((i-1) % 8) + 1,		-- x
+		math.floor((i-1) / 8)	-- y
+end
+
 function scenes.selectlevel.update()
 	gtk.update(gui)
 
 	-- Iterate over all the grid cells and check for mouse click.
-	for i = 0,31 do
-		-- Cool maths to determine the coordinate of the cell and the level number.
-		local x = (i % 8) + 1
-		local y = math.floor(i / 8)
-		local levelnum = i + 1
+	for levelnum = 1,32 do
+		local x, y = getCell(levelnum)
 
 		-- Check that mouse is within the specific grid, is clicked, and the level clicked is playable.
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseClick() and canPlay(levelnum) then
@@ -50,11 +55,8 @@ function scenes.selectlevel.draw()
 	love.graphics.setFont(fonts.sans.bigger)
 
 	-- Iterate over all the grid cells and draw them.
-	for i = 0,31 do
-		-- Cool maths to determine the coordinate of the cell and the level number.
-		local x = (i % 8) + 1
-		local y = math.floor(i / 8)
-		local levelnum = i + 1
+	for levelnum = 1,32 do
+		local x, y = getCell(levelnum)
 
 		-- Hover feedback
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) then
