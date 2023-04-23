@@ -92,6 +92,7 @@ function love.load()
 	}
 
 	savegame.load()
+	game.levelsUnlocked = savegame.get('levelsUnlocked') or 1
 
 	math.randomseed(os.time())
 
