@@ -152,6 +152,21 @@ function drawCenteredText(x, y, w, h, text)
 	love.graphics.print(text, x+w/2, y+h/2, 0, 1, 1, textW/2, textH/2)
 end
 
+-- Draw some text that's centered within the specified rectangle, ROTATED!
+function drawCenteredTextRot(x, y, w, h, text, angle)
+	-- Get the current font, calculate the width and height of its
+	-- glyphs to be able to center the text properly.
+	local font   = love.graphics.getFont()
+	local textW  = font:getWidth(text)
+	local textH  = font:getHeight()
+
+	love.graphics.push()
+	love.graphics.translate(x, y)
+	love.graphics.rotate(angle)
+	love.graphics.print(text, x+w/2, y+h/2, 0, 1, 1, textW/2, textH/2)
+	love.graphics.pop()
+end
+
 -- Print text with an outline that extends to the outside of the text glyphs.
 function printOutlined(text, x, y, rds)
 	love.graphics.setColor(0,0,0)

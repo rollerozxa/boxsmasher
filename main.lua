@@ -93,6 +93,8 @@ function love.load()
 
 	savegame.load()
 
+	math.randomseed(os.time())
+
 	-- Hardcode initial state init
 	if scenes[game.state].init ~= nil then
 		scenes[game.state].init()
