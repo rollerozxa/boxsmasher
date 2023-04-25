@@ -3,13 +3,7 @@
 
 scenes.mainmenu = {}
 
-local splashes = {
-	"Made with LÖVE!",
-	"Gosh!",
-	"(Hopefully) Enjoyable!",
-	"Powered by Voxelmanip!",
-	"Ozxa units!"
-}
+local splashes = splitNewline(love.filesystem.read("splashes.txt"))
 
 local gui = {
 	playbtn = {

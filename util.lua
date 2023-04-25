@@ -30,6 +30,15 @@ function tableEmpty(self)
     return true
 end
 
+-- Split a string into a table on newlines
+function splitNewline(str)
+	local tbl = {}
+	for s in str:gmatch("[^\r\n]+") do
+		table.insert(tbl, s)
+	end
+	return tbl
+end
+
 -- State switcher helper
 function switchState(state)
 	game.state = state
