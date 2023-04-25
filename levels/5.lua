@@ -4,8 +4,8 @@
 return {
 	ballsLeft = 1,
 	throwBoundary = {
-		x = 20, y = 120,
-		w = 220, h = 440,
+		x = 40, y = 40*4,
+		w = 40*6, h = 440,
 	},
 	boxclusters = {
 		{
@@ -21,7 +21,6 @@ return {
 			w = 40, h = 200,
 			aX = 1, aY = 1
 		},
-
 	},
 	terrain = {
 		{

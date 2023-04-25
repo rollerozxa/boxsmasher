@@ -4,7 +4,7 @@
 return {
 	ballsLeft = 2,
 	throwBoundary = {
-		x = 40*2, y = 40*5,
+		x = 40*3, y = 40*5,
 		w = 40*6, h = 40*10,
 	},
 	boxclusters = {
