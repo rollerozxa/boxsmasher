@@ -6,10 +6,10 @@ scenes.game = {}
 local gui = {
 	menu = {
 		type = "tex_button",
-		x = base_resolution.x-64, y = 0,
-		size = { x = 64, y = 64 },
+		x = base_resolution.x-(90), y = 8,
+		size = { x = 96, y = 96 },
 		texture = "menu",
-		scale = 2,
+		scale = 2.5,
 		on_click = function()
 			switchOverlay('pause')
 		end,
@@ -147,7 +147,7 @@ function scenes.game.update(dt)
 	gtk.update(gui)
 
 	-- Iterate physics.
-	if not avlusn.phys_pause.enabled then
+	if not avlusn.phys_pause.enabled and not game.overlay then
 		world:update(dt)
 	end
 

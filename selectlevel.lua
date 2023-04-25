@@ -48,7 +48,7 @@ function scenes.selectlevel.update()
 end
 
 function scenes.selectlevel.draw()
-	drawBG(64/255, 120/255, 161/255)
+	drawBG(44/255, 100/255, 141/255)
 
 	gtk.draw(gui)
 
