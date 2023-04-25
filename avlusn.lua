@@ -7,7 +7,7 @@
 return {
 	-- Draw coordinates, and visualise the current cursor position both scaled and unscaled.
 	coords = {
-		enabled = true,
+		enabled = false,
 		keybind = 'c',
 		draw = function()
 			love.graphics.setFont(fonts.sans.small)

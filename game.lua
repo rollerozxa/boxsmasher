@@ -228,7 +228,7 @@ function scenes.game.update(dt)
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
-		ball:applyLinearImpulse(throw.x*25, throw.y*25)
+		ball:applyLinearImpulse(throw.x*30, throw.y*30)
 	end
 
 	for key, box in pairs(boxes) do
