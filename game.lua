@@ -15,6 +15,18 @@ local gui = {
 		end,
 		keybind = 'escape'
 	},
+	restart_btn = {
+		type = "button",
+		x = 40*23, y = 0,
+		size = { x = 40*5.5, y = 40*1.8 },
+		label = S("Restart"),
+		on_click = function()
+			scenes.game.init()
+		end,
+		is_visible = function()
+			return game.ballsLeft == 0
+		end
+	}
 }
 
 -- Level table variable to be filled in
@@ -30,8 +42,7 @@ local ball = nil
 local boxNum = 0
 -- Total boxes in the level on start
 local totalBoxes = 0
--- The amount of balls left
-local ballsLeft = 0
+
 -- Misc. joint table (mouse joints and whatnot)
 local joints = {}
 
@@ -93,7 +104,6 @@ function scenes.game.init()
 	ball = nil
 	boxNum = 0
 	totalBoxes = 0
-	ballsLeft = 0
 	joints = {}
 
 	randc = coolRandomColour()
@@ -102,7 +112,7 @@ function scenes.game.init()
 	lvl = require('levels.'..game.level)
 
 	-- Set the amount of balls for the level.
-	ballsLeft = lvl.ballsLeft or 99
+	game.ballsLeft = lvl.ballsLeft or 99
 
 	-- Iterate over terrain objects, and create static colliders for them.
 	for _, ter in pairs(lvl.terrain) do
@@ -152,7 +162,7 @@ function scenes.game.update(dt)
 	end
 
 	-- Ball throwing code. When holding down mouse...
-	if love.mouse.isDown(1) and ballsLeft > 0 then
+	if love.mouse.isDown(1) and game.ballsLeft > 0 then
 		-- Get mouse position, convert it from the scaled screen resolution
 		-- to internal coordinates.
 		local mx, my = unscaled(love.mouse.getPosition())
@@ -224,7 +234,7 @@ function scenes.game.update(dt)
 		joints.boxMouse:destroy()
 		helddown = false
 		grabbedBall = false
-		ballsLeft = ballsLeft - 1
+		game.ballsLeft = game.ballsLeft - 1
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
@@ -288,11 +298,11 @@ function scenes.game.draw()
 	love.graphics.setLineWidth(4)
 	love.graphics.circle("line", 30, 80, 20)
 
-	if ballsLeft < 1 then
+	if game.ballsLeft < 1 then
 		love.graphics.setColor(1,0,0)
 	end
 
-	love.graphics.print(string.format("x%d", ballsLeft), 60, 70)
+	love.graphics.print(string.format("x%d", game.ballsLeft), 60, 70)
 
 	gtk.draw(gui)
 end

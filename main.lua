@@ -1,11 +1,19 @@
 
 -- main.lua: Main script, take care of scenes and initialisations.
 
+-- Global table for global variables that need to be retrieved all over the place.
 game = {
+	-- The current level, if a level has been opened.
 	level = 1,
+	-- How many levels have been unlocked, loaded from savegame.
 	levelsUnlocked = 1,
+	-- The current scene that should be shown.
 	state = "mainmenu",
-	overlay = false
+	-- The current overlay that should be shown, if
+	overlay = false,
+
+	-- The amount of balls left. Stored globally to be accessible from level success and such.
+	ballsLeft = 0
 }
 
 -- Base internal resolution ("canvas" resolution)
