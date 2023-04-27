@@ -85,6 +85,13 @@ function love.graphics.arrow(x1, y1, x2, y2, arrlen, angle)
 	love.graphics.line(x2, y2, x2 + arrlen * math.cos(a - angle), y2 + arrlen * math.sin(a - angle))
 end
 
+function love.graphics.circleOutlined(x, y, radius, oc, fc)
+	love.graphics.setColor(oc)
+	love.graphics.circle("fill", x, y, radius)
+	love.graphics.setColor(fc)
+	love.graphics.circle("line", x, y, radius)
+end
+
 -- Draw rotated rectangle (angle is in radians ^^)
 function rotatedRectangle(mode, x, y, width, height, angle)
 	-- Push the stack, move origin of coordinate system to (x,y), rotate coord,

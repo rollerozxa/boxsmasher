@@ -188,27 +188,20 @@ function scenes.game.update(dt)
 					local x, y = self:getX(), self:getY()
 
 					-- Body w/ outline
-					love.graphics.setColor(self.colour.r,self.colour.g,self.colour.b)
-					love.graphics.circle("fill", x, y, 30)
-					love.graphics.setColor(0,0,0)
-					love.graphics.circle("line", x, y, 30)
+					love.graphics.circleOutlined(x, y, 30, {self.colour.r,self.colour.g,self.colour.b}, {0,0,0})
 
 					-- Offset of the eyes from the center of the ball
 					local offset = 15
 
-					-- Eyewhite
-					love.graphics.setColor(1,1,1)
-					love.graphics.circle("fill", x+math.cos(angle+math.pi/2+15)*offset, y+math.sin(angle+math.pi/2+15)*offset, 9)
-					love.graphics.circle("fill", x+math.cos(angle+math.pi/2-15)*offset, y+math.sin(angle+math.pi/2-15)*offset, 9)
+					-- Eyes
+					love.graphics.circleOutlined(x+math.cos(angle+math.pi/2+15)*offset, y+math.sin(angle+math.pi/2+15)*offset, 9, {1,1,1}, {0,0,0})
+					love.graphics.circleOutlined(x+math.cos(angle+math.pi/2-15)*offset, y+math.sin(angle+math.pi/2-15)*offset, 9, {1,1,1}, {0,0,0})
 
 					-- Pupil
 					love.graphics.setColor(0,0,0)
 					love.graphics.circle("fill", x+math.cos(angle+math.pi/2.3+15)*offset, y+math.sin(angle+math.pi/2+15)*offset, 2)
 					love.graphics.circle("fill", x+math.cos(angle+math.pi/2.3-15)*offset, y+math.sin(angle+math.pi/2-15)*offset, 2)
 
-					-- Eye outline
-					love.graphics.circle("line", x+math.cos(angle+math.pi/2+15)*offset, y+math.sin(angle+math.pi/2+15)*offset, 9)
-					love.graphics.circle("line", x+math.cos(angle+math.pi/2-15)*offset, y+math.sin(angle+math.pi/2-15)*offset, 9)
 				end
 
 				joints.boxMouse = love.physics.newMouseJoint(ball.body, mx, my)
