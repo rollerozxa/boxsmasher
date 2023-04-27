@@ -246,7 +246,7 @@ function scenes.game.update(dt)
 end
 
 function scenes.game.draw()
-	drawBG(0.15, 0.2, 0.15)
+	drawBG(0.17, 0.25, 0.17)
 
 	love.graphics.setLineWidth(2)
 	love.graphics.setColor(1,1,1)

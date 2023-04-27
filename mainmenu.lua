@@ -33,9 +33,9 @@ function scenes.mainmenu.draw()
 	gtk.draw(gui)
 
 	love.graphics.setFont(fonts.sans.biggest)
-	printOutlined("Box Boom!", 410, 53, 6)
+	printOutlined("Box Smasher", 350, 53, 6)
 
 	love.graphics.setFont(fonts.sans.medium)
 	love.graphics.setColor(1,1,0)
-	drawCenteredTextRot(310, 130, 400, 200, splashes[current_splash], -math.pi/8, step)
+	drawCenteredTextRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8, step)
 end

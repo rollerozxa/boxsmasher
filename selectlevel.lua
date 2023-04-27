@@ -62,7 +62,7 @@ function scenes.selectlevel.draw()
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) then
 			love.graphics.setColor(0,0,0.1)
 		else
-			love.graphics.setColor(0.1,0.1,0.1)
+			love.graphics.setColor(0.15,0.15,0.15)
 		end
 
 		-- Draw button rectangle

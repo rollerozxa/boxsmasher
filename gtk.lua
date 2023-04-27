@@ -68,7 +68,7 @@ function gtk.draw(gui, is_overlay)
 			if hovering then
 				love.graphics.setColor(0,0,0.1)
 			else
-				love.graphics.setColor(0.2,0.2,0.2)
+				love.graphics.setColor(0.15,0.15,0.15)
 			end
 
 			-- Draw background
@@ -76,6 +76,7 @@ function gtk.draw(gui, is_overlay)
 
 			-- Allow for custom drawing on the button that can override the text
 			love.graphics.setColor(1,1,1)
+
 			if not el.on_draw or not el.on_draw() then
 				love.graphics.setFont(fonts.sans.big)
 				-- Draw text in the middle of the button's rect
