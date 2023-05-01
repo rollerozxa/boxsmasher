@@ -6,8 +6,8 @@ overlays.pause = {}
 local gui = {
 	resumebtn = {
 		type = "button",
-		x = 480, y = 5*40,
-		size = { x = 8*40, y = 96 },
+		x = 480, y = 40*5,
+		size = { x = 40*8, y = 96 },
 		label = S("Resume"),
 		on_click = function()
 			switchOverlay(false)
@@ -17,8 +17,8 @@ local gui = {
 
 	restartbtn = {
 		type = "button",
-		x = 480, y = 9*40,
-		size = { x = 8*40, y = 96 },
+		x = 480, y = 40*9,
+		size = { x = 40*8, y = 96 },
 		label = S("Restart"),
 		on_click = function()
 			switchOverlay(false)
@@ -28,8 +28,8 @@ local gui = {
 
 	exitbtn = {
 		type = "button",
-		x = 480, y = 13*40,
-		size = { x = 8*40, y = 96 },
+		x = 480, y = 40*13,
+		size = { x = 40*8, y = 96 },
 		label = S("Exit"),
 		on_click = function()
 			switchOverlay(false)
