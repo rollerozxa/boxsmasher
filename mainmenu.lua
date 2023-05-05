@@ -91,7 +91,11 @@ function scenes.mainmenu.draw()
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)
 
-	love.graphics.setFont(fonts.sans.big)
+	if string.len(splashes[current_splash]) > 20 then
+		love.graphics.setFont(fonts.sans.medium)
+	else
+		love.graphics.setFont(fonts.sans.big)
+	end
 	love.graphics.setColor(1,1,0.3)
 	drawCenteredTextRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8, step)
 end
