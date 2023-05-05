@@ -60,6 +60,7 @@ require("mainmenu")
 require("game")
 require("selectlevel")
 
+require("final")
 require("success")
 require("pause")
 
