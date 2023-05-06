@@ -8,11 +8,30 @@ function drawBG(r,g,b)
 	love.graphics.push()
 	love.graphics.origin()
 
-	-- Draw background (one colour in the active area, slightly darker colour in inactive)
-	love.graphics.setColor(r/1.25,g/1.25,b/1.25)
-	love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+	-- Draw background, keeping in mind the potential offset currently happening.
 	love.graphics.setColor(r,g,b)
 	love.graphics.rectangle('fill', offset.x, offset.y, resolution.x, resolution.y)
+	love.graphics.setColor(1,1,1)
+
+	-- Restore coordinate transform
+	love.graphics.pop()
+end
+
+function drawBGLetterbox(r,g,b)
+	-- Copy the current coordinate transform and disable scale
+	-- (Needed to draw the BG properly without influence from window scaling)
+	love.graphics.push()
+	love.graphics.origin()
+
+	-- Draw the letterboxed background of the side, if the aspect ratio isn't 16:9.
+	-- The letterboxed "void" is slightly darker and is drawn on top in order to cover
+	-- objects falling into the void, hence why this was split up from drawBG().
+	love.graphics.setColor(r/1.25,g/1.25,b/1.25)
+	love.graphics.rectangle('fill', 0, 0, offset.x, love.graphics.getHeight())
+	love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), offset.y)
+	love.graphics.rectangle('fill', love.graphics.getWidth()-offset.x, 0, offset.x, love.graphics.getHeight())
+	love.graphics.rectangle('fill', 0, love.graphics.getHeight()-offset.y, love.graphics.getWidth(), offset.y)
+
 	love.graphics.setColor(1,1,1)
 
 	-- Restore coordinate transform

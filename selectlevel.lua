@@ -33,6 +33,8 @@ local function getCell(i)
 		math.floor((i-1) / 8)	-- y
 end
 
+scenes.selectlevel.background = { r = 44, g = 100, b = 141 }
+
 function scenes.selectlevel.update()
 	gtk.update(gui)
 
@@ -51,8 +53,6 @@ function scenes.selectlevel.update()
 end
 
 function scenes.selectlevel.draw()
-	drawBG(44/255, 100/255, 141/255)
-
 	gtk.draw(gui)
 
 	love.graphics.setFont(fonts.sans.bigger)

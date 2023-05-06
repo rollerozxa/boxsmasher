@@ -93,6 +93,8 @@ local randc
 -- Throw vector
 local throw = {x = 0, y = 0}
 
+scenes.game.background = { r = 43, g = 64, b = 43 }
+
 function scenes.game.init()
 	-- Hello (physics) world.
 	world = bf.newWorld(0, 90.82*1.5, true)
@@ -254,8 +256,6 @@ function scenes.game.update(dt)
 end
 
 function scenes.game.draw()
-	drawBG(0.17, 0.25, 0.17)
-
 	love.graphics.setLineWidth(2)
 	love.graphics.setColor(1,1,1)
 

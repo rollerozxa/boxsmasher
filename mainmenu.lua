@@ -47,6 +47,8 @@ end
 
 local step = 0
 
+scenes.mainmenu.background = { r = 44, g = 100, b = 141 }
+
 function scenes.mainmenu.init()
 	step = 0
 
@@ -80,7 +82,6 @@ function scenes.mainmenu.update(dt)
 end
 
 function scenes.mainmenu.draw()
-	drawBG(44/255, 100/255, 141/255)
 
 	world:draw()
 

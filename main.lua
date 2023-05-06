@@ -158,7 +158,14 @@ function love.draw()
 	love.graphics.setColor(1,1,1)
 
 	-- Call scene's draw function
+	local bg
 	if scenes[game.state].draw ~= nil then
+		if scenes[game.state].background then
+			bg = scenes[game.state].background
+
+			drawBG(love.math.colorFromBytes(bg.r, bg.g, bg.b))
+		end
+
 		scenes[game.state].draw()
 	end
 
@@ -166,6 +173,10 @@ function love.draw()
 		if overlays[game.overlay].draw ~= nil then
 			overlays[game.overlay].draw()
 		end
+	end
+
+	if scenes[game.state].background then
+		drawBGLetterbox(love.math.colorFromBytes(bg.r, bg.g, bg.b))
 	end
 
 	-- Call debug functionalities' draw functions
