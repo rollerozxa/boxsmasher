@@ -213,18 +213,20 @@ function scenes.game.update(dt)
 				grabbedBall = true
 			end
 
-			-- Now we're holding it down...
-			helddown = true
+			if ball then
+				-- Now we're holding it down...
+				helddown = true
 
-			-- Calculate "throw vector", like a slingshot. It is inverse of the vector
-			-- that is the difference in coordinates between the created ball and mouse.
-			local ox, oy = ball:getPosition()
-			throw.x = -(mx-ox)
-			throw.y = -(my-oy)
+				-- Calculate "throw vector", like a slingshot. It is inverse of the vector
+				-- that is the difference in coordinates between the created ball and mouse.
+				local ox, oy = ball:getPosition()
+				throw.x = -(mx-ox)
+				throw.y = -(my-oy)
+			end
 		end
 
 	-- When helddown is true, but mouse is not held (i.e. mouse has been released, we're throwing it!)
-	elseif helddown then
+	elseif helddown and joints.boxMouse then
 		-- Destroy mouse joint, don't make it static anymore.
 		joints.boxMouse:destroy()
 		helddown = false
