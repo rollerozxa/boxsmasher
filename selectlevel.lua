@@ -18,7 +18,7 @@ local gui = {
 }
 
 -- Limit the amount of levels
-local levelsAvailable = 11
+local levelsAvailable = 12
 
 -- Checks if player can play level, depending on levels unlocked.
 function canPlay(levelnum)

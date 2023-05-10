@@ -249,7 +249,7 @@ function scenes.game.update(dt)
 
 	if tableEmpty(boxes) then
 		-- LAST LEVEL!!!
-		if game.level == 11 then
+		if game.level == 12 then
 			switchOverlay('final')
 		else
 			switchOverlay('success')
