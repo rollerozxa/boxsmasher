@@ -1,17 +1,20 @@
-# Untitled Physics Game (LÖVE)
-School project haha
+<img src="https://voxelmanip.se/media/projects/boxsmasher.png" height=360>
 
-It's like angry birds, but you throw boxes as other stacks of boxes, off the screen.
+A fun physics-based puzzle game where you throw balls at boxes to smash them out of the screen.
 
-## Running
-Obtain LÖVE. Run, within this directory:
+<img src="https://voxelmanip.se/assets/en_badge_web_generic.png" height=96>
 
-`love .`
+---
 
-Dragging the folder over the LÖVE runtime works too.
+## Running from source
+[Obtain the LÖVE runtime for your platform](https://love2d.org/). Then within a terminal run, within this directory:
+
+`<path to LÖVE executable> .`
+
+Dragging the folder over the LÖVE runtime works too. For more information see the [LÖVE Wiki](https://love2d.org/wiki/Getting_Started) on how to run.
 
 ## Prototype
-There is a prototype in _prototype.lua. Rename it to main.lua and run...
+There is a prototype in `_prototype.lua`. Rename it to main.lua and run...
 
 ## Stuff used
 - LÖVE game framework
