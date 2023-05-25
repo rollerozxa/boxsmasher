@@ -75,7 +75,7 @@ json = require("lib.json")
 -- On load callback
 function love.load()
 	-- resizable = true makes Android landscape.
-	love.window.setMode(resolution.x, resolution.y, { resizable = true })
+	love.window.setMode(resolution.x, resolution.y, { resizable = false })
 	love.window.setTitle("|==--Box Smasher--==|")
 	love.graphics.setDefaultFilter('nearest', 'nearest', 4)
 

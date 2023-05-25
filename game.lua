@@ -6,8 +6,8 @@ scenes.game = {}
 local gui = {
 	menu = {
 		type = "tex_button",
-		x = base_resolution.x-(90), y = 8,
-		size = { x = 96, y = 96 },
+		x = base_resolution.x-(96), y = 0,
+		size = { x = 96, y = 110 },
 		texture = "menu",
 		scale = 2.5,
 		on_click = function()
