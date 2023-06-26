@@ -107,6 +107,8 @@ function scenes.game.init()
 	boxNum = 0
 	totalBoxes = 0
 	joints = {}
+	helddown = false
+	grabbedBall = false
 
 	randc = coolRandomColour()
 
