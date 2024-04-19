@@ -1,8 +1,8 @@
-<img src="https://voxelmanip.se/media/projects/boxsmasher.png" height=360>
+<img src="https://voxelmanip.se/media/projects/boxsmasher.webp" height=360>
 
 A fun physics-based puzzle game where you throw balls at boxes to smash them out of the screen.
 
-<img src="https://voxelmanip.se/assets/en_badge_web_generic.png" height=96>
+<a href="https://play.google.com/store/apps/details?id=se.voxelmanip.boxsmasher"><img src="https://voxelmanip.se/assets/en_badge_web_generic.png" height=96></a>
 
 ---
 
