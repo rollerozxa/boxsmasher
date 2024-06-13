@@ -1,4 +1,3 @@
-
 -- selectlevel.lua: Select level scene
 
 scenes.selectlevel = {}

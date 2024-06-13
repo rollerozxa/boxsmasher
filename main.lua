@@ -1,7 +1,5 @@
-
 -- main.lua: Main script, take care of scenes and initialisations.
 
--- Global table for global variables that need to be retrieved all over the place.
 game = {
 	-- The current level, if a level has been opened.
 	level = 1,
@@ -9,7 +7,7 @@ game = {
 	levelsUnlocked = 1,
 	-- The current scene that should be shown.
 	state = "mainmenu",
-	-- The current overlay that should be shown, if
+	-- The current overlay that should be shown, if applicable.
 	overlay = false,
 
 	-- The amount of balls left. Stored globally to be accessible from level success and such.
@@ -34,15 +32,12 @@ offset = {
 	y = 0
 }
 
--- Scene and overlay table
--- (Stores all scenes and overlays)
 scenes = {}
 overlays = {}
 
 oldmousedown = false
 
 -- Keeps track of held down keys to prevent repeating actions.
--- (Principia reference, hehe: https://principia-web.se/wiki/Sparsifier)
 sparsifier = {}
 
 -- Dummy translation function
@@ -64,18 +59,15 @@ require("final")
 require("success")
 require("pause")
 
--- debug stuffs
-avlusn = require("avlusn")
+dbg = require("dbg")
 
--- Load the Breezefield library into 'bf'
 bf = require("lib.breezefield")
--- Load the JSON library into 'json'
 json = require("lib.json")
 
 -- On load callback
 function love.load()
 	-- resizable = true makes Android landscape.
-	love.window.setMode(resolution.x, resolution.y, { resizable = false })
+	love.window.setMode(resolution.x, resolution.y, { resizable = true })
 	love.window.setTitle("|==--Box Smasher--==|")
 	love.graphics.setDefaultFilter('nearest', 'nearest', 4)
 
@@ -91,7 +83,6 @@ function love.load()
 		menu = newImage("menu"),
 	}
 
-	-- Load fonts into table variable
 	fonts = initFonts()
 
 	sounds = {
@@ -111,9 +102,8 @@ function love.load()
 	end
 end
 
--- On update callback
 function love.update(dt)
-	-- Call scene's update function
+
 	if scenes[game.state].update ~= nil then
 		scenes[game.state].update(dt)
 	end
@@ -131,13 +121,11 @@ function love.update(dt)
 		love.event.quit()
 	end
 
-	-- Debug options (accessible with F3+<arbitrary>, see avlusn.lua)
+	-- Debug options (accessible with F3+<arbitrary>, see dbg.lua)
 	if love.keyboard.isDown('f3') then
-		-- Iterate over each debug entry, toggle the activation of the given debug functionality
-		-- if keybind is triggered.
-		for id, def in pairs(avlusn) do
+		for id, def in pairs(dbg) do
 			if love.keyboard.isDown(def.keybind) and not sparsifier[def.keybind] then
-				avlusn[id].enabled = not avlusn[id].enabled
+				dbg[id].enabled = not dbg[id].enabled
 			end
 			sparsifier[def.keybind] = love.keyboard.isDown(def.keybind)
 		end
@@ -181,7 +169,7 @@ function love.draw()
 
 	-- Call debug functionalities' draw functions
 	-- (if they're enabled)
-	for id, def in pairs(avlusn) do
+	for id, def in pairs(dbg) do
 		if def.enabled then
 			love.graphics.setColor(1,1,1)
 			love.graphics.setFont(fonts.sans.medium)
@@ -190,7 +178,6 @@ function love.draw()
 	end
 end
 
--- Callback for when window resizes
 function love.resize(w, h)
 	resolution.x = w
 	resolution.y = h

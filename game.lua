@@ -1,4 +1,3 @@
-
 -- game.lua: Main game scene.
 
 scenes.game = {}
@@ -29,7 +28,6 @@ local gui = {
 	}
 }
 
--- Level table variable to be filled in
 local lvl
 
 -- Table to store static terrain geometry objects
@@ -52,7 +50,6 @@ local function newBox(x,y,w,h)
 
 	-- New dynamic rectangle collider, the box!
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
-	--newBox:setType("static")
 	box:setMass(box:getMass()*0.25)
 
 	-- Give the box a random colour, save it to the box object's userdata so
@@ -67,7 +64,7 @@ local function newBox(x,y,w,h)
 		love.graphics.setColor(0,0,0)
 		rotatedRectangle('line', self:getX(), self:getY(), w, h, self:getAngle())
 
-		if avlusn.box_pos.enabled then
+		if dbg.box_pos.enabled then
 			love.graphics.setColor(1,1,1)
 			love.graphics.setFont(fonts.sans.tiny)
 			love.graphics.print('{'..math.floor(self:getX())..','..math.floor(self:getY())..'}', self:getX(), self:getY())
@@ -84,7 +81,6 @@ end
 -- Keep track of left mouse button state
 local helddown = false
 
--- Have we grabbed a ball?
 local grabbedBall = false
 
 -- Random colour for box HUD
@@ -96,11 +92,9 @@ local throw = {x = 0, y = 0}
 scenes.game.background = { r = 43, g = 64, b = 43 }
 
 function scenes.game.init()
-	-- Hello (physics) world.
 	world = bf.newWorld(0, 90.82*1.5, true)
 
-	-- Reset variables that might have stored stuff previously from a different level.
-	-- (See above for what they are about)
+	-- Reset variables
 	terrain = {}
 	boxes = {}
 	ball = nil
@@ -112,13 +106,12 @@ function scenes.game.init()
 
 	randc = coolRandomColour()
 
-	-- Load the level.
+	-- Load level
 	lvl = require('levels.'..game.level)
 
-	-- Set the amount of balls for the level.
 	game.ballsLeft = lvl.ballsLeft or 99
 
-	-- Iterate over terrain objects, and create static colliders for them.
+	-- Iterate over terrain objects and create static colliders for them
 	for _, ter in pairs(lvl.terrain) do
 		-- Box2D works with the center of mass (for rectangles they're in the middle of the rectangle),
 		-- but level definition works with rectangles with origin being top left. We need to convert these.
@@ -145,7 +138,7 @@ function scenes.game.init()
 		table.insert(terrain, rect)
 	end
 
-	-- Iterate over box clusters, and create the boxes within them.
+	-- Iterate over box clusters and create the boxes within them
 	for _, clust in ipairs(lvl.boxclusters) do
 		for x = 1, clust.aX, 1 do
 			for y = 1, clust.aY, 1 do
@@ -160,8 +153,7 @@ end
 function scenes.game.update(dt)
 	gtk.update(gui)
 
-	-- Iterate physics.
-	if not avlusn.phys_pause.enabled and not game.overlay then
+	if not dbg.phys_pause.enabled and not game.overlay then
 		world:update(dt)
 	end
 

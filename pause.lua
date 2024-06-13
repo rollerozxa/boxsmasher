@@ -1,4 +1,3 @@
-
 -- pause.lua: Pause menu overlay
 
 overlays.pause = {}
@@ -14,7 +13,6 @@ local gui = {
 		end,
 		keybind = 'escape'
 	},
-
 	restartbtn = {
 		type = "button",
 		x = 480, y = 40*9,
@@ -25,7 +23,6 @@ local gui = {
 			scenes.game.init()
 		end
 	},
-
 	exitbtn = {
 		type = "button",
 		x = 480, y = 40*13,

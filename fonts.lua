@@ -1,13 +1,10 @@
-
 -- fonts.lua: Font loading
 
 local function newFont(name, size)
 	return love.graphics.newFont("fonts/"..name..".ttf", size)
 end
 
--- Initialise a font table
 function initFonts()
-	-- Iterates over fontfaces and fontsizes, creating fonts for each fonts with all set sizes
 
 	local fontfaces = {sans = 'undefined-medium'}
 

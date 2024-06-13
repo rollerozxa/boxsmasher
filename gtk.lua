@@ -1,6 +1,4 @@
-
--- gtk.lua: Basic GUI toolkit that allows putting clickable buttons
--- with callbacks and labels onto the screen.
+-- gtk.lua: Basic GUI toolkit that allows putting clickable buttons with callbacks and labels onto the screen.
 
 -- The format is a table, here is an example of the format:
 --[[
@@ -26,13 +24,11 @@ local sparsifier = {}
 
 function gtk.update(gui, is_overlay)
 	for id, el in pairs(gui) do
-		-- Element type (separate variable to not contaminate the GUI table)
 		local elt = el.type
 		-- Allow hiding elements with an .is_visible() callback.
 		if el.is_visible and not el.is_visible()
 			or (not is_overlay and game.overlay)
 		then
-			-- Override type to "none" to preserve indentation
 			elt = "none"
 		end
 
@@ -53,37 +49,33 @@ end
 
 function gtk.draw(gui, is_overlay)
 	for id, el in pairs(gui) do
-		-- Element type (separate variable to not contaminate the GUI table)
 		local elt = el.type
 		-- Allow hiding elements with an .is_visible() callback.
 		if el.is_visible and not el.is_visible() then
-			-- Override type to "none" to preserve indentation
 			elt = "none"
 		end
 
 		local hovering = mouseCollisionScaled(el.x, el.y, el.size.x, el.size.y) and (is_overlay or not game.overlay)
 
 		if elt == "button" then
-			-- Darken background colour of button if hovered
 			if hovering then
 				love.graphics.setColor(0,0,0.1)
 			else
 				love.graphics.setColor(0.15,0.15,0.15)
 			end
 
-			-- Draw background
+			-- Background
 			love.graphics.rectangle("fill", el.x, el.y, el.size.x, el.size.y)
 
-			-- Allow for custom drawing on the button that can override the text
 			love.graphics.setColor(1,1,1)
 
+			-- Allow for custom drawing on the button that can override the text
 			if not el.on_draw or not el.on_draw() then
 				love.graphics.setFont(fonts.sans.big)
-				-- Draw text in the middle of the button's rect
+
 				drawCenteredText(el.x, el.y+2, el.size.x, el.size.y, el.label)
 			end
 		elseif elt == "tex_button" then
-			-- Darken texture button if hovered
 			if hovering then
 				love.graphics.setColor(0.1,0.1,0.1)
 			else

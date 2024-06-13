@@ -1,4 +1,3 @@
-
 -- mainmenu.lua: Main menu scene.
 
 scenes.mainmenu = {}

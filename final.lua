@@ -1,3 +1,4 @@
+-- final.lua: Overlay used when you've completed the final level.
 
 overlays.final = {}
 

@@ -1,2 +1,4 @@
 *.love
 .vscode/
+output/
+branding/

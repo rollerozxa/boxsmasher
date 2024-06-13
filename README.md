@@ -13,15 +13,6 @@ A fun physics-based puzzle game where you throw balls at boxes to smash them out
 
 Dragging the folder over the LÖVE runtime works too. For more information see the [LÖVE Wiki](https://love2d.org/wiki/Getting_Started) on how to run.
 
-## Prototype
-There is a prototype in `_prototype.lua`. Rename it to main.lua and run...
-
-## Stuff used
-- LÖVE game framework
-	- Box2D physics library as part of LÖVE's physics module
-- breezefield (wrapper around LÖVE's physics module)
-- json.lua (Lua JSON (de)serialisation library)
-
 ## Notes
 
 zipping up into a .love:

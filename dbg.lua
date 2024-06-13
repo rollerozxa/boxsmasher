@@ -1,8 +1,4 @@
-
--- debug.lua: Debug utilities
-
--- (Called avlusn(ing) to not collide with Lua's debug ^^)
--- To enable debugging options in Android, you can hardcode the option to be enabled and push to your device.
+-- dbg.lua: Debug utilities
 
 return {
 	-- Draw coordinates, and visualise the current cursor position both scaled and unscaled.

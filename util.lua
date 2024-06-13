@@ -1,4 +1,3 @@
-
 -- util.lua: Miscellaneous utility functions.
 
 -- Background drawer helper
@@ -40,12 +39,10 @@ end
 
 -- Check if a table is empty
 function tableEmpty(self)
-	-- Any non-empty table can be iterated over like this, returning false. (table is not empty)
     for _, _ in pairs(self) do
         return false
     end
 
-	-- Nothing to iterate over? Empty table.
     return true
 end
 
@@ -62,7 +59,6 @@ end
 function switchState(state)
 	game.state = state
 
-	-- Call scene's init function, if it exists
 	if scenes[game.state].init ~= nil then
 		scenes[game.state].init()
 	end
@@ -113,8 +109,6 @@ end
 
 -- Draw rotated rectangle (angle is in radians ^^)
 function rotatedRectangle(mode, x, y, width, height, angle)
-	-- Push the stack, move origin of coordinate system to (x,y), rotate coord,
-	-- draw the rectangle, and then pop the stack. Gosh!
 	love.graphics.push()
 	love.graphics.translate(x, y)
 	love.graphics.rotate(angle)

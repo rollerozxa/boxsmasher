@@ -1,4 +1,3 @@
-
 -- success.lua: Level complete overlay shown on level completion.
 
 overlays.success = {}
