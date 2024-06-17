@@ -42,7 +42,7 @@ function scenes.selectlevel.update()
 		local x, y = getCell(levelnum)
 
 		-- Check that mouse is within the specific grid, is clicked, and the level clicked is playable.
-		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseClick() and canPlay(levelnum) then
+		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseReleased() and canPlay(levelnum) then
 			game.level = levelnum
 			switchState("game")
 
@@ -62,7 +62,11 @@ function scenes.selectlevel.draw()
 
 		-- Hover feedback
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) then
-			love.graphics.setColor(0,0,0.1)
+			if love.mouse.isDown(1) then
+				love.graphics.setColor(0.05,0.05,0.05)
+			else
+				love.graphics.setColor(0.15,0.15,0.25)
+			end
 		else
 			love.graphics.setColor(0.15,0.15,0.15)
 		end

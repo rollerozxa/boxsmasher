@@ -235,3 +235,7 @@ end
 function mouseClick()
 	return love.mouse.isDown(1) and not oldmousedown
 end
+
+function mouseReleased()
+	return not love.mouse.isDown(1) and oldmousedown
+end

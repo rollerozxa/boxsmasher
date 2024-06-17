@@ -33,7 +33,7 @@ function gtk.update(gui, is_overlay)
 		end
 
 		if elt == "button" or elt == "tex_button" then
-			if (mouseCollisionScaled(el.x, el.y, el.size.x, el.size.y) and mouseClick())
+			if (mouseCollisionScaled(el.x, el.y, el.size.x, el.size.y) and mouseReleased())
 			or (el.keybind and love.keyboard.isDown(el.keybind) and not sparsifier[id]) then
 				el.on_click()
 				sounds.click:clone():play()
@@ -59,7 +59,11 @@ function gtk.draw(gui, is_overlay)
 
 		if elt == "button" then
 			if hovering then
-				love.graphics.setColor(0,0,0.1)
+				if love.mouse.isDown(1) then
+					love.graphics.setColor(0.05,0.05,0.05)
+				else
+					love.graphics.setColor(0.15,0.15,0.25)
+				end
 			else
 				love.graphics.setColor(0.15,0.15,0.15)
 			end
@@ -77,7 +81,11 @@ function gtk.draw(gui, is_overlay)
 			end
 		elseif elt == "tex_button" then
 			if hovering then
-				love.graphics.setColor(0.1,0.1,0.1)
+				if love.mouse.isDown(1) then
+					love.graphics.setColor(0.1,0.1,0.1)
+				else
+					love.graphics.setColor(0.75,0.75,0.75)
+				end
 			else
 				love.graphics.setColor(1,1,1)
 			end
