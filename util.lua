@@ -57,11 +57,11 @@ end
 
 -- State switcher helper
 function switchState(state)
-	game.state = state
+	if game.trans then return end
 
-	if scenes[game.state].init ~= nil then
-		scenes[game.state].init()
-	end
+	game.trans = true
+	game.trans_step = 0
+	game.trans_to = state
 end
 
 -- Overlay switcher helper

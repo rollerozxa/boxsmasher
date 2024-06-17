@@ -132,6 +132,8 @@ function love.update(dt)
 	end
 end
 
+local trans_alpha = 0
+
 -- On draw callback
 function love.draw()
 	-- Offset canvas using 'offset', scale up canvas
@@ -174,6 +176,35 @@ function love.draw()
 			love.graphics.setColor(1,1,1)
 			love.graphics.setFont(fonts.sans.medium)
 			def.draw()
+		end
+	end
+
+	if game.trans then
+		if game.trans_step < 25 then
+			trans_alpha = trans_alpha + 10
+		else
+			trans_alpha = trans_alpha - 10
+		end
+
+		love.graphics.setColor(0,0,0, trans_alpha/255)
+
+		love.graphics.push()
+		love.graphics.origin()
+
+		love.graphics.rectangle('fill', 0,0,resolution.x,resolution.y)
+
+		love.graphics.pop()
+
+		game.trans_step = game.trans_step + 1
+
+		if game.trans_step == 25 then
+			game.state = game.trans_to
+
+			if scenes[game.state].init ~= nil then
+				scenes[game.state].init()
+			end
+		elseif game.trans_step == 50 then
+			game.trans = false
 		end
 	end
 end

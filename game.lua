@@ -153,7 +153,9 @@ end
 function scenes.game.update(dt)
 	gtk.update(gui)
 
-	if not dbg.phys_pause.enabled and not game.overlay then
+	if game.overlay or game.trans then return end
+
+	if not dbg.phys_pause.enabled then
 		world:update(dt)
 	end
 
