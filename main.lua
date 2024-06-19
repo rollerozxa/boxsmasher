@@ -81,6 +81,7 @@ function love.load()
 		lvlok = newImage("lvlok"),
 		lock = newImage("lock"),
 		menu = newImage("menu"),
+		tutorial = newImage("tutorial")
 	}
 
 	fonts = initFonts()
@@ -93,6 +94,7 @@ function love.load()
 
 	savegame.load()
 	game.levelsUnlocked = savegame.get('levelsUnlocked') or 1
+	game.showTutorial = savegame.get('showTutorial') or true
 
 	math.randomseed(os.time())
 

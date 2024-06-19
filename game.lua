@@ -251,6 +251,11 @@ function scenes.game.update(dt)
 			switchOverlay('success')
 		end
 	end
+
+	if mouseClick() and game.showTutorial then
+		game.showTutorial = false
+		savegame.set("showTutorial", false)
+	end
 end
 
 function scenes.game.draw()
@@ -301,4 +306,12 @@ function scenes.game.draw()
 	love.graphics.print(string.format("x%d", game.ballsLeft), 60, 70)
 
 	gtk.draw(gui)
+
+	if game.showTutorial then
+		love.graphics.setColor(1,1,1)
+		love.graphics.draw(assets.tutorial, 0, 0, 0, 1, 1)
+
+		love.graphics.setFont(fonts.sans.big)
+		love.graphics.print("Tap and drag\nto shoot...", 40*7, 40*3)
+	end
 end
