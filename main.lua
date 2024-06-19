@@ -188,12 +188,12 @@ function love.draw()
 			trans_alpha = trans_alpha - 10
 		end
 
-		love.graphics.setColor(0,0,0, trans_alpha/255)
+		love.graphics.setColor(0,0,0,trans_alpha/255)
 
 		love.graphics.push()
 		love.graphics.origin()
 
-		love.graphics.rectangle('fill', 0,0,resolution.x,resolution.y)
+		love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 
 		love.graphics.pop()
 
