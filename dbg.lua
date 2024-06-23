@@ -80,5 +80,14 @@ return {
 		draw = function()
 			love.graphics.print("Physics iteration paused", 500, 0)
 		end
+	},
+
+	restart = {
+		enabled = false,
+		keybind = 'r',
+		draw = function()
+			switchState(game.state)
+			dbg.restart.enabled = false
+		end
 	}
 }

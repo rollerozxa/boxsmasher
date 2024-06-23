@@ -92,6 +92,17 @@ function love.load()
 		success = newSound("success")
 	}
 
+	local totalLevels = 0
+	while true do
+		if love.filesystem.getInfo("levels/"..(totalLevels+1)..".lua") then
+			totalLevels = totalLevels + 1
+		else
+			break
+		end
+	end
+	game.totalLevels = totalLevels
+	print(totalLevels)
+
 	savegame.load()
 	game.levelsUnlocked = savegame.get('levelsUnlocked') or 1
 	game.seenTutorial = savegame.get('seenTutorial') or false

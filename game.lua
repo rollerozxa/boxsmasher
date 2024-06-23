@@ -107,7 +107,8 @@ function scenes.game.init()
 	randc = coolRandomColour()
 
 	-- Load level
-	lvl = require('levels.'..game.level)
+	--lvl = require('levels.'..game.level)
+	lvl = dofile("levels/"..game.level..".lua")
 
 	game.ballsLeft = lvl.ballsLeft or 99
 
@@ -245,7 +246,7 @@ function scenes.game.update(dt)
 
 	if tableEmpty(boxes) then
 		-- LAST LEVEL!!!
-		if game.level == 12 then
+		if game.level == game.totalLevels then
 			switchOverlay('final')
 		else
 			switchOverlay('success')
