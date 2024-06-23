@@ -252,9 +252,9 @@ function scenes.game.update(dt)
 		end
 	end
 
-	if mouseClick() and game.showTutorial then
-		game.showTutorial = false
-		savegame.set("showTutorial", false)
+	if mouseClick() and not game.seenTutorial then
+		game.seenTutorial = true
+		savegame.set("seenTutorial", true)
 	end
 end
 
@@ -307,7 +307,7 @@ function scenes.game.draw()
 
 	gtk.draw(gui)
 
-	if game.showTutorial then
+	if not game.seenTutorial then
 		love.graphics.setColor(1,1,1)
 		love.graphics.draw(assets.tutorial, 0, 0, 0, 1, 1)
 

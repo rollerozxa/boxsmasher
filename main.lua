@@ -94,7 +94,7 @@ function love.load()
 
 	savegame.load()
 	game.levelsUnlocked = savegame.get('levelsUnlocked') or 1
-	game.showTutorial = savegame.get('showTutorial') or true
+	game.seenTutorial = savegame.get('seenTutorial') or false
 
 	math.randomseed(os.time())
 
