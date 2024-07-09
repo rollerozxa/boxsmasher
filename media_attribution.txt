@@ -1,0 +1,21 @@
+
+FONTS:
+
+undefined-medium.ttf:
+	OFLv1.1 - Andi Rueckel
+	https://undefined-medium.com/
+
+
+SOUNDS:
+
+click.ogg:
+	CC0 - KorgMS2000B
+	https://freesound.org/people/KorgMS2000B/sounds/54405/
+
+pop.ogg:
+	CC0 - ConarB13
+	https://freesound.org/people/ConarB13/sounds/401542/
+
+success.ogg:
+	CC0 - Kagateni
+	https://freesound.org/people/Kagateni/sounds/404359/
