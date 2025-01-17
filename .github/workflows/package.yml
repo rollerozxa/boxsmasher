@@ -1,0 +1,33 @@
+name: 'LÖVE universal package'
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Package game
+      run: |
+        sudo apt-get install -q -y zip
+        zip -r "box-smasher.love" ./* -x '*.git*'
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: box-smasher.love
+        path: box-smasher.love
+
+    - name: Upload to dev tag
+      uses: pyTooling/Actions/releaser@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: 'dev'
+        files: ./box-smasher.love
+      if: github.event_name != 'pull_request'
