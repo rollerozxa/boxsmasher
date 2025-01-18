@@ -64,6 +64,7 @@ r"gui/button"
 r"gui/texbutton"
 
 -- scenes
+r"scenes/about"
 r"scenes/game"
 r"scenes/mainmenu"
 r"scenes/selectlevel"

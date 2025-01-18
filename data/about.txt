@@ -1,0 +1,8 @@
+Box Smasher is a physics-based puzzle game where
+you shoot balls to smash structures of boxes off
+the screen.
+
+The game was originally developed by ROllerozxa
+as a final assignment for the Programming 1 course
+in upper secondary school. It has since seen
+further development and released under the GPLv3.

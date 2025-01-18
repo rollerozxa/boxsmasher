@@ -49,7 +49,11 @@ function Button:draw()
 
 	-- Allow for custom drawing on the button that can override the text
 	if not self.onDraw or not self.onDraw() then
-		love.graphics.setFont(fonts.sans.big)
+		if #self.label > 25 then
+			love.graphics.setFont(fonts.sans.medium)
+		else
+			love.graphics.setFont(fonts.sans.big)
+		end
 
 		drawCenteredText(self.x, self.y+2, self.w, self.h, self.label)
 	end

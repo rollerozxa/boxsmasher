@@ -28,6 +28,16 @@ local statsBtn = Button:new{
 	end
 }
 
+local aboutBtn = Button:new{
+	x = 40*17-20, y = 40*11,
+	w = 300, h = 96,
+	label = S("About"),
+	keybind = "a",
+	onClick = function()
+		switchState("about")
+	end
+}
+
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
 local function newBox(x,y,w,h)
@@ -54,6 +64,7 @@ end
 function scenes.mainmenu.update(dt)
 	playBtn:update()
 	statsBtn:update()
+	aboutBtn:update()
 
 	world:update(dt)
 
@@ -88,6 +99,7 @@ function scenes.mainmenu.draw()
 
 	playBtn:draw()
 	statsBtn:draw()
+	aboutBtn:draw()
 
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)
