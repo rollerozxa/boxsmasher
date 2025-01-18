@@ -52,6 +52,7 @@ end
 
 -- common
 r"assets"
+r"draw"
 r"util"
 r"savegame"
 

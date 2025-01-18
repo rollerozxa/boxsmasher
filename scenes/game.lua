@@ -44,34 +44,17 @@ local joints = {}
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
 local function newBox(x,y,w,h)
-
-	-- New dynamic rectangle collider, the box!
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
 	box:setMass(box:getMass()*0.25)
 
-	-- Give the box a random colour, save it to the box object's userdata so
-	-- it can be accessed in the draw method.
 	box.colour = coolRandomColour()
 
-	-- Redefine the box object's draw method, draw a filled box with the colour
-	-- stored in userdata (the colour method variable)
 	function box:draw()
-		love.graphics.setColor(self.colour.r, self.colour.g, self.colour.b)
-		rotatedRectangle('fill', self:getX(), self:getY(), w, h, self:getAngle())
-		love.graphics.setColor(0,0,0)
-		rotatedRectangle('line', self:getX(), self:getY(), w, h, self:getAngle())
-
-		if dbg.box_pos.enabled then
-			love.graphics.setColor(1,1,1)
-			love.graphics.setFont(fonts.sans.tiny)
-			love.graphics.print('{'..math.floor(self:getX())..','..math.floor(self:getY())..'}', self:getX(), self:getY())
-		end
+		draw.box(self:getX(), self:getY(), w, h, self:getAngle(), box.colour)
 	end
 
-	-- Add the box object to the boxes table (actually a reference) so it can be iterated over.
 	table.insert(boxes, box)
 
-	-- One more box in the level!
 	boxNum = boxNum + 1
 end
 
@@ -82,6 +65,7 @@ local grabbedBall = false
 
 -- Random colour for box HUD
 local randc
+local randc2
 
 -- Throw vector
 local throw = {x = 0, y = 0}
@@ -146,6 +130,8 @@ function scenes.game.init()
 	end
 
 	totalBoxes = boxNum
+
+	randc2 = coolRandomColour()
 end
 
 function scenes.game.update(dt)
@@ -181,24 +167,7 @@ function scenes.game.update(dt)
 				ball.debug_step = 0
 
 				function ball:draw()
-					local angle = self:getAngle()
-					local x, y = self:getX(), self:getY()
-
-					-- Body w/ outline
-					love.graphics.circleOutlined(x, y, 30, {self.colour.r,self.colour.g,self.colour.b}, {0,0,0})
-
-					-- Offset of the eyes from the center of the ball
-					local offset = 15
-
-					-- Eyes
-					love.graphics.circleOutlined(x+math.cos(angle+math.pi/2+15)*offset, y+math.sin(angle+math.pi/2+15)*offset, 9, {1,1,1}, {0,0,0})
-					love.graphics.circleOutlined(x+math.cos(angle+math.pi/2-15)*offset, y+math.sin(angle+math.pi/2-15)*offset, 9, {1,1,1}, {0,0,0})
-
-					-- Pupil
-					love.graphics.setColor(0,0,0)
-					love.graphics.circle("fill", x+math.cos(angle+math.pi/2.3+15)*offset, y+math.sin(angle+math.pi/2+15)*offset, 2)
-					love.graphics.circle("fill", x+math.cos(angle+math.pi/2.3-15)*offset, y+math.sin(angle+math.pi/2-15)*offset, 2)
-
+					draw.ball(self:getX(), self:getY(), self:getAngle(), ball.colour)
 				end
 
 				joints.boxMouse = love.physics.newMouseJoint(ball.body, mx, my)
@@ -296,10 +265,12 @@ function scenes.game.draw()
 	love.graphics.print(string.format("%d/%d (%d%%)", boxNum, totalBoxes, (boxNum/totalBoxes)*100), 60, 15)
 
 	love.graphics.setLineWidth(4)
-	love.graphics.circle("line", 30, 80, 20)
+	draw.ball(30, 80, 0, randc2, 25)
 
 	if game.ballsLeft < 1 then
 		love.graphics.setColor(1,0,0)
+	else
+		love.graphics.setColor(1,1,1)
 	end
 
 	love.graphics.print(string.format("x%d", game.ballsLeft), 60, 70)

@@ -21,24 +21,13 @@ local playBtn = Button:new{
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
 local function newBox(x,y,w,h)
-
-	-- New dynamic rectangle collider, the box!
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
-
-	-- Give the box a random colour, save it to the box object's userdata so
-	-- it can be accessed in the draw method.
 	box.colour = coolRandomColour()
 
-	-- Redefine the box object's draw method, draw a filled box with the colour
-	-- stored in userdata (the colour method variable)
 	function box:draw()
-		love.graphics.setColor(self.colour.r, self.colour.g, self.colour.b)
-		rotatedRectangle('fill', self:getX(), self:getY(), w, h, self:getAngle())
-		love.graphics.setColor(0,0,0)
-		rotatedRectangle('line', self:getX(), self:getY(), w, h, self:getAngle())
+		draw.box(self:getX(), self:getY(), w, h, self:getAngle(), box.colour)
 	end
 
-	-- Add the box object to the boxes table (actually a reference) so it can be iterated over.
 	table.insert(boxes, box)
 end
 
