@@ -181,6 +181,13 @@ function drawCenteredText(x, y, w, h, text)
 	love.graphics.print(text, x+w/2, y+h/2, 0, 1, 1, textW/2, textH/2)
 end
 
+function drawRightText(x, y, w, text)
+	local font   = love.graphics.getFont()
+	local textW  = font:getWidth(text)
+
+	love.graphics.print(text, x+w-textW, y)
+end
+
 -- Draw some text that's centered within the specified rectangle, ROTATED!
 function drawCenteredTextRot(x, y, w, h, text, angle)
 	-- Get the current font, calculate the width and height of its

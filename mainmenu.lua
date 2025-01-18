@@ -80,6 +80,8 @@ function scenes.mainmenu.update(dt)
 	step = step + 1
 end
 
+require("_version")
+
 function scenes.mainmenu.draw()
 
 	world:draw()
@@ -98,4 +100,11 @@ function scenes.mainmenu.draw()
 	end
 	love.graphics.setColor(1,1,0.3)
 	drawCenteredTextRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8, step)
+
+	love.graphics.setColor(1,1,1)
+	love.graphics.setFont(fonts.sans.small)
+	drawRightText(0, base_resolution.y-50, base_resolution.x-5, "© 2023-2024 ROllerozxa")
+	drawRightText(0, base_resolution.y-25, base_resolution.x-5, "Licensed under the GPLv3. Do distribute!")
+
+	love.graphics.print("Box Smasher v" .. GAME_VERSION, 5, base_resolution.y-25)
 end
