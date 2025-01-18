@@ -64,9 +64,10 @@ r"gui/button"
 r"gui/texbutton"
 
 -- scenes
-r"scenes/mainmenu"
 r"scenes/game"
+r"scenes/mainmenu"
 r"scenes/selectlevel"
+r"scenes/statistics"
 
 -- overlays
 r"overlays/final"
