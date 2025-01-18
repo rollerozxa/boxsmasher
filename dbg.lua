@@ -1,4 +1,4 @@
--- dbg.lua: Debug utilities
+-- Debug utilities
 
 return {
 	-- Draw coordinates, and visualise the current cursor position both scaled and unscaled.

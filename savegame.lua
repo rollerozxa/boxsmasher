@@ -1,5 +1,4 @@
--- savegame.lua: Provides a simple key/value datastore for persisting data between game starts.
-
+-- Provides a simple key/value datastore for persisting data between game starts.
 -- The data is serialised into JSON and gets saved into a file whenever a value is changed.
 
 savegame = {

@@ -14,6 +14,6 @@ function TexButton:draw()
 		love.graphics.setColor(1,1,1)
 	end
 
-	love.graphics.draw(assets[self.texture], self.x, self.y, 0,
+	love.graphics.draw(images[self.texture], self.x, self.y, 0,
 		self.scale or 1, self.scale or 1)
 end

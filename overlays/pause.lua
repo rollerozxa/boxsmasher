@@ -1,4 +1,4 @@
--- pause.lua: Pause menu overlay
+-- Pause overlay
 
 overlays.pause = {}
 

@@ -1,4 +1,4 @@
--- game.lua: Main game scene.
+-- Main game scene
 
 scenes.game = {}
 
@@ -309,7 +309,7 @@ function scenes.game.draw()
 
 	if not game.seenTutorial then
 		love.graphics.setColor(1,1,1)
-		love.graphics.draw(assets.tutorial, 0, 0, 0, 1, 1)
+		love.graphics.draw(images.tutorial, 0, 0, 0, 1, 1)
 
 		love.graphics.setFont(fonts.sans.big)
 		love.graphics.print("Tap and drag\nto shoot...", 40*7, 40*3)

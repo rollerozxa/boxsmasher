@@ -1,4 +1,4 @@
--- main.lua: Main script, take care of scenes and initialisations.
+-- Main entrypoint file
 
 game = {
 	-- The current level, if a level has been opened.
@@ -51,7 +51,7 @@ local r = function(file)
 end
 
 -- common
-r"fonts"
+r"assets"
 r"util"
 r"savegame"
 
@@ -60,14 +60,14 @@ r"gui/button"
 r"gui/texbutton"
 
 -- scenes
-r"mainmenu"
-r"game"
-r"selectlevel"
+r"scenes/mainmenu"
+r"scenes/game"
+r"scenes/selectlevel"
 
 -- overlays
-r"final"
-r"success"
-r"pause"
+r"overlays/final"
+r"overlays/success"
+r"overlays/pause"
 
 dbg = r"dbg"
 
@@ -86,21 +86,9 @@ function love.load()
 		love.window.setFullscreen(true)
 	end
 
-	assets = {
-		back_btn = newImage("back_btn"),
-		lvlok = newImage("lvlok"),
-		lock = newImage("lock"),
-		menu = newImage("menu"),
-		tutorial = newImage("tutorial")
-	}
-
-	fonts = initFonts()
-
-	sounds = {
-		click = newSound("click"),
-		pop = newSound("pop"),
-		success = newSound("success")
-	}
+	images = assets.loadImages()
+	fonts = assets.loadFonts()
+	sounds = assets.loadSounds()
 
 	local totalLevels = 0
 	while true do
@@ -157,7 +145,6 @@ end
 
 local trans_alpha = 0
 
--- On draw callback
 function love.draw()
 	-- Offset canvas using 'offset', scale up canvas
 	-- using a factor of res / base_res

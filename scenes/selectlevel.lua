@@ -1,4 +1,4 @@
--- selectlevel.lua: Select level scene
+-- Select level scene
 
 scenes.selectlevel = {}
 
@@ -78,14 +78,14 @@ function scenes.selectlevel.draw()
 			love.graphics.print(levelnum, x * 150 - 70, 130 + y * 150)
 		else
 			-- Otherwise, draw a lock icon (to signify the level has not yet been unlocked)
-			love.graphics.draw(assets.lock, x * 150 - 80, 128 + y * 150, 0, 0.75, 0.75)
+			love.graphics.draw(images.lock, x * 150 - 80, 128 + y * 150, 0, 0.75, 0.75)
 		end
 
 		-- Through a perculiar turn of events, level completion can be checked by seeing if
 		-- the next level is unlocked. If it is not unlocked, then it is the newest unlocked
 		-- level, and the player hasn't completed it yet.
 		if canPlay(levelnum+1) then
-			love.graphics.draw(assets.lvlok, x * 150 - 80, 128 + y * 150, 0, 0.75, 0.75)
+			love.graphics.draw(images.lvlok, x * 150 - 80, 128 + y * 150, 0, 0.75, 0.75)
 		end
 	end
 end

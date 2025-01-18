@@ -1,8 +1,8 @@
--- mainmenu.lua: Main menu scene.
+-- Main menu scene
 
 scenes.mainmenu = {}
 
-local splashes = splitNewline(love.filesystem.read("splashes.txt"))
+local splashes = splitNewline(love.filesystem.read("data/splashes.txt"))
 
 local boxes = {}
 
@@ -56,10 +56,6 @@ function scenes.mainmenu.update(dt)
 	playBtn:update()
 
 	world:update(dt)
-
-	if love.keyboard.isDown("q") then
-		love.event.quit()
-	end
 
 	if step % 4 == 0 then
 		local lolo = math.random(0, base_resolution.x)

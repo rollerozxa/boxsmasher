@@ -1,4 +1,4 @@
--- util.lua: Miscellaneous utility functions.
+-- Miscellaneous utility functions
 
 -- Background drawer helper
 function drawBG(r,g,b)
@@ -144,7 +144,7 @@ function coolRandomColour()
 end
 
 -- Convert a scaled coordinate into the internal counterpart. Needed when
--- grabbing the mouse's coordinate and checking aginst coordinates that
+-- grabbing the mouse's coordinate and checking against coordinates that
 -- expect the internal resolution that the game is running at.
 function unscaled(x, y)
 	return
@@ -158,16 +158,6 @@ function outOfBounds(x,y)
 
 	return (x < -safe or x > base_resolution.x+safe)
 		or (y < -safe or y > base_resolution.y+safe)
-end
-
--- Helper function to load in an image file
-function newImage(filename)
-	return love.graphics.newImage("assets/"..filename..".png")
-end
-
--- Helper function to load in a sound file
-function newSound(filename)
-	return love.audio.newSource("sounds/"..filename..".ogg", "static")
 end
 
 -- Draw some text that's centered within the specified rectangle
