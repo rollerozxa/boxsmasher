@@ -88,8 +88,7 @@ function scenes.game.init()
 	randc = coolRandomColour()
 
 	-- Load level
-	--lvl = require('levels.'..game.level)
-	lvl = dofile("levels/"..game.level..".lua")
+	lvl = loadstring(love.filesystem.read("levels/"..game.level..".lua"))()
 
 	game.ballsLeft = lvl.ballsLeft or 99
 
