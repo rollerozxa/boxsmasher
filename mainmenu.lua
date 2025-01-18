@@ -4,21 +4,19 @@ scenes.mainmenu = {}
 
 local splashes = splitNewline(love.filesystem.read("splashes.txt"))
 
-local gui = {
-	playbtn = {
-		type = "button",
-		x = 490, y = 10*32,
-		size = { x = 300, y = 96 },
-		label = S("Play"),
-		on_click = function()
-			switchState("selectlevel")
-		end
-	}
-}
-
 local boxes = {}
 
 local current_splash = 1
+
+local playBtn = Button:new{
+	x = 490, y = 10*32,
+	w = 300, h = 96,
+	label = S("Play"),
+	keybind = "p",
+	onClick = function()
+		switchState("selectlevel")
+	end
+}
 
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
@@ -55,9 +53,13 @@ function scenes.mainmenu.init()
 end
 
 function scenes.mainmenu.update(dt)
-	gtk.update(gui)
+	playBtn:update()
 
 	world:update(dt)
+
+	if love.keyboard.isDown("q") then
+		love.event.quit()
+	end
 
 	if step % 4 == 0 then
 		local lolo = math.random(0, base_resolution.x)
@@ -88,7 +90,7 @@ function scenes.mainmenu.draw()
 
 	love.graphics.setLineWidth(4)
 
-	gtk.draw(gui)
+	playBtn:draw()
 
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)
@@ -103,7 +105,7 @@ function scenes.mainmenu.draw()
 
 	love.graphics.setColor(1,1,1)
 	love.graphics.setFont(fonts.sans.small)
-	drawRightText(0, base_resolution.y-50, base_resolution.x-5, "© 2023-2024 ROllerozxa")
+	drawRightText(0, base_resolution.y-50, base_resolution.x-5, "© 2023-2025 ROllerozxa")
 	drawRightText(0, base_resolution.y-25, base_resolution.x-5, "Licensed under the GPLv3. Do distribute!")
 
 	love.graphics.print("Box Smasher v" .. GAME_VERSION, 5, base_resolution.y-25)

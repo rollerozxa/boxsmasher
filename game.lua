@@ -2,30 +2,27 @@
 
 scenes.game = {}
 
-local gui = {
-	menu = {
-		type = "tex_button",
-		x = base_resolution.x-(96), y = 0,
-		size = { x = 96, y = 110 },
-		texture = "menu",
-		scale = 2.5,
-		on_click = function()
-			switchOverlay('pause')
-		end,
-		keybind = 'escape'
-	},
-	restart_btn = {
-		type = "button",
-		x = 40*23, y = 0,
-		size = { x = 40*5.5, y = 40*1.8 },
-		label = S("Restart"),
-		on_click = function()
-			scenes.game.init()
-		end,
-		is_visible = function()
-			return game.ballsLeft == 0
-		end
-	}
+local menuBtn = TexButton:new{
+	x = base_resolution.x-(96), y = 0,
+	w = 96, h = 110,
+	texture = "menu",
+	scale = 2.5,
+	onClick = function()
+		switchOverlay('pause')
+	end,
+	keybind = 'escape'
+}
+
+local restartBtn = Button:new{
+	x = 40*23, y = 0,
+	w = 40*5.5, h = 40*1.8,
+	label = S("Restart"),
+	onClick = function()
+		scenes.game.init()
+	end,
+	isVisible = function()
+		return game.ballsLeft == 0
+	end
 }
 
 local lvl
@@ -152,7 +149,8 @@ function scenes.game.init()
 end
 
 function scenes.game.update(dt)
-	gtk.update(gui)
+	menuBtn:update()
+	restartBtn:update()
 
 	if game.overlay or game.trans then return end
 
@@ -306,7 +304,8 @@ function scenes.game.draw()
 
 	love.graphics.print(string.format("x%d", game.ballsLeft), 60, 70)
 
-	gtk.draw(gui)
+	menuBtn:draw()
+	restartBtn:draw()
 
 	if not game.seenTutorial then
 		love.graphics.setColor(1,1,1)

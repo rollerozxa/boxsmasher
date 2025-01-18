@@ -46,23 +46,33 @@ function S(text, ...)
 	return string.format(text, ...)
 end
 
-require("fonts")
-require("util")
-require("gtk")
-require("savegame")
+local r = function(file)
+	return require(file)
+end
 
-require("mainmenu")
-require("game")
-require("selectlevel")
+-- common
+r"fonts"
+r"util"
+r"savegame"
 
-require("final")
-require("success")
-require("pause")
+-- gui
+r"gui/button"
+r"gui/texbutton"
 
-dbg = require("dbg")
+-- scenes
+r"mainmenu"
+r"game"
+r"selectlevel"
 
-bf = require("lib.breezefield")
-json = require("lib.json")
+-- overlays
+r"final"
+r"success"
+r"pause"
+
+dbg = r"dbg"
+
+bf = r"lib.breezefield"
+json = r"lib.json"
 
 -- On load callback
 function love.load()

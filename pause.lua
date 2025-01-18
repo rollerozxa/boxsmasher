@@ -2,43 +2,43 @@
 
 overlays.pause = {}
 
-local gui = {
-	resumebtn = {
-		type = "button",
-		x = 480, y = 40*5,
-		size = { x = 40*8, y = 96 },
-		label = S("Resume"),
-		on_click = function()
-			switchOverlay(false)
-		end,
-		keybind = 'escape'
-	},
-	restartbtn = {
-		type = "button",
-		x = 480, y = 40*9,
-		size = { x = 40*8, y = 96 },
-		label = S("Restart"),
-		on_click = function()
-			switchOverlay(false)
-			scenes.game.init()
-		end
-	},
-	exitbtn = {
-		type = "button",
-		x = 480, y = 40*13,
-		size = { x = 40*8, y = 96 },
-		label = S("Exit"),
-		on_click = function()
-			switchOverlay(false)
-			switchState('selectlevel')
-		end
-	}
+local resumeBtn = Button:new{
+	x = 480, y = 40*5,
+	w = 40*8, h = 96,
+	label = S("Resume"),
+	keybind = "escape",
+	onClick = function()
+		switchOverlay(false)
+	end,
+	isOverlay = true
+}
+
+local restartBtn = Button:new{
+	x = 480, y = 40*9,
+	w = 40*8, h = 96,
+	label = S("Restart"),
+	onClick = function()
+		switchOverlay(false)
+		scenes.game.init()
+	end,
+	isOverlay = true
+}
+
+local exitBtn = Button:new{
+	x = 480, y = 40*13,
+	w = 40*8, h = 96,
+	label = S("Exit"),
+	onClick = function()
+		switchOverlay(false)
+		switchState('selectlevel')
+	end,
+	isOverlay = true
 }
 
 function overlays.pause.update()
-	--gui = dofile('gui.lua')
-
-	gtk.update(gui, true)
+	resumeBtn:update()
+	restartBtn:update()
+	exitBtn:update()
 end
 
 function overlays.pause.draw()
@@ -49,5 +49,7 @@ function overlays.pause.draw()
 	love.graphics.setFont(fonts.sans.bigger)
 	drawCenteredText(4, 64, base_resolution.x, 64, S("Game paused"))
 
-	gtk.draw(gui, true)
+	resumeBtn:draw()
+	restartBtn:draw()
+	exitBtn:draw()
 end

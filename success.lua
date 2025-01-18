@@ -2,31 +2,29 @@
 
 overlays.success = {}
 
-local gui = {
-	back = {
-		type = "button",
-		x = 390, y = 540,
-		size = { x = 200, y = 96 },
-		label = S("Back"),
-		on_click = function()
-			switchOverlay(false)
-			switchState("selectlevel")
-		end
-	},
+local backBtn = Button:new{
+	x = 390, y = 540,
+	w = 200, h = 96,
+	label = S("Back"),
+	onClick = function()
+		switchOverlay(false)
+		switchState("selectlevel")
+	end,
+	isOverlay = true
+}
 
-	nextlevel = {
-		type = "button",
-		x = 620, y = 540,
-		size = { x = 270, y = 96 },
-		label = S("Next level"),
-		on_click = function()
-			-- Increment level and restart game scene, so next level is played.
-			game.level = game.level + 1
+local nextBtn = Button:new{
+	x = 620, y = 540,
+	w = 270, h = 96,
+	label = S("Next level"),
+	onClick = function()
+		-- Increment level and restart game scene, so next level is played.
+		game.level = game.level + 1
 
-			switchOverlay(false)
-			switchState("game")
-		end
-	}
+		switchOverlay(false)
+		switchState("game")
+	end,
+	isOverlay = true
 }
 
 function overlays.success.init()
@@ -40,7 +38,8 @@ function overlays.success.init()
 end
 
 function overlays.success.update()
-	gtk.update(gui, true)
+	backBtn:update()
+	nextBtn:update()
 end
 
 function overlays.success.draw()
@@ -60,5 +59,6 @@ function overlays.success.draw()
 		love.graphics.print(texts[i], 420, 4*32+(i*48))
 	end
 
-	gtk.draw(gui, true)
+	backBtn:draw()
+	nextBtn:draw()
 end

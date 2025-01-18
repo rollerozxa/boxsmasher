@@ -2,17 +2,15 @@
 
 overlays.final = {}
 
-local gui = {
-	back = {
-		type = "button",
-		x = 480, y = 40*13,
-		size = { x = 40*8, y = 96 },
-		label = S("yay ^-^"),
-		on_click = function()
-			switchOverlay(false)
-			switchState("selectlevel")
-		end
-	},
+local backBtn = Button:new{
+	x = 480, y = 40*13,
+	w = 40*8, h = 96,
+	label = S("yay ^-^"),
+	onClick = function()
+		switchOverlay(false)
+		switchState("selectlevel")
+	end,
+	isOverlay = true
 }
 
 function overlays.final.init()
@@ -26,7 +24,7 @@ function overlays.final.init()
 end
 
 function overlays.final.update()
-	gtk.update(gui, true)
+	backBtn:update()
 end
 
 local text = {
@@ -52,5 +50,5 @@ function overlays.final.draw()
 		y = y + 48
 	end
 
-	gtk.draw(gui, true)
+	backBtn:draw()
 end
