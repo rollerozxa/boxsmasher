@@ -2,8 +2,14 @@
 -- The data is serialised into JSON and gets saved into a file whenever a value is changed.
 
 savegame = {
-	data = {}
+	data = {
+		statistics = {}
+	},
+	dirty = false
 }
+
+local threadChannel = love.thread.getChannel("savegame_channel")
+local saveThread
 
 -- Load an existing savegame JSON file, if it exists.
 function savegame.load()
@@ -11,12 +17,28 @@ function savegame.load()
 	if savejson ~= nil then
 		savegame.data = json.decode(savejson)
 	end
+
+	saveThread = love.thread.newThread("savegame/save_thread.lua")
+    saveThread:start()
 end
 
 -- Save the current data to file. Keep in mind this is usually
 -- done automatically by savegame.set().
 function savegame.save()
-	love.filesystem.write("savedata.json", json.encode(savegame.data))
+	print("Saving...")
+	threadChannel:push(savegame.data)
+end
+
+local saveDelta = 0
+function savegame.runSaveTimer(dt)
+	saveDelta = saveDelta + dt
+
+	statistics.add("playtime", dt, true)
+
+	if (saveDelta > 15 and savegame.dirty) or saveDelta > 60 then
+		saveDelta = 0
+		savegame.save()
+	end
 end
 
 -- Get the value of 'key'
@@ -27,5 +49,5 @@ end
 -- Set the value of 'key' to 'value'
 function savegame.set(key, value)
 	savegame.data[key] = value
-	savegame.save()
+	savegame.dirty = true
 end

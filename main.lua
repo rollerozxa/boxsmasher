@@ -54,7 +54,10 @@ end
 r"assets"
 r"draw"
 r"util"
-r"savegame"
+
+-- savegame
+r"savegame/savegame"
+r"savegame/statistics"
 
 -- gui
 r"gui/button"
@@ -142,6 +145,8 @@ function love.update(dt)
 			sparsifier[def.keybind] = love.keyboard.isDown(def.keybind)
 		end
 	end
+
+	savegame.runSaveTimer(dt)
 end
 
 local trans_alpha = 0
@@ -234,4 +239,10 @@ function love.resize(w, h)
 	-- Calculate offset (canvas should be in the middle, fill the edges with void)
 	offset.x = (w - resolution.x) / 2
 	offset.y = (h - resolution.y) / 2
+end
+
+function love.quit()
+	savegame.save()
+
+	return false
 end

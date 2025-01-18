@@ -197,6 +197,8 @@ function scenes.game.update(dt)
 		grabbedBall = false
 		game.ballsLeft = game.ballsLeft - 1
 
+		statistics.add("balls", 1)
+
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
 		ball:applyLinearImpulse(throw.x*30, throw.y*30)
@@ -208,11 +210,12 @@ function scenes.game.update(dt)
 			boxes[key] = nil
 			boxNum = boxNum - 1
 			sounds.pop:clone():play()
+			statistics.add('boxes', 1)
 		end
 	end
 
 	if tableEmpty(boxes) then
-		-- LAST LEVEL!!!
+		statistics.add("levels", 1)
 		if game.level == game.totalLevels then
 			switchOverlay('final')
 		else
