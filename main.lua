@@ -80,6 +80,8 @@ dbg = r"dbg"
 bf = r"lib.breezefield"
 json = r"lib.json"
 
+VERSION = json.decode(love.filesystem.read("data/version.json"))
+
 -- On load callback
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest', 4)

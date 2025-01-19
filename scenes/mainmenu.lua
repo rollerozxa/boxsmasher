@@ -89,8 +89,6 @@ function scenes.mainmenu.update(dt)
 	step = step + 1
 end
 
-require("_version")
-
 function scenes.mainmenu.draw()
 
 	world:draw()
@@ -117,5 +115,5 @@ function scenes.mainmenu.draw()
 	drawRightText(0, base_resolution.y-50, base_resolution.x-5, "© 2023-2025 ROllerozxa")
 	drawRightText(0, base_resolution.y-25, base_resolution.x-5, "Licensed under the GPLv3. Do distribute!")
 
-	love.graphics.print("Box Smasher v" .. GAME_VERSION, 5, base_resolution.y-25)
+	love.graphics.print("Box Smasher v" .. VERSION.string, 5, base_resolution.y-25)
 end
