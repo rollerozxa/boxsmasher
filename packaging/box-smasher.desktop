@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Box Smasher
+Exec=love %f
+Type=Application
+Categories=Game;
+Terminal=false
+Icon=box-smasher
+NoDisplay=true

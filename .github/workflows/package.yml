@@ -16,18 +16,18 @@ jobs:
     - name: Package game
       run: |
         sudo apt-get install -q -y zip
-        zip -r "box-smasher.love" ./* -x '*.git*'
+        ./packaging/make-game.sh
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: box-smasher.love
-        path: box-smasher.love
+        path: packaging/bin/box-smasher.love
 
     - name: Upload to dev tag
       uses: pyTooling/Actions/releaser@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: 'dev'
-        files: ./box-smasher.love
+        files: packaging/bin/box-smasher.love
       if: github.event_name != 'pull_request'
