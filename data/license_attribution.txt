@@ -16,6 +16,14 @@ pop.ogg:
 	CC0 - ConarB13
 	https://freesound.org/people/ConarB13/sounds/401542/
 
+spawn.ogg:
+	CC0 - rddrus
+	https://freesound.org/people/rddrus/sounds/650942/
+
 success.ogg:
 	CC0 - Kagateni
 	https://freesound.org/people/Kagateni/sounds/404359/
+
+throw.ogg:
+	CC0 - moogy73
+	https://freesound.org/people/moogy73/sounds/425694/

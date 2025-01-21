@@ -51,6 +51,8 @@ function assets.loadSounds()
 	return {
 		click = newSound("click"),
 		pop = newSound("pop"),
-		success = newSound("success")
+		spawn = newSound("spawn"),
+		success = newSound("success"),
+		throw = newSound("throw")
 	}
 end
