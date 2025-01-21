@@ -8,7 +8,11 @@ function love.conf(t)
 	t.window.width = 1280
 	t.window.height = 720
 	t.window.borderless = false
-	t.window.resizable = true
+	if love._os == "Android" then
+		t.window.resizable = false
+	else
+		t.window.resizable = true
+	end
 	t.window.minwidth = 320
 	t.window.minheight = 180
 
