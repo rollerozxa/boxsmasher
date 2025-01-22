@@ -1,7 +1,6 @@
 
--- Author: ROllerozxa
-
 local lvl = {
+	author = 'ROllerozxa',
 	ballsLeft = 2,
 	throwBoundary = {
 		x = 40*1.5, y = 40*3,

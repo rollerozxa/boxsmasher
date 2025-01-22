@@ -1,7 +1,6 @@
 
--- Author: ROllerozxa
-
 return {
+	author = 'ROllerozxa',
 	ballsLeft = 1,
 	throwBoundary = {
 		x = 40*9, y = 40*4,
