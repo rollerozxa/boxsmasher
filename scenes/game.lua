@@ -139,7 +139,7 @@ function scenes.game.update(dt)
 
 	if overlay.isActive() or scene.isTransitioning() then return end
 
-	if not dbg.phys_pause.enabled then
+	if not dbg.isEnabled('phys_pause') then
 		world:update(dt)
 	end
 

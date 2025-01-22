@@ -47,10 +47,10 @@ function draw.box(x, y, w, h, angle, colour)
 	love.graphics.setColor(0,0,0)
 	rotatedRectangle('line', x, y, w, h, angle)
 
-	if dbg.box_pos.enabled then
+	if dbg.isEnabled('box_pos') then
 		love.graphics.setColor(1,1,1)
 		love.graphics.setFont(fonts.sans.tiny)
-		love.graphics.print('{'..math.floor(x)..','..math.floor(y)..'}', self:getX(), self:getY())
+		love.graphics.print('{'..math.floor(x)..','..math.floor(y)..'}', x, y)
 	end
 end
 

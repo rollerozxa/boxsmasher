@@ -45,6 +45,7 @@ end
 
 -- common
 r"assets"
+r"dbg"
 r"draw"
 r"overlay"
 r"scene"
@@ -69,8 +70,6 @@ r"scenes/statistics"
 r"overlays/final"
 r"overlays/success"
 r"overlays/pause"
-
-dbg = r"dbg"
 
 bf = r"lib.breezefield"
 json = r"lib.json"
@@ -122,16 +121,6 @@ function love.update(dt)
 		love.event.quit()
 	end
 
-	-- Debug options (accessible with F3+<arbitrary>, see dbg.lua)
-	if love.keyboard.isDown('f3') then
-		for id, def in pairs(dbg) do
-			if love.keyboard.isDown(def.keybind) and not sparsifier[def.keybind] then
-				dbg[id].enabled = not dbg[id].enabled
-			end
-			sparsifier[def.keybind] = love.keyboard.isDown(def.keybind)
-		end
-	end
-
 	savegame.runSaveTimer(dt)
 end
 
@@ -149,16 +138,6 @@ function love.draw()
 
 	scene.runDraw()
 	overlay.runDraw()
-
-	-- Call debug functionalities' draw functions
-	-- (if they're enabled)
-	for id, def in pairs(dbg) do
-		if def.enabled then
-			love.graphics.setColor(1,1,1)
-			love.graphics.setFont(fonts.sans.medium)
-			def.draw()
-		end
-	end
 
 	scene.performTransition()
 end
