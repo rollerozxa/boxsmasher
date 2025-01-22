@@ -105,12 +105,10 @@ function scenes.game.init()
 		local rect = world:newCollider("Rectangle", dim)
 		rect:setType("static")
 
-		rect.colour = ter.colour or { 125/256, 227/256, 102/256 }
-		local friction = ter.friction or 0.5
-		local restitution = ter.restitution or 0.33
+		ter.colour = { love.math.colorFromBytes(unpack(ter.colour or {125, 227, 102})) }
 
-		rect.fixture:setFriction(friction)
-		rect.fixture:setRestitution(restitution)
+		rect.fixture:setFriction(ter.friction or 0.5)
+		rect.fixture:setRestitution(ter.restitution or 0.33)
 
 		function rect:draw()
 			-- no-op
@@ -248,7 +246,7 @@ function scenes.game.draw()
 	-- Draw terrain rectangles (Breezefield is able to draw them itself but
 	-- getting the representation of a Box2D shape is weird, just do it ourself).
 	for _, ter in pairs(lvl.terrain) do
-		love.graphics.setColor(ter.colour or { 125/256, 227/256, 102/256 })
+		love.graphics.setColor(ter.colour)
 		love.graphics.rectangle('fill', ter.x, ter.y, ter.w, ter.h)
 	end
 

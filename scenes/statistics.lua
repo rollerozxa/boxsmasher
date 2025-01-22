@@ -69,7 +69,7 @@ function scenes.statistics.draw()
 		local offset = 150
 		local labelwidth = 450
 
-		love.graphics.setColor(9/256, 54/256, 87/256)
+		love.graphics.setColor(love.math.colorFromBytes(9, 54, 87))
 		love.graphics.rectangle("fill", 40, 30+i*100, 1000, 75)
 
 		love.graphics.setColor(1,1,1)
