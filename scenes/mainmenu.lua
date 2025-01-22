@@ -14,7 +14,7 @@ local playBtn = Button:new{
 	label = S("Play"),
 	keybind = "p",
 	onClick = function()
-		switchState("selectlevel")
+		scene.switch("selectlevel")
 	end
 }
 
@@ -24,7 +24,7 @@ local statsBtn = Button:new{
 	label = S("Statistics"),
 	keybind = "s",
 	onClick = function()
-		switchState("statistics")
+		scene.switch("statistics")
 	end
 }
 
@@ -34,7 +34,7 @@ local aboutBtn = Button:new{
 	label = S("About"),
 	keybind = "a",
 	onClick = function()
-		switchState("about")
+		scene.switch("about")
 	end
 }
 

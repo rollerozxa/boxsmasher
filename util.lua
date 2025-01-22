@@ -55,27 +55,6 @@ function splitNewline(str)
 	return tbl
 end
 
--- State switcher helper
-function switchState(state)
-	if game.trans then return end
-
-	game.trans = true
-	game.trans_step = 0
-	game.trans_to = state
-end
-
--- Overlay switcher helper
-function switchOverlay(state)
-	-- Ignore call if we're already on the same overlay
-	if game.overlay == state then return end
-
-	game.overlay = state
-
-	if game.overlay and overlays[game.overlay].init ~= nil then
-		overlays[game.overlay].init()
-	end
-end
-
 -- Axis-aligned bounding boxes (AABB) collision detection implementation
 function checkCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 	return	x1 < x2+w2

@@ -8,7 +8,7 @@ local menuBtn = TexButton:new{
 	texture = "menu",
 	scale = 2.5,
 	onClick = function()
-		switchOverlay('pause')
+		overlay.switch('pause')
 	end,
 	keybind = 'escape'
 }
@@ -137,7 +137,7 @@ function scenes.game.update(dt)
 	menuBtn:update()
 	restartBtn:update()
 
-	if game.overlay or game.trans then return end
+	if overlay.isActive() or scene.isTransitioning() then return end
 
 	if not dbg.phys_pause.enabled then
 		world:update(dt)
@@ -220,9 +220,9 @@ function scenes.game.update(dt)
 	if tableEmpty(boxes) then
 		statistics.add("levels", 1)
 		if game.level == game.totalLevels then
-			switchOverlay('final')
+			overlay.switch('final')
 		else
-			switchOverlay('success')
+			overlay.switch('success')
 		end
 	end
 

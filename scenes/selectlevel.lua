@@ -8,7 +8,7 @@ local backBtn = TexButton:new{
 	scale = 0.5,
 	texture = "back_btn",
 	onClick = function()
-		switchState("mainmenu")
+		scene.switch("mainmenu")
 	end,
 	keybind = "escape"
 }
@@ -41,7 +41,7 @@ function scenes.selectlevel.update()
 		-- Check that mouse is within the specific grid, is clicked, and the level clicked is playable.
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseReleased() and canPlay(levelnum) then
 			game.level = levelnum
-			switchState("game")
+			scene.switch("game")
 
 			sounds.click:clone():play()
 		end

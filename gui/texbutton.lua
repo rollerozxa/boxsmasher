@@ -2,7 +2,7 @@
 TexButton = Button:new()
 
 function TexButton:draw()
-	local hovering = mouseCollisionScaled(self.x, self.y, self.w, self.h) and (self.is_overlay or not game.overlay)
+	local hovering = mouseCollisionScaled(self.x, self.y, self.w, self.h) and (self.is_overlay or not overlay.isActive())
 
 	if hovering then
 		if love.mouse.isDown(1) then

@@ -8,7 +8,7 @@ local backBtn = Button:new{
 	label = S("Back"),
 	keybind = "escape",
 	onClick = function()
-		switchState("mainmenu")
+		scene.switch("mainmenu")
 	end,
 	isOverlay = true
 }

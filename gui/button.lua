@@ -10,7 +10,7 @@ end
 
 function Button:update()
 	if self.isVisible and not self.isVisible()
-			or (not self.isOverlay and game.overlay) then
+			or (not self.isOverlay and overlay.isActive()) then
 		return
 	end
 
@@ -30,7 +30,7 @@ function Button:draw()
 		return
 	end
 
-	local hovering = mouseCollisionScaled(self.x, self.y, self.w, self.h) and (self.isOverlay or not game.overlay)
+	local hovering = mouseCollisionScaled(self.x, self.y, self.w, self.h) and (self.isOverlay or not overlay.isActive())
 
 	if hovering then
 		if love.mouse.isDown(1) then

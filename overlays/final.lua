@@ -7,8 +7,8 @@ local backBtn = Button:new{
 	w = 40*8, h = 96,
 	label = S("yay ^-^"),
 	onClick = function()
-		switchOverlay(false)
-		switchState("selectlevel")
+		overlay.switch(false)
+		scene.switch("selectlevel")
 	end,
 	isOverlay = true
 }

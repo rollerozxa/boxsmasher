@@ -7,8 +7,8 @@ local backBtn = Button:new{
 	w = 200, h = 96,
 	label = S("Back"),
 	onClick = function()
-		switchOverlay(false)
-		switchState("selectlevel")
+		overlay.switch(false)
+		scene.switch("selectlevel")
 	end,
 	isOverlay = true
 }
@@ -21,8 +21,8 @@ local nextBtn = Button:new{
 		-- Increment level and restart game scene, so next level is played.
 		game.level = game.level + 1
 
-		switchOverlay(false)
-		switchState("game")
+		overlay.switch(false)
+		scene.switch("game")
 	end,
 	isOverlay = true
 }

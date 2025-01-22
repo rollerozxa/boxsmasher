@@ -5,10 +5,6 @@ game = {
 	level = 1,
 	-- How many levels have been unlocked, loaded from savegame.
 	levelsUnlocked = 1,
-	-- The current scene that should be shown.
-	state = "mainmenu",
-	-- The current overlay that should be shown, if applicable.
-	overlay = false,
 
 	-- The amount of balls left. Stored globally to be accessible from level success and such.
 	ballsLeft = 0
@@ -32,9 +28,6 @@ offset = {
 	y = 0
 }
 
-scenes = {}
-overlays = {}
-
 oldmousedown = false
 
 -- Keeps track of held down keys to prevent repeating actions.
@@ -53,6 +46,8 @@ end
 -- common
 r"assets"
 r"draw"
+r"overlay"
+r"scene"
 r"util"
 
 -- savegame
@@ -113,22 +108,12 @@ function love.load()
 	math.randomseed(os.time())
 
 	-- Hardcode initial state init
-	if scenes[game.state].init ~= nil then
-		scenes[game.state].init()
-	end
+	scene.runInit()
 end
 
 function love.update(dt)
-
-	if scenes[game.state].update ~= nil then
-		scenes[game.state].update(dt)
-	end
-
-	if game.overlay then
-		if overlays[game.overlay].update ~= nil then
-			overlays[game.overlay].update()
-		end
-	end
+	scene.runUpdate(dt)
+	overlay.runUpdate(dt)
 
 	oldmousedown = love.mouse.isDown(1)
 
@@ -150,8 +135,6 @@ function love.update(dt)
 	savegame.runSaveTimer(dt)
 end
 
-local trans_alpha = 0
-
 function love.draw()
 	-- Offset canvas using 'offset', scale up canvas
 	-- using a factor of res / base_res
@@ -164,27 +147,8 @@ function love.draw()
 	love.graphics.setFont(fonts.sans.medium)
 	love.graphics.setColor(1,1,1)
 
-	-- Call scene's draw function
-	local bg
-	if scenes[game.state].draw ~= nil then
-		if scenes[game.state].background then
-			bg = scenes[game.state].background
-
-			drawBG(love.math.colorFromBytes(bg.r, bg.g, bg.b))
-		end
-
-		scenes[game.state].draw()
-	end
-
-	if game.overlay then
-		if overlays[game.overlay].draw ~= nil then
-			overlays[game.overlay].draw()
-		end
-	end
-
-	if scenes[game.state].background then
-		drawBGLetterbox(love.math.colorFromBytes(bg.r, bg.g, bg.b))
-	end
+	scene.runDraw()
+	overlay.runDraw()
 
 	-- Call debug functionalities' draw functions
 	-- (if they're enabled)
@@ -196,34 +160,7 @@ function love.draw()
 		end
 	end
 
-	if game.trans then
-		if game.trans_step < 25 then
-			trans_alpha = trans_alpha + 10
-		else
-			trans_alpha = trans_alpha - 10
-		end
-
-		love.graphics.setColor(0,0,0,trans_alpha/255)
-
-		love.graphics.push()
-		love.graphics.origin()
-
-		love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-
-		love.graphics.pop()
-
-		game.trans_step = game.trans_step + 1
-
-		if game.trans_step == 25 then
-			game.state = game.trans_to
-
-			if scenes[game.state].init ~= nil then
-				scenes[game.state].init()
-			end
-		elseif game.trans_step == 50 then
-			game.trans = false
-		end
-	end
+	scene.performTransition()
 end
 
 function love.resize(w, h)

@@ -6,7 +6,7 @@ local backBtn = Button:new{
 	label = S("Back to main menu"),
 	keybind = "escape",
 	onClick = function()
-		switchState("mainmenu")
+		scene.switch("mainmenu")
 	end
 }
 

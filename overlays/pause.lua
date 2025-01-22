@@ -8,7 +8,7 @@ local resumeBtn = Button:new{
 	label = S("Resume"),
 	keybind = "escape",
 	onClick = function()
-		switchOverlay(false)
+		overlay.switch(false)
 	end,
 	isOverlay = true
 }
@@ -18,7 +18,7 @@ local restartBtn = Button:new{
 	w = 40*8, h = 96,
 	label = S("Restart"),
 	onClick = function()
-		switchOverlay(false)
+		overlay.switch(false)
 		scenes.game.init()
 	end,
 	isOverlay = true
@@ -29,8 +29,8 @@ local exitBtn = Button:new{
 	w = 40*8, h = 96,
 	label = S("Exit"),
 	onClick = function()
-		switchOverlay(false)
-		switchState('selectlevel')
+		overlay.switch(false)
+		scene.switch('selectlevel')
 	end,
 	isOverlay = true
 }
