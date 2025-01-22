@@ -58,7 +58,7 @@ scenes.mainmenu.background = { r = 44, g = 100, b = 141 }
 function scenes.mainmenu.init()
 	step = 0
 
-	world = bf.newWorld(0, 90.82*2, true)
+	world = bf.World:new(0, 90.82*2, true)
 end
 
 function scenes.mainmenu.update(dt)
@@ -102,13 +102,15 @@ function scenes.mainmenu.draw()
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)
 
-	if string.len(splashes[current_splash]) > 20 then
+	if splashes[current_splash]:len() > 30 then
+		love.graphics.setFont(fonts.sans.small)
+	elseif splashes[current_splash]:len() > 20 then
 		love.graphics.setFont(fonts.sans.medium)
 	else
 		love.graphics.setFont(fonts.sans.big)
 	end
 	love.graphics.setColor(1,1,0.3)
-	drawCenteredTextRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8, step)
+	drawCenteredTextRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8)
 
 	love.graphics.setColor(1,1,1)
 	love.graphics.setFont(fonts.sans.small)

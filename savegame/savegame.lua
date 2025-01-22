@@ -25,7 +25,6 @@ end
 -- Save the current data to file. Keep in mind this is usually
 -- done automatically by savegame.set().
 function savegame.save()
-	print("Saving...")
 	threadChannel:push(savegame.data)
 end
 

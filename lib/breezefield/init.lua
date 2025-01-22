@@ -10,10 +10,6 @@ local bf = {}
 local Collider = require('lib/breezefield/collider')
 local World = require('lib/breezefield/world')
 
-function bf.newWorld(...)
-	return bf.World:new(...)
-end
-
 bf.Collider = Collider
 bf.World = World
 

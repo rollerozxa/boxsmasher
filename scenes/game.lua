@@ -73,7 +73,7 @@ local throw = {x = 0, y = 0}
 scenes.game.background = { r = 43, g = 64, b = 43 }
 
 function scenes.game.init()
-	world = bf.newWorld(0, 90.82*1.5, true)
+	world = bf.World:new(0, 90.82*1.5, true)
 
 	-- Reset variables
 	terrain = {}

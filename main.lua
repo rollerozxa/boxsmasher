@@ -98,7 +98,6 @@ function love.load()
 		end
 	end
 	game.totalLevels = totalLevels
-	print(totalLevels)
 
 	savegame.load()
 	game.levelsUnlocked = savegame.get('levelsUnlocked') or 1
