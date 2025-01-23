@@ -1,8 +1,5 @@
 -- Main entrypoint file
 
-game = {
-}
-
 -- Base internal resolution ("canvas" resolution)
 base_resolution = {
 	x = 1280,
@@ -40,6 +37,7 @@ end
 r"assets"
 r"dbg"
 r"draw"
+r"level"
 r"overlay"
 r"scene"
 r"util"
@@ -82,19 +80,9 @@ function love.load()
 	fonts = assets.loadFonts()
 	sounds = assets.loadSounds()
 
-	local totalLevels = 0
-	while true do
-		if love.filesystem.getInfo("levels/"..(totalLevels+1)..".lua") then
-			totalLevels = totalLevels + 1
-		else
-			break
-		end
-	end
-	game.totalLevels = totalLevels
-
 	savegame.load()
 	savegame.setDefault('levelsUnlocked', 1)
-	game.seenTutorial = savegame.get('seenTutorial') or false
+	savegame.setDefault('seenTutorial', false)
 
 	math.randomseed(os.time())
 

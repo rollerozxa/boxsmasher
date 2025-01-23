@@ -14,7 +14,7 @@ local backBtn = TexButton:new{
 }
 
 -- Limit the amount of levels
-local levelsAvailable = game.totalLevels
+local levelsAvailable = getTotalLevels()
 
 -- Checks if player can play level, depending on levels unlocked.
 function canPlay(levelnum)
@@ -39,7 +39,7 @@ function scenes.selectlevel.update()
 	backBtn:update()
 
 	-- Iterate over all the grid cells and check for mouse click.
-	for levelnum = 1, game.totalLevels do
+	for levelnum = 1, levelsAvailable do
 		local x, y = getCell(levelnum)
 
 		-- Check that mouse is within the specific grid, is clicked, and the level clicked is playable.
@@ -57,7 +57,7 @@ function scenes.selectlevel.draw()
 	love.graphics.setFont(fonts.sans.bigger)
 
 	-- Iterate over all the grid cells and draw them.
-	for levelnum = 1, game.totalLevels do
+	for levelnum = 1, levelsAvailable do
 		local x, y = getCell(levelnum)
 
 		-- Hover feedback

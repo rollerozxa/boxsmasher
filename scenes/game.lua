@@ -76,6 +76,8 @@ scenes.game.background = { 43, 64, 43 }
 
 local level
 
+local seenTutorial
+
 function scenes.game.init(data)
 	world = bf.World:new(0, 90.82*1.5, true)
 
@@ -96,6 +98,8 @@ function scenes.game.init(data)
 	lvl = loadstring(love.filesystem.read("levels/"..level..".lua"))()
 
 	ballsLeft = lvl.totalBalls or 99
+
+	seenTutorial = savegame.get("seenTutorial")
 
 	-- Iterate over terrain objects and create static colliders for them
 	for _, ter in pairs(lvl.terrain) do
@@ -234,15 +238,15 @@ function scenes.game.update(dt)
 			savegame.set('levelsUnlocked', levelsUnlocked)
 		end
 
-		overlay.switch(level == game.totalLevels and 'final' or 'success', {
+		overlay.switch(level == getTotalLevels() and 'final' or 'success', {
 			level = level,
 			ballsUsed = lvl.totalBalls - ballsLeft,
 			totalBalls = lvl.totalBalls
 		})
 	end
 
-	if mouseClick() and not game.seenTutorial then
-		game.seenTutorial = true
+	if mouseClick() and not seenTutorial then
+		seenTutorial = true
 		savegame.set("seenTutorial", true)
 	end
 end
@@ -299,7 +303,7 @@ function scenes.game.draw()
 	menuBtn:draw()
 	restartBtn:draw()
 
-	if not game.seenTutorial then
+	if not seenTutorial then
 		love.graphics.setColor(1,1,1)
 		love.graphics.draw(images.tutorial, 0, 0, 0, 1, 1)
 
