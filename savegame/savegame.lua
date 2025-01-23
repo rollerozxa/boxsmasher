@@ -40,6 +40,12 @@ function savegame.runSaveTimer(dt)
 	end
 end
 
+function savegame.setDefault(key, value)
+	if savegame.data[key] == nil then
+		savegame.data[key] = value
+	end
+end
+
 -- Get the value of 'key'
 function savegame.get(key)
 	return savegame.data[key]

@@ -45,7 +45,7 @@ local rows = {
 	}, {
 		label = "Levels unlocked:",
 		getValue = function()
-			return game.levelsUnlocked
+			return savegame.get("levelsUnlocked")
 		end,
 		onDraw = function(x, y)
 			love.graphics.draw(images.lock, x-65, y+17, angle, 0.5, 0.5, 64, 64)

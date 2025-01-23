@@ -18,7 +18,7 @@ local levelsAvailable = game.totalLevels
 
 -- Checks if player can play level, depending on levels unlocked.
 function canPlay(levelnum)
-	return (levelnum <= game.levelsUnlocked)
+	return (levelnum <= savegame.get("levelsUnlocked"))
 end
 
 -- Calculate the coordinate of a cell from its order in the level grid,
@@ -44,8 +44,7 @@ function scenes.selectlevel.update()
 
 		-- Check that mouse is within the specific grid, is clicked, and the level clicked is playable.
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseReleased() and canPlay(levelnum) then
-			game.level = levelnum
-			scene.switch("game")
+			scene.switch("game", { level = levelnum })
 
 			sounds.click:clone():play()
 		end

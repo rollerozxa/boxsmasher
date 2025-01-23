@@ -2,6 +2,8 @@
 
 overlays.success = {}
 
+local level
+
 local backBtn = Button:new{
 	x = 390, y = 540,
 	w = 200, h = 96,
@@ -18,23 +20,20 @@ local nextBtn = Button:new{
 	w = 270, h = 96,
 	label = S("Next level"),
 	onClick = function()
-		-- Increment level and restart game scene, so next level is played.
-		game.level = game.level + 1
-
 		overlay.switch(false)
-		scene.switch("game")
+		scene.switch("game", {level = level + 1})
 	end,
 	isOverlay = true
 }
 
-function overlays.success.init()
+local ballsUsed, totalBalls
+
+function overlays.success.init(data)
 	sounds.success:clone():play()
 
-	-- If this is the latest level, unlock the next level.
-	if game.level == game.levelsUnlocked then
-		game.levelsUnlocked = game.levelsUnlocked + 1
-		savegame.set('levelsUnlocked', game.levelsUnlocked)
-	end
+	level = data.level
+	ballsUsed = data.ballsUsed
+	totalBalls = data.totalBalls
 end
 
 function overlays.success.back()
@@ -56,12 +55,13 @@ function overlays.success.draw()
 	drawCenteredText(4, 64, base_resolution.x, 64, S("Level Complete!"))
 
 	local texts = {
-		S("Level: %s", game.level),
+		S("Level: %d", level),
+		S("Balls used: %d/%d", ballsUsed, totalBalls)
 	}
 
 	love.graphics.setFont(fonts.sans.medium)
 	for i = 1, #texts, 1 do
-		love.graphics.print(texts[i], 420, 4*32+(i*48))
+		love.graphics.print(texts[i], 420, 4*32+(i*72))
 	end
 
 	backBtn:draw()

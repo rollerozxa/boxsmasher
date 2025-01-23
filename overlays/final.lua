@@ -16,11 +16,6 @@ local backBtn = Button:new{
 function overlays.final.init()
 	sounds.success:clone():play()
 
-	-- If this is the latest level, unlock the next level.
-	if game.level == game.levelsUnlocked then
-		game.levelsUnlocked = game.levelsUnlocked + 1
-		savegame.set('levelsUnlocked', game.levelsUnlocked)
-	end
 end
 
 function overlays.final.back()

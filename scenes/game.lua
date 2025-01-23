@@ -2,6 +2,8 @@
 
 scenes.game = {}
 
+local ballsLeft = 0
+
 local menuBtn = TexButton:new{
 	x = base_resolution.x-(96), y = 0,
 	w = 96, h = 110,
@@ -21,7 +23,7 @@ local restartBtn = Button:new{
 		scene.restart()
 	end,
 	isVisible = function()
-		return game.ballsLeft == 0
+		return ballsLeft == 0
 	end
 }
 
@@ -72,7 +74,9 @@ local throw = {x = 0, y = 0}
 
 scenes.game.background = { 43, 64, 43 }
 
-function scenes.game.init()
+local level
+
+function scenes.game.init(data)
 	world = bf.World:new(0, 90.82*1.5, true)
 
 	-- Reset variables
@@ -88,9 +92,10 @@ function scenes.game.init()
 	randc = coolRandomColour()
 
 	-- Load level
-	lvl = loadstring(love.filesystem.read("levels/"..game.level..".lua"))()
+	level = data.level or 1
+	lvl = loadstring(love.filesystem.read("levels/"..level..".lua"))()
 
-	game.ballsLeft = lvl.ballsLeft or 99
+	ballsLeft = lvl.totalBalls or 99
 
 	-- Iterate over terrain objects and create static colliders for them
 	for _, ter in pairs(lvl.terrain) do
@@ -146,7 +151,7 @@ function scenes.game.update(dt)
 	end
 
 	-- Ball throwing code. When holding down mouse...
-	if love.mouse.isDown(1) and game.ballsLeft > 0 then
+	if love.mouse.isDown(1) and ballsLeft > 0 then
 		-- Get mouse position, convert it from the scaled screen resolution
 		-- to internal coordinates.
 		local mx, my = unscaled(love.mouse.getPosition())
@@ -198,7 +203,7 @@ function scenes.game.update(dt)
 		joints.boxMouse:destroy()
 		helddown = false
 		grabbedBall = false
-		game.ballsLeft = game.ballsLeft - 1
+		ballsLeft = ballsLeft - 1
 
 		sounds.throw:clone():play()
 
@@ -221,11 +226,19 @@ function scenes.game.update(dt)
 
 	if tableEmpty(boxes) then
 		statistics.add("levels", 1)
-		if game.level == game.totalLevels then
-			overlay.switch('final')
-		else
-			overlay.switch('success')
+
+		-- If this is the latest level, unlock the next level.
+		local levelsUnlocked = savegame.get("levelsUnlocked")
+		if level == levelsUnlocked then
+			levelsUnlocked = levelsUnlocked + 1
+			savegame.set('levelsUnlocked', levelsUnlocked)
 		end
+
+		overlay.switch(level == game.totalLevels and 'final' or 'success', {
+			level = level,
+			ballsUsed = lvl.totalBalls - ballsLeft,
+			totalBalls = lvl.totalBalls
+		})
 	end
 
 	if mouseClick() and not game.seenTutorial then
@@ -275,13 +288,13 @@ function scenes.game.draw()
 	love.graphics.setLineWidth(4)
 	draw.ball(30, 80, 0, randc2, 25)
 
-	if game.ballsLeft < 1 then
+	if ballsLeft < 1 then
 		love.graphics.setColor(1,0,0)
 	else
 		love.graphics.setColor(1,1,1)
 	end
 
-	love.graphics.print(string.format("x%d", game.ballsLeft), 60, 70)
+	love.graphics.print(string.format("x%d", ballsLeft), 60, 70)
 
 	menuBtn:draw()
 	restartBtn:draw()

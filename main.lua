@@ -1,13 +1,6 @@
 -- Main entrypoint file
 
 game = {
-	-- The current level, if a level has been opened.
-	level = 1,
-	-- How many levels have been unlocked, loaded from savegame.
-	levelsUnlocked = 1,
-
-	-- The amount of balls left. Stored globally to be accessible from level success and such.
-	ballsLeft = 0
 }
 
 -- Base internal resolution ("canvas" resolution)
@@ -100,7 +93,7 @@ function love.load()
 	game.totalLevels = totalLevels
 
 	savegame.load()
-	game.levelsUnlocked = savegame.get('levelsUnlocked') or 1
+	savegame.setDefault('levelsUnlocked', 1)
 	game.seenTutorial = savegame.get('seenTutorial') or false
 
 	math.randomseed(os.time())
