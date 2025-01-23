@@ -8,6 +8,7 @@ function assets.loadImages()
 
 	return {
 		back_btn = newImage("back_btn"),
+		intro_card = newImage("intro_card"),
 		lvlok = newImage("lvlok"),
 		lock = newImage("lock"),
 		menu = newImage("menu"),

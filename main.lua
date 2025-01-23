@@ -53,6 +53,7 @@ r"gui/texbutton"
 -- scenes
 r"scenes/about"
 r"scenes/game"
+r"scenes/intro"
 r"scenes/mainmenu"
 r"scenes/selectlevel"
 r"scenes/statistics"
