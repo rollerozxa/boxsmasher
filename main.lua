@@ -112,6 +112,7 @@ end
 function love.update(dt)
 	scene.runUpdate(dt)
 	overlay.runUpdate(dt)
+	dbg.runUpdate()
 
 	oldmousedown = love.mouse.isDown(1)
 
@@ -137,6 +138,7 @@ function love.draw()
 
 	scene.runDraw()
 	overlay.runDraw()
+	dbg.runDraw()
 
 	scene.performTransition()
 end

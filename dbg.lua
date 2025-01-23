@@ -86,8 +86,22 @@ _dbg.restart = {
 
 dbg = {}
 
+local debugEnabled = nil
+function dbg.debugEnabled()
+	if debugEnabled == nil then
+		if love.filesystem.getInfo(".git")
+		or love.filesystem.getInfo("debug.txt") then
+			debugEnabled = true
+		else
+			debugEnabled = false
+		end
+	end
+
+	return debugEnabled
+end
+
 function dbg.runUpdate()
-	if not love.keyboard.isDown('f3') then return end
+	if not love.keyboard.isDown('f3') or not dbg.debugEnabled() then return end
 
 	for id, def in pairs(_dbg) do
 		if love.keyboard.isDown(def.keybind) and not sparsifier[def.keybind] then
@@ -99,6 +113,8 @@ end
 
 -- Call draw functions for enabled debug options
 function dbg.runDraw()
+	if not dbg.debugEnabled() then return end
+
 	for _, def in pairs(_dbg) do
 		if def.enabled then
 			love.graphics.setColor(1,1,1)
