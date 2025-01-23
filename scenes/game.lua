@@ -18,7 +18,7 @@ local restartBtn = Button:new{
 	w = 40*5.5, h = 40*1.8,
 	label = S("Restart"),
 	onClick = function()
-		scenes.game.init()
+		scene.restart()
 	end,
 	isVisible = function()
 		return game.ballsLeft == 0

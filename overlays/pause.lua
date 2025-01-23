@@ -19,7 +19,7 @@ local restartBtn = Button:new{
 	label = S("Restart"),
 	onClick = function()
 		overlay.switch(false)
-		scenes.game.init()
+		scene.restart()
 	end,
 	isOverlay = true
 }

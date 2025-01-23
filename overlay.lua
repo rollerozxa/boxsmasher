@@ -5,15 +5,18 @@ overlays = {}
 
 local curOverlay = false
 
+local overlayInitData = {}
+
 -- Overlay switcher helper
-function overlay.switch(overlay)
+function overlay.switch(overlay, data)
 	-- Ignore call if we're already on the same overlay
 	if curOverlay == overlay then return end
 
 	curOverlay = overlay
+	overlayInitData = data or {}
 
 	if curOverlay and overlays[curOverlay].init ~= nil then
-		overlays[curOverlay].init()
+		overlays[curOverlay].init(overlayInitData)
 	end
 end
 

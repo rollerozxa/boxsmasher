@@ -2,28 +2,30 @@
 scenes = {}
 scene = {}
 
-local curScene = "mainmenu"
+local curScene = "intro"
+local sceneInitData = {}
 
 local trans = false
 local trans_step = 0
 local trans_to = ""
 local trans_alpha = 0
 
-function scene.switch(scene)
+function scene.switch(scene, data)
 	if trans then return end
 
 	trans = true
 	trans_step = 0
 	trans_to = scene
+	sceneInitData = data or {}
 end
 
 function scene.restart()
-	scene.switch(curScene)
+	scene.switch(curScene, sceneInitData)
 end
 
 function scene.runInit()
 	if scenes[curScene].init ~= nil then
-		scenes[curScene].init()
+		scenes[curScene].init(sceneInitData)
 	end
 end
 
@@ -83,9 +85,7 @@ function scene.performTransition()
 	if trans_step == 25 then
 		curScene = trans_to
 
-		if scenes[curScene].init ~= nil then
-			scenes[curScene].init()
-		end
+		scene.runInit()
 	elseif trans_step == 50 then
 		trans = false
 	end
