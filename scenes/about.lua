@@ -47,6 +47,12 @@ function scenes.about.draw()
 	love.graphics.setFont(fonts.sans.big)
 	love.graphics.print(abouttext, 40, 120)
 
+	if dbg.debugEnabled() then
+		love.graphics.setColor(1,0,0)
+		love.graphics.setFont(fonts.sans.small)
+		love.graphics.print("DEBUG", 375, 40)
+	end
+
 	backBtn:draw()
 	websiteBtn:draw()
 end
