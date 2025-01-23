@@ -1,7 +1,7 @@
 
 local lvl = {
 	author = 'ROllerozxa',
-	ballsLeft = 2,
+	totalBalls = 2,
 	throwBoundary = {
 		x = 40*1.5, y = 40*3,
 		w = 40*5.5, h = 40*11,
@@ -20,29 +20,25 @@ for i = 1, 7, 1 do
 
 	table.insert(lvl.boxclusters, {
 		x = 40*12, y = fY,
-		w = 40, h = 40,
-		aX = 1, aY = 1
+		w = 40, h = 40
 	})
 	table.insert(lvl.boxclusters, {
 		x = 40*15, y = fY,
-		w = 40, h = 40,
-		aX = 1, aY = 1
+		w = 40, h = 40
 	})
 	table.insert(lvl.boxclusters, {
 		x = 40*18, y = fY,
-		w = 40, h = 40,
-		aX = 1, aY = 1
+		w = 40, h = 40
 	})
 	table.insert(lvl.boxclusters, {
 		x = 40*21, y = fY,
-		w = 40, h = 40,
-		aX = 1, aY = 1
+		w = 40, h = 40
 	})
 
 	table.insert(lvl.boxclusters, {
 		x = 40*12, y = fY-20,
 		w = 40*5, h = 20,
-		aX = 2, aY = 1
+		aX = 2
 	})
 end
 

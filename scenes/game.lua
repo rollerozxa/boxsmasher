@@ -124,8 +124,8 @@ function scenes.game.init(data)
 
 	-- Iterate over box clusters and create the boxes within them
 	for _, clust in ipairs(lvl.boxclusters) do
-		for x = 1, clust.aX, 1 do
-			for y = 1, clust.aY, 1 do
+		for x = 1, (clust.aX or 1), 1 do
+			for y = 1, (clust.aY or 1), 1 do
 				newBox(clust.x + (x * clust.w), clust.y + (y * clust.h), clust.w, clust.h)
 			end
 		end

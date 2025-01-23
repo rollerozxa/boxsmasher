@@ -1,7 +1,7 @@
 
 return {
 	author = 'ROllerozxa',
-	ballsLeft = 3,
+	totalBalls = 3,
 	throwBoundary = {
 		x = 40*2, y = 40*4.5,
 		w = 40*6, h = 40*11,
