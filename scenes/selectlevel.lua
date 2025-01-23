@@ -31,6 +31,10 @@ end
 
 scenes.selectlevel.background = { 44, 100, 141 }
 
+function scenes.selectlevel.back()
+	scene.switch("mainmenu")
+end
+
 function scenes.selectlevel.update()
 	backBtn:update()
 

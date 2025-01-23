@@ -61,6 +61,10 @@ function scenes.mainmenu.init()
 	world = bf.World:new(0, 90.82*2, true)
 end
 
+function scenes.mainmenu.back()
+	love.event.quit()
+end
+
 function scenes.mainmenu.update(dt)
 	playBtn:update()
 	statsBtn:update()

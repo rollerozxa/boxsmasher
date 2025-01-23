@@ -23,6 +23,11 @@ function overlays.final.init()
 	end
 end
 
+function overlays.final.back()
+	overlay.switch(false)
+	scene.switch("selectlevel")
+end
+
 function overlays.final.update()
 	backBtn:update()
 end

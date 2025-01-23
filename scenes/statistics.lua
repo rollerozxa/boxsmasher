@@ -14,8 +14,8 @@ scenes.statistics = {}
 
 scenes.statistics.background = { 11, 75, 122 }
 
-function scenes.statistics.init()
-
+function scenes.statistics.back()
+	scene.switch("mainmenu")
 end
 
 function scenes.statistics.update()

@@ -143,6 +143,17 @@ function love.draw()
 	scene.performTransition()
 end
 
+-- All input should use these callbacks in the future, but for now it's only used by the hardcoded Android back button
+function love.keypressed(key)
+	if love.system.getOS() == "Android" and key == "escape" then
+		if overlay.isActive() then
+			overlay.runBack()
+		else
+			scene.runBack()
+		end
+	end
+end
+
 function love.resize(w, h)
 	resolution.x = w
 	resolution.y = h

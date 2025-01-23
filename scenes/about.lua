@@ -31,6 +31,10 @@ function scenes.about.init()
 	abouttext = love.filesystem.read("data/about.txt") or ""
 end
 
+function scenes.about.back()
+	scene.switch("mainmenu")
+end
+
 function scenes.about.update()
 	backBtn:update()
 	websiteBtn:update()

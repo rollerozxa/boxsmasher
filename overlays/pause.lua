@@ -35,6 +35,10 @@ local exitBtn = Button:new{
 	isOverlay = true
 }
 
+function overlays.pause.back()
+	overlay.switch(false)
+end
+
 function overlays.pause.update()
 	resumeBtn:update()
 	restartBtn:update()

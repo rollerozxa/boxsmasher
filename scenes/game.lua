@@ -131,6 +131,10 @@ function scenes.game.init()
 	randc2 = coolRandomColour()
 end
 
+function scenes.game.back()
+	overlay.switch("pause")
+end
+
 function scenes.game.update(dt)
 	menuBtn:update()
 	restartBtn:update()

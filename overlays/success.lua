@@ -37,6 +37,11 @@ function overlays.success.init()
 	end
 end
 
+function overlays.success.back()
+	overlay.switch(false)
+	scene.switch("selectlevel")
+end
+
 function overlays.success.update()
 	backBtn:update()
 	nextBtn:update()

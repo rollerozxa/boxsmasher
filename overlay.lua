@@ -21,6 +21,12 @@ function overlay.isActive()
 	return curOverlay ~= false
 end
 
+function overlay.runBack()
+	if overlays[curOverlay].back ~= nil then
+		overlays[curOverlay].back()
+	end
+end
+
 function overlay.runUpdate(dt)
 	if curOverlay then
 		if overlays[curOverlay].update ~= nil then

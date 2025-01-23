@@ -50,6 +50,12 @@ function scene.runDraw()
 	end
 end
 
+function scene.runBack()
+	if scenes[curScene].back ~= nil then
+		scenes[curScene].back()
+	end
+end
+
 function scene.isTransitioning()
 	return trans
 end
