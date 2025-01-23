@@ -39,14 +39,14 @@ function scene.runDraw()
 		if scenes[curScene].background then
 			bg = scenes[curScene].background
 
-			draw.background(love.math.colorFromBytes(bg.r, bg.g, bg.b))
+			draw.background(love.math.colorFromBytes(bg[1], bg[2], bg[3]))
 		end
 
 		scenes[curScene].draw()
 	end
 
 	if scenes[curScene].background then
-		draw.backgroundLetterbox(love.math.colorFromBytes(bg.r, bg.g, bg.b))
+		draw.backgroundLetterbox(love.math.colorFromBytes(bg[1], bg[2], bg[3]))
 	end
 end
 

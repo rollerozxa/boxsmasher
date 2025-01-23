@@ -25,7 +25,7 @@ local websiteBtn = Button:new{
 
 local abouttext
 
-scenes.about.background = { r = 11, g = 75, b = 122 }
+scenes.about.background = { 11, 75, 122 }
 
 function scenes.about.init()
 	abouttext = love.filesystem.read("data/about.txt") or ""

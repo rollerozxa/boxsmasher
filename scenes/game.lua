@@ -70,7 +70,7 @@ local randc2
 -- Throw vector
 local throw = {x = 0, y = 0}
 
-scenes.game.background = { r = 43, g = 64, b = 43 }
+scenes.game.background = { 43, 64, 43 }
 
 function scenes.game.init()
 	world = bf.World:new(0, 90.82*1.5, true)
@@ -259,7 +259,7 @@ function scenes.game.draw()
 
 	love.graphics.setFont(fonts.sans.medium)
 
-	love.graphics.setColor(randc.r, randc.g, randc.b)
+	love.graphics.setColor(randc)
 	love.graphics.rectangle('fill', 10, 10, 40, 40)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle('line', 10, 10, 40, 40)

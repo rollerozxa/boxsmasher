@@ -12,7 +12,7 @@ local backBtn = Button:new{
 
 scenes.statistics = {}
 
-scenes.statistics.background = { r = 11, g = 75, b = 122 }
+scenes.statistics.background = { 11, 75, 122 }
 
 function scenes.statistics.init()
 

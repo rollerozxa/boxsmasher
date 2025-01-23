@@ -8,7 +8,7 @@ function draw.ball(x, y, angle, colour, radius)
 	love.graphics.setLineWidth(2)
 
 	-- Body w/ outline
-	love.graphics.circleOutlined(x, y, radius, {colour.r,colour.g,colour.b}, {0,0,0})
+	love.graphics.circleOutlined(x, y, radius, colour, {0,0,0})
 
 	-- Offset of the eyes from the center of the ball
 	local offset = radius/2
@@ -40,7 +40,7 @@ end
 function draw.box(x, y, w, h, angle, colour)
 
 	-- Box fill
-	love.graphics.setColor(colour.r, colour.g, colour.b)
+	love.graphics.setColor(colour)
 	rotatedRectangle('fill', x, y, w, h, angle)
 
 	-- Box outline

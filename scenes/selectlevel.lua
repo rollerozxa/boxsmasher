@@ -29,7 +29,7 @@ local function getCell(i)
 		math.floor((i-1) / 8)	-- y
 end
 
-scenes.selectlevel.background = { r = 44, g = 100, b = 141 }
+scenes.selectlevel.background = { 44, 100, 141 }
 
 function scenes.selectlevel.update()
 	backBtn:update()

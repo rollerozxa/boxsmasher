@@ -53,7 +53,7 @@ end
 
 local step = 0
 
-scenes.mainmenu.background = { r = 44, g = 100, b = 141 }
+scenes.mainmenu.background = { 44, 100, 141 }
 
 function scenes.mainmenu.init()
 	step = 0
