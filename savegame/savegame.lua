@@ -2,11 +2,11 @@
 -- The data is serialised into JSON and gets saved into a file whenever a value is changed.
 
 savegame = {
-	data = {
-		statistics = {}
-	},
+	data = {},
 	dirty = false
 }
+
+savegame.data.statistics = {}
 
 local threadChannel = love.thread.getChannel("savegame_channel")
 local saveThread

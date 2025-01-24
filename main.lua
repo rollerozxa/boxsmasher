@@ -73,18 +73,16 @@ VERSION = json.decode(love.filesystem.read("data/version.json"))
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest', 4)
 
-	-- Hide navigation bar and notification tray
-	if love.system.getOS() == 'Android' then
-		love.window.setFullscreen(true)
-	end
+	savegame.load()
+	savegame.setDefault('levelsUnlocked', 1)
+	savegame.setDefault('seenTutorial', false)
+	savegame.setDefault('fullscreen', love.system.getOS() == 'Android')
+
+	love.window.setFullscreen(savegame.get('fullscreen'))
 
 	images = assets.loadImages()
 	fonts = assets.loadFonts()
 	sounds = assets.loadSounds()
-
-	savegame.load()
-	savegame.setDefault('levelsUnlocked', 1)
-	savegame.setDefault('seenTutorial', false)
 
 	math.randomseed(os.time())
 
@@ -128,6 +126,12 @@ end
 
 -- All input should use these callbacks in the future, but for now it's only used by the hardcoded Android back button
 function love.keypressed(key)
+	if key == "f11" then
+		local newState = not savegame.get("fullscreen")
+		love.window.setFullscreen(newState)
+		savegame.set("fullscreen", newState)
+	end
+
 	if love.system.getOS() == "Android" and key == "escape" then
 		if overlay.isActive() then
 			overlay.runBack()
