@@ -18,6 +18,9 @@
 		"name": "menu",
 		"filter": "nearest"
 	}, {
+		"name": "settings",
+		"filter": "linear"
+	}, {
 		"name": "tutorial",
 		"filter": "linear"
 	}

@@ -58,6 +58,7 @@ r"scenes/game"
 r"scenes/intro"
 r"scenes/mainmenu"
 r"scenes/selectlevel"
+r"scenes/settings"
 r"scenes/statistics"
 
 -- overlays

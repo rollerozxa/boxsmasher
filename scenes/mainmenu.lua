@@ -38,6 +38,18 @@ local aboutBtn = Button:new{
 	end
 }
 
+local settingsBtn = Button:new{
+	x = base_resolution.x-80, y = 8,
+	w = 72, h = 72,
+	image = {
+		name = "settings",
+		w = 52, h = 52
+	},
+	onClick = function()
+		scene.switch("settings")
+	end,
+}
+
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
 local function newBox(x,y,w,h)
@@ -69,6 +81,7 @@ function scenes.mainmenu.update(dt)
 	playBtn:update()
 	statsBtn:update()
 	aboutBtn:update()
+	settingsBtn:update()
 
 	world:update(dt)
 
@@ -102,6 +115,7 @@ function scenes.mainmenu.draw()
 	playBtn:draw()
 	statsBtn:draw()
 	aboutBtn:draw()
+	settingsBtn:draw()
 
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)

@@ -48,7 +48,19 @@ function Button:draw()
 	love.graphics.setColor(1,1,1)
 
 	-- Allow for custom drawing on the button that can override the text
-	if not self.onDraw or not self.onDraw() then
+	if self.onDraw and self.onDraw(self.x, self.y, self.w, self.h) then
+		return
+	end
+
+	if self.image then
+		local image = images[self.image.name]
+		local scale = {
+			x = self.image.w / image:getWidth(),
+			y = self.image.h / image:getHeight()
+		}
+
+		love.graphics.draw(image, self.x + ((self.w-self.image.w)/2), self.y + ((self.h-self.image.h)/2), 0, scale.x, scale.y)
+	else
 		if #self.label > 25 then
 			love.graphics.setFont(fonts.sans.medium)
 		else
