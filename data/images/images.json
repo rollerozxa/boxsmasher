@@ -1,0 +1,21 @@
+[
+	{
+		"name": "back_btn",
+		"filter": "linear"
+	}, {
+		"name": "intro_card",
+		"filter": "linear"
+	}, {
+		"name": "lock",
+		"filter": "linear"
+	}, {
+		"name": "lvlok",
+		"filter": "linear"
+	}, {
+		"name": "menu",
+		"filter": "nearest"
+	}, {
+		"name": "tutorial",
+		"filter": "linear"
+	}
+]

@@ -2,42 +2,29 @@
 assets = {}
 
 function assets.loadImages()
-	local newImage = function(name)
-		return love.graphics.newImage("data/images/"..name..".png")
+	local images = {}
+
+	for _, entry in ipairs(json.decodefile("data/images/images.json")) do
+		local image = love.graphics.newImage("data/images/"..entry.name..".png")
+		if entry.filter then
+			image:setFilter(entry.filter, entry.filter)
+		end
+		images[entry.name] = image
 	end
 
-	return {
-		back_btn = newImage("back_btn"),
-		intro_card = newImage("intro_card"),
-		lvlok = newImage("lvlok"),
-		lock = newImage("lock"),
-		menu = newImage("menu"),
-		tutorial = newImage("tutorial")
-	}
+	return images
 end
 
 function assets.loadFonts()
-	local newFont = function(name, size)
-		return love.graphics.newFont("data/fonts/"..name..".ttf", size)
-	end
-
-	local fontfaces = {sans = 'undefined-medium'}
-
-	local fontsizes = {
-		tiny = 10,
-		small = 20,
-		medium = 30,
-		big = 40,
-		bigger = 50,
-		biggest = 90}
+	local fontdata = json.decodefile("data/fonts/fonts.json")
 
 	local fonts = {}
 
-	for id, name in pairs(fontfaces) do
+	for id, name in pairs(fontdata.faces) do
 		fonts[id] = {}
 
-		for sizename, size in pairs(fontsizes) do
-			fonts[id][sizename] = newFont(name, size)
+		for sizename, size in pairs(fontdata.sizes) do
+			fonts[id][sizename] = love.graphics.newFont("data/fonts/"..name..".ttf", size)
 		end
 	end
 
@@ -45,15 +32,13 @@ function assets.loadFonts()
 end
 
 function assets.loadSounds()
-	local newSound = function(name)
-		return love.audio.newSource("data/sounds/"..name..".ogg", "static")
+	local sounds = {}
+
+	for _, entry in ipairs(json.decodefile("data/sounds/sounds.json")) do
+		local audio = love.audio.newSource("data/sounds/"..entry.name..".ogg", entry.type or "static")
+
+		sounds[entry.name] = audio
 	end
 
-	return {
-		click = newSound("click"),
-		pop = newSound("pop"),
-		spawn = newSound("spawn"),
-		success = newSound("success"),
-		throw = newSound("throw")
-	}
+	return sounds
 end

@@ -1,0 +1,7 @@
+[
+	{ "name": "click" },
+	{ "name": "pop" },
+	{ "name": "spawn" },
+	{ "name": "success" },
+	{ "name": "throw" }
+]

@@ -1,5 +1,9 @@
 -- Miscellaneous utility functions
 
+function json.decodefile(file)
+	return json.decode(love.filesystem.read(file))
+end
+
 -- Check if a table is empty
 function tableEmpty(self)
     for _, _ in pairs(self) do
