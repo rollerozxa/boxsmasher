@@ -33,6 +33,8 @@ local r = function(file)
 	return require(file)
 end
 
+json = r"lib.json"
+
 -- common
 r"assets"
 r"dbg"
@@ -64,7 +66,6 @@ r"overlays/success"
 r"overlays/pause"
 
 bf = r"lib.breezefield"
-json = r"lib.json"
 
 VERSION = json.decode(love.filesystem.read("data/version.json"))
 
