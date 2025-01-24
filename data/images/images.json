@@ -3,7 +3,10 @@
 		"name": "back_btn",
 		"filter": "linear"
 	}, {
-		"name": "intro_card",
+		"name": "intro_raccoon",
+		"filter": "nearest"
+	}, {
+		"name": "intro_text",
 		"filter": "linear"
 	}, {
 		"name": "lock",
