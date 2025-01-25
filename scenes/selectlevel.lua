@@ -1,6 +1,8 @@
 -- Select level scene
 
-scenes.selectlevel = {}
+scenes.selectlevel = {
+	background = { 44, 100, 141 }
+}
 
 local backBtn = TexButton:new{
 	x = 0, y = 0,
@@ -14,10 +16,10 @@ local backBtn = TexButton:new{
 }
 
 -- Limit the amount of levels
-local levelsAvailable = getTotalLevels()
+local levelsAvailable
 
 -- Checks if player can play level, depending on levels unlocked.
-function canPlay(levelnum)
+local function canPlay(levelnum)
 	return (levelnum <= savegame.get("levelsUnlocked"))
 end
 
@@ -29,7 +31,9 @@ local function getCell(i)
 		math.floor((i-1) / 8)	-- y
 end
 
-scenes.selectlevel.background = { 44, 100, 141 }
+function scenes.selectlevel.init()
+	levelsAvailable = 32
+end
 
 function scenes.selectlevel.back()
 	scene.switch("mainmenu")

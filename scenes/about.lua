@@ -1,6 +1,8 @@
 -- about.lua: about dialog
 
-scenes.about = {}
+scenes.about = {
+	background = { 11, 75, 122 }
+}
 
 local backBtn = Button:new{
 	x = 40*1, y = 40*15,
@@ -24,8 +26,6 @@ local websiteBtn = Button:new{
 }
 
 local abouttext
-
-scenes.about.background = { 11, 75, 122 }
 
 function scenes.about.init()
 	abouttext = love.filesystem.read("data/about.txt") or ""

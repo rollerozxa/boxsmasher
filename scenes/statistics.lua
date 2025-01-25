@@ -1,5 +1,9 @@
 -- Statistics dialog
 
+scenes.statistics = {
+	background = { 11, 75, 122 }
+}
+
 local backBtn = Button:new{
 	x = 40, y = 40*14,
 	w = 40*12, h = 96,
@@ -9,10 +13,6 @@ local backBtn = Button:new{
 		scene.switch("mainmenu")
 	end
 }
-
-scenes.statistics = {}
-
-scenes.statistics.background = { 11, 75, 122 }
 
 function scenes.statistics.back()
 	scene.switch("mainmenu")

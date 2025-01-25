@@ -63,8 +63,6 @@ function rotatedRectangle(mode, x, y, width, height, angle)
 end
 
 -- Generates a cool random colour.
--- Returns something like { r = 0, g = 1, b = 1 }.
--- Colour values are in decimal (represented between 0 and 1).
 function coolRandomColour()
 	local happy = false
 	local c

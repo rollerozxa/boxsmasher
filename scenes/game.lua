@@ -1,8 +1,14 @@
 -- Main game scene
 
-scenes.game = {}
+scenes.game = {
+	background = { 43, 64, 43 }
+}
 
-local ballsLeft = 0
+local terrain, boxes, ball, boxNum, totalBoxes, joints, helddown, grabbedBall
+local randc, randc2
+local level, lvl, ballsLeft, seenTutorial
+local throw = {x = 0, y = 0}
+local step
 
 local menuBtn = TexButton:new{
 	x = base_resolution.x-(96), y = 0,
@@ -27,22 +33,6 @@ local restartBtn = Button:new{
 	end
 }
 
-local lvl
-
--- Table to store static terrain geometry objects
-local terrain = {}
--- Store physics objects of boxes in levels
-local boxes = {}
--- Store the current ball's physics object for reference
-local ball = nil
--- Amount of boxes in level (decrements when they fall off the level)
-local boxNum = 0
--- Total boxes in the level on start
-local totalBoxes = 0
-
--- Misc. joint table (mouse joints and whatnot)
-local joints = {}
-
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
 local function newBox(x,y,w,h)
@@ -59,24 +49,6 @@ local function newBox(x,y,w,h)
 
 	boxNum = boxNum + 1
 end
-
--- Keep track of left mouse button state
-local helddown = false
-
-local grabbedBall = false
-
--- Random colour for box HUD
-local randc
-local randc2
-
--- Throw vector
-local throw = {x = 0, y = 0}
-
-scenes.game.background = { 43, 64, 43 }
-
-local level
-
-local seenTutorial
 
 function scenes.game.init(data)
 	world = bf.World:new(0, 90.82*1.5, true)

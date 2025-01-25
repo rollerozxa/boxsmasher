@@ -1,12 +1,12 @@
 -- Main menu scene
 
-scenes.mainmenu = {}
+scenes.mainmenu = {
+	background = { 44, 100, 141 }
+}
 
-local splashes = splitNewline(love.filesystem.read("data/splashes.txt"))
+local splashes, current_splash, step
 
 local boxes = {}
-
-local current_splash = 1
 
 local playBtn = Button:new{
 	x = 490, y = 10*32,
@@ -63,11 +63,9 @@ local function newBox(x,y,w,h)
 	table.insert(boxes, box)
 end
 
-local step = 0
-
-scenes.mainmenu.background = { 44, 100, 141 }
-
 function scenes.mainmenu.init()
+	splashes = splitNewline(love.filesystem.read("data/splashes.txt") or "missingno")
+	current_splash = 1
 	step = 0
 
 	world = bf.World:new(0, 90.82*2, true)
@@ -107,7 +105,6 @@ function scenes.mainmenu.update(dt)
 end
 
 function scenes.mainmenu.draw()
-
 	world:draw()
 
 	love.graphics.setLineWidth(4)

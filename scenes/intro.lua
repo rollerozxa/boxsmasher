@@ -1,9 +1,9 @@
 
-scenes.intro = {}
+scenes.intro = {
+	background = { 21, 21, 21 }
+}
 
 local intro_timer = 0
-
-scenes.intro.background = { 21, 21, 21 }
 
 function scenes.intro.init()
 	intro_timer = 0
