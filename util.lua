@@ -77,7 +77,7 @@ function coolRandomColour()
 		}
 
 		if (c[1] == 0.2 and c[2] == 0.2 and c[3] == 0.2)
-		or (c[2] == 0.8 and c[2] == 0.8 and c[3] == 0.8) then
+		or (c[1] == 0.8 and c[2] == 0.8 and c[3] == 0.8) then
 			-- all-black isn't a fun colour (I want something colourful!!!)
 		else
 			happy = true
