@@ -1,7 +1,7 @@
 
 Button = {}
 
-function Button:new(o, data)
+function Button:new(o)
 	o = o or {}
 	setmetatable(o, self)
 	self.__index = self
@@ -67,6 +67,6 @@ function Button:draw()
 			love.graphics.setFont(fonts.sans.big)
 		end
 
-		drawCenteredText(self.x, self.y+2, self.w, self.h, self.label)
+		drawCenteredText(self.x, self.y+7, self.w, self.h, self.label)
 	end
 end
