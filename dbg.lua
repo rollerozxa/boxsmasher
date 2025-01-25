@@ -36,7 +36,7 @@ _dbg.grid = {
 	enabled = false,
 	keybind = 'g',
 	draw = function()
-		love.graphics.setColor(0,1,1)
+		love.graphics.setColor(1,1,1, 0.25)
 		love.graphics.setLineWidth(1)
 		local cellSize = 40
 
@@ -80,8 +80,13 @@ _dbg.restart = {
 	keybind = 'r',
 	draw = function()
 		scene.restart()
-		dbg.restart.enabled = false
+		_dbg.restart.enabled = false
 	end
+}
+
+_dbg.autorestart = {
+	enabled = false,
+	keybind = 't',
 }
 
 dbg = {}
@@ -119,7 +124,9 @@ function dbg.runDraw()
 		if def.enabled then
 			love.graphics.setColor(1,1,1)
 			love.graphics.setFont(fonts.sans.medium)
-			def.draw()
+			if def.draw then
+				def.draw()
+			end
 		end
 	end
 end

@@ -10,17 +10,24 @@ local trans_step = 0
 local trans_to = ""
 local trans_alpha = 0
 
-function scene.switch(scene, data)
+function scene.switch(sceneName, data, instant)
 	if trans then return end
+
+	sceneInitData = data or {}
+
+	if instant then
+		curScene = sceneName
+		scene.runInit()
+		return
+	end
 
 	trans = true
 	trans_step = 0
-	trans_to = scene
-	sceneInitData = data or {}
+	trans_to = sceneName
 end
 
-function scene.restart()
-	scene.switch(curScene, sceneInitData)
+function scene.restart(instant)
+	scene.switch(curScene, sceneInitData, instant or false)
 end
 
 function scene.runInit()

@@ -64,6 +64,10 @@ end
 
 -- Generates a cool random colour.
 function coolRandomColour()
+	if dbg.isEnabled("autorestart") then
+		return {0.2, 0.2, 0.8}
+	end
+
 	local happy = false
 	local c
 

@@ -26,7 +26,7 @@ local restartBtn = Button:new{
 	w = 40*5.5, h = 40*1.8,
 	label = S("Restart"),
 	onClick = function()
-		scene.restart()
+		scene.restart(true)
 	end,
 	isVisible = function()
 		return ballsLeft == 0
@@ -52,6 +52,8 @@ end
 
 function scenes.game.init(data)
 	world = bf.World:new(0, 90.82*1.5, true)
+
+	step = 0
 
 	-- Reset variables
 	terrain = {}
@@ -121,6 +123,14 @@ function scenes.game.update(dt)
 	restartBtn:update()
 
 	if overlay.isActive() or scene.isTransitioning() then return end
+
+	if dbg.isEnabled('autorestart') then
+		step = step + dt
+
+		if step > 1 then
+			scene.restart(true)
+		end
+	end
 
 	if not dbg.isEnabled('phys_pause') then
 		world:update(dt)
