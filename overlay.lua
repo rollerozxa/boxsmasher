@@ -35,6 +35,10 @@ function overlay.runUpdate(dt)
 		if overlays[curOverlay].update ~= nil then
 			overlays[curOverlay].update(dt)
 		end
+
+		if overlays[curOverlay].gui ~= nil then
+			overlays[curOverlay].gui:update()
+		end
 	end
 end
 
@@ -42,6 +46,10 @@ function overlay.runDraw()
 	if curOverlay then
 		if overlays[curOverlay].draw ~= nil then
 			overlays[curOverlay].draw()
+		end
+
+		if overlays[curOverlay].gui ~= nil then
+			overlays[curOverlay].gui:draw()
 		end
 	end
 end

@@ -54,18 +54,22 @@ r"gui/button"
 r"gui/texbutton"
 
 -- scenes
-r"scenes/about"
-r"scenes/game"
-r"scenes/intro"
-r"scenes/mainmenu"
-r"scenes/selectlevel"
-r"scenes/settings"
-r"scenes/statistics"
+scenes = {
+	about = r"scenes/about",
+	game = r"scenes/game",
+	intro = r"scenes/intro",
+	mainmenu = r"scenes/mainmenu",
+	selectlevel = r"scenes/selectlevel",
+	settings = r"scenes/settings",
+	statistics = r"scenes/statistics"
+}
 
 -- overlays
-r"overlays/final"
-r"overlays/success"
-r"overlays/pause"
+overlays = {
+	final = r"overlays/final",
+	success = r"overlays/success",
+	pause = r"overlays/pause"
+}
 
 bf = r"lib.breezefield"
 

@@ -40,6 +40,10 @@ function scene.runUpdate(dt)
 	if scenes[curScene].update ~= nil then
 		scenes[curScene].update(dt)
 	end
+
+	if scenes[curScene].gui ~= nil then
+		scenes[curScene].gui:update()
+	end
 end
 
 function scene.runDraw()
@@ -52,6 +56,10 @@ function scene.runDraw()
 		end
 
 		scenes[curScene].draw()
+	end
+
+	if scenes[curScene].gui ~= nil then
+		scenes[curScene].gui:draw()
 	end
 
 	if scenes[curScene].background then

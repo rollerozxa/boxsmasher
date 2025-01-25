@@ -1,9 +1,9 @@
 -- Select level scene
 
-scenes.selectlevel = {
-	background = { 44, 100, 141 }
+local selectlevel = {
+	background = { 44, 100, 141 },
+	gui = Gui:new()
 }
-local gui
 
 -- Limit the amount of levels
 local levelsAvailable
@@ -21,12 +21,10 @@ local function getCell(i)
 		math.floor((i-1) / 8)	-- y
 end
 
-function scenes.selectlevel.init()
+function selectlevel.init()
 	levelsAvailable = getTotalLevels()
 
-	gui = Gui:new()
-
-	gui:add("back", TexButton:new{
+	selectlevel.gui:add("back", TexButton:new{
 		x = 0, y = 0,
 		w = 128, h = 64,
 		scale = 0.5,
@@ -38,13 +36,11 @@ function scenes.selectlevel.init()
 	})
 end
 
-function scenes.selectlevel.back()
+function selectlevel.back()
 	scene.switch("mainmenu")
 end
 
-function scenes.selectlevel.update()
-	gui:update()
-
+function selectlevel.update()
 	-- Iterate over all the grid cells and check for mouse click.
 	for levelnum = 1, levelsAvailable do
 		local x, y = getCell(levelnum)
@@ -58,9 +54,7 @@ function scenes.selectlevel.update()
 	end
 end
 
-function scenes.selectlevel.draw()
-	gui:draw()
-
+function selectlevel.draw()
 	love.graphics.setFont(fonts.sans.bigger)
 
 	-- Iterate over all the grid cells and draw them.
@@ -99,3 +93,5 @@ function scenes.selectlevel.draw()
 		end
 	end
 end
+
+return selectlevel

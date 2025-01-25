@@ -1,12 +1,11 @@
 -- Pause overlay
 
-overlays.pause = {}
-local gui
-
-function overlays.pause.init()
+local pause = {
 	gui = Gui:new()
+}
 
-	gui:add("resume", Button:new{
+function pause.init()
+	pause.gui:add("resume", Button:new{
 		x = 480, y = 40*5,
 		w = 40*8, h = 96,
 		label = S("Resume"),
@@ -17,7 +16,7 @@ function overlays.pause.init()
 		isOverlay = true
 	})
 
-	gui:add("restart", Button:new{
+	pause.gui:add("restart", Button:new{
 		x = 480, y = 40*9,
 		w = 40*8, h = 96,
 		label = S("Restart"),
@@ -28,7 +27,7 @@ function overlays.pause.init()
 		isOverlay = true
 	})
 
-	gui:add("exit", Button:new{
+	pause.gui:add("exit", Button:new{
 		x = 480, y = 40*13,
 		w = 40*8, h = 96,
 		label = S("Exit"),
@@ -40,21 +39,17 @@ function overlays.pause.init()
 	})
 end
 
-function overlays.pause.back()
+function pause.back()
 	overlay.switch(false)
 end
 
-function overlays.pause.update()
-	gui:update()
-end
-
-function overlays.pause.draw()
+function pause.draw()
 	love.graphics.setColor(64/255, 120/255, 161/255,0.9)
 	love.graphics.rectangle('fill', 380, 20, 520, 680)
 
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.setFont(fonts.sans.bigger)
 	drawCenteredText(4, 64, base_resolution.x, 64, S("Game paused"))
-
-	gui:draw()
 end
+
+return pause

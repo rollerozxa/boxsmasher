@@ -1,9 +1,9 @@
 -- Main game scene
 
-scenes.game = {
-	background = { 43, 64, 43 }
+local game = {
+	background = { 43, 64, 43 },
+	gui = Gui:new()
 }
-local gui
 
 local terrain, boxes, ball, boxNum, totalBoxes, joints, helddown, grabbedBall
 local randc, randc2
@@ -28,10 +28,8 @@ local function newBox(x,y,w,h)
 	boxNum = boxNum + 1
 end
 
-function scenes.game.init(data)
-	gui = Gui:new()
-
-	gui:add("menu", TexButton:new{
+function game.init(data)
+	game.gui:add("menu", TexButton:new{
 		x = base_resolution.x-(96), y = 0,
 		w = 96, h = 110,
 		texture = "menu",
@@ -42,7 +40,7 @@ function scenes.game.init(data)
 		keybind = 'escape'
 	})
 
-	gui:add("restart", Button:new{
+	game.gui:add("restart", Button:new{
 		x = 40*23, y = 0,
 		w = 40*5.5, h = 40*1.8,
 		label = S("Restart"),
@@ -117,13 +115,11 @@ function scenes.game.init(data)
 	randc2 = coolRandomColour()
 end
 
-function scenes.game.back()
+function game.back()
 	overlay.switch("pause")
 end
 
-function scenes.game.update(dt)
-	gui:update()
-
+function game.update(dt)
 	if overlay.isActive() or scene.isTransitioning() then return end
 
 	if dbg.isEnabled('autorestart') then
@@ -235,7 +231,7 @@ function scenes.game.update(dt)
 	end
 end
 
-function scenes.game.draw()
+function game.draw()
 	love.graphics.setLineWidth(2)
 	love.graphics.setColor(1,1,1)
 
@@ -284,8 +280,6 @@ function scenes.game.draw()
 
 	love.graphics.print(string.format("x%d", ballsLeft), 60, 70)
 
-	gui:draw()
-
 	if not seenTutorial then
 		love.graphics.setColor(1,1,1)
 		love.graphics.draw(images.tutorial, 0, 0, 0, 1, 1)
@@ -294,3 +288,5 @@ function scenes.game.draw()
 		love.graphics.print("Tap and drag\nto shoot...", 40*7, 40*3)
 	end
 end
+
+return game

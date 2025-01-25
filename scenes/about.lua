@@ -1,18 +1,16 @@
 -- about.lua: about dialog
 
-scenes.about = {
-	background = { 11, 75, 122 }
+local about = {
+	background = { 11, 75, 122 },
+	gui = Gui:new()
 }
-local gui
 
 local abouttext
 
-function scenes.about.init()
+function about.init()
 	abouttext = love.filesystem.read("data/about.txt") or ""
 
-	gui = Gui:new()
-
-	gui:add("back", Button:new{
+	about.gui:add("back", Button:new{
 		x = 40*1, y = 40*15,
 		w = 280, h = 80,
 		label = S("Back"),
@@ -23,7 +21,7 @@ function scenes.about.init()
 		isOverlay = true
 	})
 
-	gui:add("website", Button:new{
+	about.gui:add("website", Button:new{
 		x = 40*14, y = 40*15,
 		w = 650, h = 80,
 		label = S("Visit boxsmasher.voxelmanip.se"),
@@ -34,15 +32,11 @@ function scenes.about.init()
 	})
 end
 
-function scenes.about.back()
+function about.back()
 	scene.switch("mainmenu")
 end
 
-function scenes.about.update()
-	gui:update()
-end
-
-function scenes.about.draw()
+function about.draw()
 	love.graphics.setFont(fonts.sans.bigger)
 	printOutlined("Box Smasher", 40, 40, 3)
 
@@ -54,6 +48,6 @@ function scenes.about.draw()
 		love.graphics.setFont(fonts.sans.small)
 		love.graphics.print("DEBUG", 375, 40)
 	end
-
-	gui:draw()
 end
+
+return about

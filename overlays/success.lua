@@ -1,14 +1,13 @@
 -- Level completion overlay
 
-overlays.success = {}
-local gui
+local success = {
+	gui = Gui:new()
+}
 
 local level, ballsUsed, totalBalls
 
-function overlays.success.init(data)
-	gui = Gui:new()
-
-	gui:add("back", Button:new{
+function success.init(data)
+	success.gui:add("back", Button:new{
 		x = 390, y = 540,
 		w = 200, h = 96,
 		label = S("Back"),
@@ -19,7 +18,7 @@ function overlays.success.init(data)
 		isOverlay = true
 	})
 
-	gui:add("next", Button:new{
+	success.gui:add("next", Button:new{
 		x = 620, y = 540,
 		w = 270, h = 96,
 		label = S("Next level"),
@@ -37,16 +36,12 @@ function overlays.success.init(data)
 	totalBalls = data.totalBalls
 end
 
-function overlays.success.back()
+function success.back()
 	overlay.switch(false)
 	scene.switch("selectlevel")
 end
 
-function overlays.success.update()
-	gui:update()
-end
-
-function overlays.success.draw()
+function success.draw()
 	love.graphics.setColor(64/255, 120/255, 161/255,0.9)
 	love.graphics.rectangle('fill', 380, 20, 520, 680)
 
@@ -63,6 +58,6 @@ function overlays.success.draw()
 	for i = 1, #texts, 1 do
 		love.graphics.print(texts[i], 420, 4*32+(i*72))
 	end
-
-	gui:draw()
 end
+
+return success

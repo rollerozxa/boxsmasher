@@ -1,12 +1,11 @@
 -- Final level completion overlay
 
-overlays.final = {}
-local gui
-
-function overlays.final.init()
+local final = {
 	gui = Gui:new()
+}
 
-	gui:add("back", Button:new{
+function final.init()
+	final.gui:add("back", Button:new{
 		x = 480, y = 40*13,
 		w = 40*8, h = 96,
 		label = S("yay ^-^"),
@@ -20,13 +19,9 @@ function overlays.final.init()
 	sounds.success:clone():play()
 end
 
-function overlays.final.back()
+function final.back()
 	overlay.switch(false)
 	scene.switch("selectlevel")
-end
-
-function overlays.final.update()
-	gui:update()
 end
 
 local text = {
@@ -37,7 +32,7 @@ local text = {
 	"Stay tuned for new updates",
 	"with more levels..."}
 
-function overlays.final.draw()
+function final.draw()
 	love.graphics.setColor(64/255, 120/255, 161/255,0.9)
 	love.graphics.rectangle('fill', 380, 20, 520, 680)
 
@@ -51,6 +46,6 @@ function overlays.final.draw()
 		drawCenteredText(0, y, base_resolution.x, 32, t)
 		y = y + 48
 	end
-
-	gui:draw()
 end
+
+return final

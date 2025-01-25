@@ -1,14 +1,12 @@
 -- Statistics dialog
 
-scenes.statistics = {
-	background = { 11, 75, 122 }
-}
-local gui
-
-function scenes.statistics.init()
+local statistics = {
+	background = { 11, 75, 122 },
 	gui = Gui:new()
+}
 
-	gui:add("back", Button:new{
+function statistics.init()
+	statistics.gui:add("back", Button:new{
 		x = 40, y = 40*14,
 		w = 40*12, h = 96,
 		label = S("Back to main menu"),
@@ -19,12 +17,8 @@ function scenes.statistics.init()
 	})
 end
 
-function scenes.statistics.back()
+function statistics.back()
 	scene.switch("mainmenu")
-end
-
-function scenes.statistics.update()
-	gui:update()
 end
 
 angle = 0
@@ -65,7 +59,7 @@ local rows = {
 	}
 }
 
-function scenes.statistics.draw()
+function statistics.draw()
 	love.graphics.setFont(fonts.sans.bigger)
 	printOutlined("Statistics", 40, 40, 3)
 
@@ -87,6 +81,6 @@ function scenes.statistics.draw()
 	end
 
 	angle = angle + math.pi/128
-
-	gui:draw()
 end
+
+return statistics

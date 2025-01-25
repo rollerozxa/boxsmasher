@@ -1,9 +1,9 @@
 -- Main menu scene
 
-scenes.mainmenu = {
-	background = { 44, 100, 141 }
+local mainmenu = {
+	background = { 44, 100, 141 },
+	gui = Gui:new()
 }
-local gui
 
 local splashes, current_splash, step
 
@@ -22,10 +22,8 @@ local function newBox(x,y,w,h)
 	table.insert(boxes, box)
 end
 
-function scenes.mainmenu.init()
-	gui = Gui:new()
-
-	gui:add("play", Button:new{
+function mainmenu.init()
+	mainmenu.gui:add("play", Button:new{
 		x = 490, y = 10*32,
 		w = 300, h = 96,
 		label = S("Play"),
@@ -35,7 +33,7 @@ function scenes.mainmenu.init()
 		end
 	})
 
-	gui:add("statistics", Button:new{
+	mainmenu.gui:add("statistics", Button:new{
 		x = 40*8, y = 40*11,
 		w = 300, h = 96,
 		label = S("Statistics"),
@@ -45,7 +43,7 @@ function scenes.mainmenu.init()
 		end
 	})
 
-	gui:add("about", Button:new{
+	mainmenu.gui:add("about", Button:new{
 		x = 40*17-20, y = 40*11,
 		w = 300, h = 96,
 		label = S("About"),
@@ -55,7 +53,7 @@ function scenes.mainmenu.init()
 		end
 	})
 
-	gui:add("settings", Button:new{
+	mainmenu.gui:add("settings", Button:new{
 		x = base_resolution.x-80, y = 8,
 		w = 72, h = 72,
 		image = {
@@ -74,13 +72,11 @@ function scenes.mainmenu.init()
 	world = bf.World:new(0, 90.82*2, true)
 end
 
-function scenes.mainmenu.back()
+function mainmenu.back()
 	love.event.quit()
 end
 
-function scenes.mainmenu.update(dt)
-	gui:update()
-
+function mainmenu.update(dt)
 	world:update(dt)
 
 	if step % 4 == 0 then
@@ -104,12 +100,10 @@ function scenes.mainmenu.update(dt)
 	step = step + 1
 end
 
-function scenes.mainmenu.draw()
+function mainmenu.draw()
 	world:draw()
 
 	love.graphics.setLineWidth(4)
-
-	gui:draw()
 
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)
@@ -131,3 +125,5 @@ function scenes.mainmenu.draw()
 
 	love.graphics.print("Box Smasher v" .. VERSION.string, 5, base_resolution.y-25)
 end
+
+return mainmenu
