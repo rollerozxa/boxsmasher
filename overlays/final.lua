@@ -1,21 +1,23 @@
 -- Final level completion overlay
 
 overlays.final = {}
-
-local backBtn = Button:new{
-	x = 480, y = 40*13,
-	w = 40*8, h = 96,
-	label = S("yay ^-^"),
-	onClick = function()
-		overlay.switch(false)
-		scene.switch("selectlevel")
-	end,
-	isOverlay = true
-}
+local gui
 
 function overlays.final.init()
-	sounds.success:clone():play()
+	gui = Gui:new()
 
+	gui:add("back", Button:new{
+		x = 480, y = 40*13,
+		w = 40*8, h = 96,
+		label = S("yay ^-^"),
+		onClick = function()
+			overlay.switch(false)
+			scene.switch("selectlevel")
+		end,
+		isOverlay = true
+	})
+
+	sounds.success:clone():play()
 end
 
 function overlays.final.back()
@@ -24,7 +26,7 @@ function overlays.final.back()
 end
 
 function overlays.final.update()
-	backBtn:update()
+	gui:update()
 end
 
 local text = {
@@ -50,5 +52,5 @@ function overlays.final.draw()
 		y = y + 48
 	end
 
-	backBtn:draw()
+	gui:draw()
 end

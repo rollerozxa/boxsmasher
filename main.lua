@@ -49,6 +49,7 @@ r"savegame/savegame"
 r"savegame/statistics"
 
 -- gui
+r"gui/gui"
 r"gui/button"
 r"gui/texbutton"
 

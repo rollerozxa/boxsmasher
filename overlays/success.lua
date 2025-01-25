@@ -1,34 +1,35 @@
 -- Level completion overlay
 
 overlays.success = {}
+local gui
 
-local level
-
-local backBtn = Button:new{
-	x = 390, y = 540,
-	w = 200, h = 96,
-	label = S("Back"),
-	onClick = function()
-		overlay.switch(false)
-		scene.switch("selectlevel")
-	end,
-	isOverlay = true
-}
-
-local nextBtn = Button:new{
-	x = 620, y = 540,
-	w = 270, h = 96,
-	label = S("Next level"),
-	onClick = function()
-		overlay.switch(false)
-		scene.switch("game", {level = level + 1})
-	end,
-	isOverlay = true
-}
-
-local ballsUsed, totalBalls
+local level, ballsUsed, totalBalls
 
 function overlays.success.init(data)
+	gui = Gui:new()
+
+	gui:add("back", Button:new{
+		x = 390, y = 540,
+		w = 200, h = 96,
+		label = S("Back"),
+		onClick = function()
+			overlay.switch(false)
+			scene.switch("selectlevel")
+		end,
+		isOverlay = true
+	})
+
+	gui:add("next", Button:new{
+		x = 620, y = 540,
+		w = 270, h = 96,
+		label = S("Next level"),
+		onClick = function()
+			overlay.switch(false)
+			scene.switch("game", {level = level + 1})
+		end,
+		isOverlay = true
+	})
+
 	sounds.success:clone():play()
 
 	level = data.level
@@ -42,8 +43,7 @@ function overlays.success.back()
 end
 
 function overlays.success.update()
-	backBtn:update()
-	nextBtn:update()
+	gui:update()
 end
 
 function overlays.success.draw()
@@ -64,6 +64,5 @@ function overlays.success.draw()
 		love.graphics.print(texts[i], 420, 4*32+(i*72))
 	end
 
-	backBtn:draw()
-	nextBtn:draw()
+	gui:draw()
 end

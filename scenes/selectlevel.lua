@@ -3,17 +3,7 @@
 scenes.selectlevel = {
 	background = { 44, 100, 141 }
 }
-
-local backBtn = TexButton:new{
-	x = 0, y = 0,
-	w = 128, h = 64,
-	scale = 0.5,
-	texture = "back_btn",
-	onClick = function()
-		scene.switch("mainmenu")
-	end,
-	keybind = "escape"
-}
+local gui
 
 -- Limit the amount of levels
 local levelsAvailable
@@ -33,6 +23,19 @@ end
 
 function scenes.selectlevel.init()
 	levelsAvailable = 32
+
+	gui = Gui:new()
+
+	gui:add("back", TexButton:new{
+		x = 0, y = 0,
+		w = 128, h = 64,
+		scale = 0.5,
+		texture = "back_btn",
+		onClick = function()
+			scene.switch("mainmenu")
+		end,
+		keybind = "escape"
+	})
 end
 
 function scenes.selectlevel.back()
@@ -40,7 +43,7 @@ function scenes.selectlevel.back()
 end
 
 function scenes.selectlevel.update()
-	backBtn:update()
+	gui:update()
 
 	-- Iterate over all the grid cells and check for mouse click.
 	for levelnum = 1, levelsAvailable do
@@ -56,7 +59,7 @@ function scenes.selectlevel.update()
 end
 
 function scenes.selectlevel.draw()
-	backBtn:draw()
+	gui:draw()
 
 	love.graphics.setFont(fonts.sans.bigger)
 

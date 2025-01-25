@@ -3,35 +3,13 @@
 scenes.game = {
 	background = { 43, 64, 43 }
 }
+local gui
 
 local terrain, boxes, ball, boxNum, totalBoxes, joints, helddown, grabbedBall
 local randc, randc2
 local level, lvl, ballsLeft, seenTutorial
 local throw = {x = 0, y = 0}
 local step
-
-local menuBtn = TexButton:new{
-	x = base_resolution.x-(96), y = 0,
-	w = 96, h = 110,
-	texture = "menu",
-	scale = 2.5,
-	onClick = function()
-		overlay.switch('pause')
-	end,
-	keybind = 'escape'
-}
-
-local restartBtn = Button:new{
-	x = 40*23, y = 0,
-	w = 40*5.5, h = 40*1.8,
-	label = S("Restart"),
-	onClick = function()
-		scene.restart(true)
-	end,
-	isVisible = function()
-		return ballsLeft == 0
-	end
-}
 
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
@@ -51,6 +29,31 @@ local function newBox(x,y,w,h)
 end
 
 function scenes.game.init(data)
+	gui = Gui:new()
+
+	gui:add("menu", TexButton:new{
+		x = base_resolution.x-(96), y = 0,
+		w = 96, h = 110,
+		texture = "menu",
+		scale = 2.5,
+		onClick = function()
+			overlay.switch('pause')
+		end,
+		keybind = 'escape'
+	})
+
+	gui:add("restart", Button:new{
+		x = 40*23, y = 0,
+		w = 40*5.5, h = 40*1.8,
+		label = S("Restart"),
+		onClick = function()
+			scene.restart(true)
+		end,
+		isVisible = function()
+			return ballsLeft == 0
+		end
+	})
+
 	world = bf.World:new(0, 90.82*1.5, true)
 
 	step = 0
@@ -119,8 +122,7 @@ function scenes.game.back()
 end
 
 function scenes.game.update(dt)
-	menuBtn:update()
-	restartBtn:update()
+	gui:update()
 
 	if overlay.isActive() or scene.isTransitioning() then return end
 
@@ -282,8 +284,7 @@ function scenes.game.draw()
 
 	love.graphics.print(string.format("x%d", ballsLeft), 60, 70)
 
-	menuBtn:draw()
-	restartBtn:draw()
+	gui:draw()
 
 	if not seenTutorial then
 		love.graphics.setColor(1,1,1)

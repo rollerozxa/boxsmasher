@@ -3,52 +3,11 @@
 scenes.mainmenu = {
 	background = { 44, 100, 141 }
 }
+local gui
 
 local splashes, current_splash, step
 
 local boxes = {}
-
-local playBtn = Button:new{
-	x = 490, y = 10*32,
-	w = 300, h = 96,
-	label = S("Play"),
-	keybind = "p",
-	onClick = function()
-		scene.switch("selectlevel")
-	end
-}
-
-local statsBtn = Button:new{
-	x = 40*8, y = 40*11,
-	w = 300, h = 96,
-	label = S("Statistics"),
-	keybind = "s",
-	onClick = function()
-		scene.switch("statistics")
-	end
-}
-
-local aboutBtn = Button:new{
-	x = 40*17-20, y = 40*11,
-	w = 300, h = 96,
-	label = S("About"),
-	keybind = "a",
-	onClick = function()
-		scene.switch("about")
-	end
-}
-
-local settingsBtn = Button:new{
-	x = base_resolution.x-80, y = 8,
-	w = 72, h = 72,
-	image = {
-		name = "settings",
-		w = 52, h = 52
-	},
-	onClick = function()
-		scene.switch("settings")
-	end,
-}
 
 -- Adds a new hittable box into the world, with proper draw function and
 -- physics properties.
@@ -64,6 +23,50 @@ local function newBox(x,y,w,h)
 end
 
 function scenes.mainmenu.init()
+	gui = Gui:new()
+
+	gui:add("play", Button:new{
+		x = 490, y = 10*32,
+		w = 300, h = 96,
+		label = S("Play"),
+		keybind = "p",
+		onClick = function()
+			scene.switch("selectlevel")
+		end
+	})
+
+	gui:add("statistics", Button:new{
+		x = 40*8, y = 40*11,
+		w = 300, h = 96,
+		label = S("Statistics"),
+		keybind = "s",
+		onClick = function()
+			scene.switch("statistics")
+		end
+	})
+
+	gui:add("about", Button:new{
+		x = 40*17-20, y = 40*11,
+		w = 300, h = 96,
+		label = S("About"),
+		keybind = "a",
+		onClick = function()
+			scene.switch("about")
+		end
+	})
+
+	gui:add("settings", Button:new{
+		x = base_resolution.x-80, y = 8,
+		w = 72, h = 72,
+		image = {
+			name = "settings",
+			w = 52, h = 52
+		},
+		onClick = function()
+			scene.switch("settings")
+		end,
+	})
+
 	splashes = splitNewline(love.filesystem.read("data/splashes.txt") or "missingno")
 	current_splash = 1
 	step = 0
@@ -76,10 +79,7 @@ function scenes.mainmenu.back()
 end
 
 function scenes.mainmenu.update(dt)
-	playBtn:update()
-	statsBtn:update()
-	aboutBtn:update()
-	settingsBtn:update()
+	gui:update()
 
 	world:update(dt)
 
@@ -109,10 +109,7 @@ function scenes.mainmenu.draw()
 
 	love.graphics.setLineWidth(4)
 
-	playBtn:draw()
-	statsBtn:draw()
-	aboutBtn:draw()
-	settingsBtn:draw()
+	gui:draw()
 
 	love.graphics.setFont(fonts.sans.biggest)
 	printOutlined("Box Smasher", 350, 53, 6)

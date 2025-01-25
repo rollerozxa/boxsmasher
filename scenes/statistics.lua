@@ -3,23 +3,28 @@
 scenes.statistics = {
 	background = { 11, 75, 122 }
 }
+local gui
 
-local backBtn = Button:new{
-	x = 40, y = 40*14,
-	w = 40*12, h = 96,
-	label = S("Back to main menu"),
-	keybind = "escape",
-	onClick = function()
-		scene.switch("mainmenu")
-	end
-}
+function scenes.statistics.init()
+	gui = Gui:new()
+
+	gui:add("back", Button:new{
+		x = 40, y = 40*14,
+		w = 40*12, h = 96,
+		label = S("Back to main menu"),
+		keybind = "escape",
+		onClick = function()
+			scene.switch("mainmenu")
+		end
+	})
+end
 
 function scenes.statistics.back()
 	scene.switch("mainmenu")
 end
 
 function scenes.statistics.update()
-	backBtn:update()
+	gui:update()
 end
 
 angle = 0
@@ -83,5 +88,5 @@ function scenes.statistics.draw()
 
 	angle = angle + math.pi/128
 
-	backBtn:draw()
+	gui:draw()
 end
