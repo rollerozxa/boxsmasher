@@ -22,7 +22,7 @@ local function getCell(i)
 end
 
 function scenes.selectlevel.init()
-	levelsAvailable = 32
+	levelsAvailable = getTotalLevels()
 
 	gui = Gui:new()
 
