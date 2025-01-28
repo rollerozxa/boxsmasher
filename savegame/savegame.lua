@@ -34,7 +34,7 @@ function savegame.runSaveTimer(dt)
 
 	statistics.add("playtime", dt, true)
 
-	if (saveDelta > 15 and savegame.dirty) or saveDelta > 60 then
+	if (saveDelta > 5 and savegame.dirty) or saveDelta > 60 then
 		saveDelta = 0
 		savegame.save()
 	end
