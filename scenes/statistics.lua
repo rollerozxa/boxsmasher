@@ -50,7 +50,7 @@ local coolColours = {coolRandomColour(), coolRandomColour()}
 
 local rows = {
 	{
-		label = S"Boxes:",
+		label = S"Boxes smashed:",
 		getValue = function()
 			return statistics.get("boxes")
 		end,
