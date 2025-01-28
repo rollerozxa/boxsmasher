@@ -4,6 +4,6 @@
 		"minor": 1,
 		"patch": 0
 	},
-	"string": "1.1.0-dev",
-	"is_dev": true
+	"string": "1.1.0",
+	"is_dev": false
 }
