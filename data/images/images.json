@@ -3,6 +3,9 @@
 		"name": "back_btn",
 		"filter": "linear"
 	}, {
+		"name": "check",
+		"filter": "linear"
+	}, {
 		"name": "intro_raccoon",
 		"filter": "nearest"
 	}, {
@@ -19,6 +22,9 @@
 		"filter": "nearest"
 	}, {
 		"name": "settings",
+		"filter": "linear"
+	}, {
+		"name": "timer",
 		"filter": "linear"
 	}, {
 		"name": "tutorial",
