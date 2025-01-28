@@ -49,7 +49,7 @@ function selectlevel.update()
 		if mouseCollisionScaled(x * 150 - 80, 128 + y * 150, 96, 96) and mouseReleased() and canPlay(levelnum) then
 			scene.switch("game", { level = levelnum })
 
-			sounds.click:clone():play()
+			sound.play("click")
 		end
 	end
 end

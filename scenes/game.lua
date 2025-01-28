@@ -148,7 +148,7 @@ function game.update(dt)
 			-- Just started holding the mouse? Create a ball at the mouse's position,
 			-- add a mouse joint to keep it static until thrown.
 			if not helddown then
-				sounds.spawn:clone():play()
+				sound.play("spawn")
 
 				ball = world:newCollider("Circle", {mx, my, 30})
 				-- Set the thrown object to a "bullet", which uses more detailed collision detection
@@ -189,7 +189,7 @@ function game.update(dt)
 		grabbedBall = false
 		ballsLeft = ballsLeft - 1
 
-		sounds.throw:clone():play()
+		sound.play("throw")
 
 		statistics.add("balls", 1)
 
@@ -203,7 +203,7 @@ function game.update(dt)
 			box:destroy()
 			boxes[key] = nil
 			boxNum = boxNum - 1
-			sounds.pop:clone():play()
+			sound.play("pop")
 			statistics.add('boxes', 1)
 		end
 	end

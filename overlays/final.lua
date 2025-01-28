@@ -16,7 +16,7 @@ function final.init()
 		isOverlay = true
 	})
 
-	sounds.success:clone():play()
+	sound.play("success")
 end
 
 function final.back()

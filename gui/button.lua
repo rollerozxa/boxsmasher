@@ -16,8 +16,8 @@ function Button:update()
 
 	if (mouseCollisionScaled(self.x, self.y, self.w, self.h) and mouseReleased())
 	or (self.keybind and love.keyboard.isDown(self.keybind) and not sparsifier[self.keybind]) then
-		self.onClick()
-		sounds.click:clone():play()
+		sound.play("click")
+		self.onClick(self)
 	end
 
 	if self.keybind then

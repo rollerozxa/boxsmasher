@@ -42,6 +42,7 @@ r"draw"
 r"level"
 r"overlay"
 r"scene"
+r"sound"
 r"util"
 
 -- savegame
@@ -83,6 +84,7 @@ function love.load()
 	savegame.setDefault('levelsUnlocked', 1)
 	savegame.setDefault('seenTutorial', false)
 	savegame.setDefault('fullscreen', love.system.getOS() == 'Android')
+	savegame.setDefault('enableSound', true)
 
 	love.window.setFullscreen(savegame.get('fullscreen'))
 

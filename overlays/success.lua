@@ -29,7 +29,7 @@ function success.init(data)
 		isOverlay = true
 	})
 
-	sounds.success:clone():play()
+	sound.play("success")
 
 	level = data.level
 	ballsUsed = data.ballsUsed
