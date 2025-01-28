@@ -12,7 +12,7 @@ end
 function intro.update(dt)
 	intro_timer = intro_timer + dt
 
-	if intro_timer > 0.65 or love.keyboard.isDown("escape") then
+	if intro_timer > 0.5 or love.keyboard.isDown("escape") then
 		scene.switch("mainmenu")
 	end
 end
