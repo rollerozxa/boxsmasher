@@ -29,7 +29,7 @@ rcedit "$GAME_EXE" \
 	--set-version-string LegalCopyright "(c) ROllerozxa, et al." \
 	--set-version-string ProductName "Box Smasher" \
 	--set-version-string ProductVersion "$VER_STRING" \
-	--set-version-string OriginalFilename "$EXE"
+	--set-version-string OriginalFilename "$GAME_EXE"
 
 cd ..
 cp -r "$FOLDER" "$BINDIR"

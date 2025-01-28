@@ -26,8 +26,12 @@ cp "${SRCDIR}/packaging/box-smasher.desktop" .
 cp "${SRCDIR}/data/icon.png" box-smasher.png
 ln -sf box-smasher.png .DirIcon
 
+mv bin/love bin/box_smasher
+
 cp "$GAME_FILE" .
 
 cd ..
 
 ARCH=x86_64 /tmp/appimagetool --appimage-extract-and-run squashfs-root/
+
+cp Box_Smasher-x86_64.AppImage "$BINDIR"

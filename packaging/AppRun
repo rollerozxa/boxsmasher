@@ -1,4 +1,4 @@
 #!/bin/sh
 APPDIR="$(dirname "$(readlink -f "$0")")"
 export LD_LIBRARY_PATH="${APPDIR}/lib/:${LD_LIBRARY_PATH}"
-exec "${APPDIR}/bin/love" --fused "${APPDIR}/box-smasher.love" "$@"
+exec "${APPDIR}/bin/box_smasher" --fused "${APPDIR}/box-smasher.love" "$@"

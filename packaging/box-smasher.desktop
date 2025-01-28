@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Box Smasher
-Exec=love %f
+Exec=box_smasher %f
 Type=Application
 Categories=Game;
 Terminal=false
