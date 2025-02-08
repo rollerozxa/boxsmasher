@@ -38,7 +38,7 @@ end
 
 function about.draw()
 	love.graphics.setFont(fonts.sans.bigger)
-	printOutlined("Box Smasher", 40, 40, 3)
+	text.drawOutlined("Box Smasher", 40, 40, 3)
 
 	love.graphics.setFont(fonts.sans.big)
 	love.graphics.print(abouttext, 40, 120)

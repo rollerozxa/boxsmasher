@@ -255,7 +255,7 @@ function game.draw()
 	if ball and helddown then
 		local ox, oy = ball:getPosition()
 		love.graphics.setColor(1,0,0)
-		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
+		draw.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
 	end
 
 	love.graphics.setFont(fonts.sans.medium)

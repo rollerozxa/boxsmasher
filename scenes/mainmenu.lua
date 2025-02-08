@@ -106,7 +106,7 @@ function mainmenu.draw()
 	love.graphics.setLineWidth(4)
 
 	love.graphics.setFont(fonts.sans.biggest)
-	printOutlined("Box Smasher", 350, 53, 6)
+	text.drawOutlined("Box Smasher", 350, 53, 6)
 
 	if splashes[current_splash]:len() > 30 then
 		love.graphics.setFont(fonts.sans.small)
@@ -116,12 +116,12 @@ function mainmenu.draw()
 		love.graphics.setFont(fonts.sans.big)
 	end
 	love.graphics.setColor(1,1,0.3)
-	drawCenteredTextRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8)
+	text.drawCenteredRot(320, 135, 400, 200, splashes[current_splash], -math.pi/8)
 
 	love.graphics.setColor(1,1,1)
 	love.graphics.setFont(fonts.sans.small)
-	drawRightText(0, resolution.y-50, resolution.x-5, "© 2023-2025 ROllerozxa")
-	drawRightText(0, resolution.y-25, resolution.x-5, "Licensed under the GPLv3. Do distribute!")
+	text.drawRight(0, resolution.y-50, resolution.x-5, "© 2023-2025 ROllerozxa")
+	text.drawRight(0, resolution.y-25, resolution.x-5, "Licensed under the GPLv3. Do distribute!")
 
 	love.graphics.print("Box Smasher v" .. VERSION.string, 5, resolution.y-25)
 end

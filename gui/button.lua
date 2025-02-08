@@ -67,6 +67,6 @@ function Button:draw()
 			love.graphics.setFont(fonts.sans.big)
 		end
 
-		drawCenteredText(self.x, self.y+7, self.w, self.h, self.label)
+		text.drawCentered(self.x, self.y+7, self.w, self.h, self.label)
 	end
 end

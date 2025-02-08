@@ -48,7 +48,7 @@ end
 
 function settings.draw()
 	love.graphics.setFont(fonts.sans.bigger)
-	printOutlined("Settings", 40, 40, 3)
+	text.drawOutlined("Settings", 40, 40, 3)
 
 	love.graphics.setFont(fonts.sans.big)
 	love.graphics.print(S("Fullscreen mode:"), 40, 40*4.5)

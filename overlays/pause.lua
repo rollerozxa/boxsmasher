@@ -49,7 +49,7 @@ function pause.draw()
 
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.setFont(fonts.sans.bigger)
-	drawCenteredText(4, 64, resolution.x, 64, S("Game paused"))
+	text.drawCentered(4, 64, resolution.x, 64, S("Game paused"))
 end
 
 return pause

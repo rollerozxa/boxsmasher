@@ -94,7 +94,7 @@ local rows = {
 
 function stat.draw()
 	love.graphics.setFont(fonts.sans.bigger)
-	printOutlined("Statistics", 40, 40, 3)
+	text.drawOutlined("Statistics", 40, 40, 3)
 
 	love.graphics.setFont(fonts.sans.big)
 	for i, row in ipairs(rows) do

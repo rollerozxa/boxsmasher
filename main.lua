@@ -1,67 +1,69 @@
 -- Main entrypoint file
 
-oldmousedown = false
-
--- Keeps track of held down keys to prevent repeating actions.
-sparsifier = {}
-
--- Dummy translation function
--- (Future proofing for when a translation system is implemented)
-function S(text, ...)
-	return string.format(text, ...)
-end
-
 local r = function(file)
+	if type(file) == "table" then
+		for _, f in ipairs(file) do
+			require(f)
+		end
+		return
+	end
 	return require(file)
 end
 
+-- Third party libraries
 json = r"lib.json"
+bf = r"lib.breezefield.init"
 
--- common
-r"assets"
-r"colour"
-r"dbg"
-r"draw"
-r"level"
-r"overlay"
-r"scene"
-r"sound"
-r"util"
-r"window"
 
--- savegame
-r"savegame/savegame"
-r"savegame/statistics"
+r{
+	-- common
+	"assets",
+	"colour",
+	"dbg",
+	"draw",
+	"input",
+	"level",
+	"overlay",
+	"scene",
+	"sound",
+	"text",
+	"util",
+	"window",
 
--- gui
-r"gui/gui"
-r"gui/button"
-r"gui/texbutton"
+	-- savegame
+	"savegame.savegame",
+	"savegame.statistics",
+
+	-- gui
+	"gui.gui",
+	"gui.button",
+	"gui.texbutton",
+}
 
 -- scenes
 scenes = {
-	about = r"scenes/about",
-	game = r"scenes/game",
-	intro = r"scenes/intro",
-	mainmenu = r"scenes/mainmenu",
-	selectlevel = r"scenes/selectlevel",
-	settings = r"scenes/settings",
-	statistics = r"scenes/statistics"
+	about = r"scenes.about",
+	game = r"scenes.game",
+	intro = r"scenes.intro",
+	mainmenu = r"scenes.mainmenu",
+	selectlevel = r"scenes.selectlevel",
+	settings = r"scenes.settings",
+	statistics = r"scenes.statistics"
 }
 
 -- overlays
 overlays = {
-	final = r"overlays/final",
-	success = r"overlays/success",
-	pause = r"overlays/pause"
+	final = r"overlays.final",
+	success = r"overlays.success",
+	pause = r"overlays.pause"
 }
 
-bf = r"lib.breezefield"
-
-VERSION = json.decode(love.filesystem.read("data/version.json"))
+VERSION = nil
 
 -- On load callback
 function love.load()
+	VERSION = json.decode(love.filesystem.read("data/version.json"))
+
 	love.graphics.setDefaultFilter('nearest', 'nearest', 4)
 
 	savegame.load()

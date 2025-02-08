@@ -38,12 +38,12 @@ function final.draw()
 
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.setFont(fonts.sans.bigger)
-	drawCenteredText(4, 64, resolution.x, 64, S("Level Complete!"))
+	text.drawCentered(4, 64, resolution.x, 64, S("Level Complete!"))
 
 	love.graphics.setFont(fonts.sans.medium)
 	local y = 32*5
 	for _,t in pairs(text) do
-		drawCenteredText(0, y, resolution.x, 32, t)
+		text.drawCentered(0, y, resolution.x, 32, t)
 		y = y + 48
 	end
 end

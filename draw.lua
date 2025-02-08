@@ -8,18 +8,18 @@ function draw.ball(x, y, angle, colour, radius)
 	love.graphics.setLineWidth(2)
 
 	-- Body w/ outline
-	love.graphics.circleOutlined(x, y, radius, colour, {0,0,0})
+	draw.circleOutlined(x, y, radius, colour, {0,0,0})
 
 	-- Offset of the eyes from the center of the ball
 	local offset = radius/2
 
 	-- Eyes
-	love.graphics.circleOutlined(
+	draw.circleOutlined(
 		x+math.cos(angle+math.pi/2+15)*offset,
 		y+math.sin(angle+math.pi/2+15)*offset,
 		radius*0.3, {1,1,1}, {0,0,0})
 
-	love.graphics.circleOutlined(
+	draw.circleOutlined(
 		x+math.cos(angle+math.pi/2-15)*offset,
 		y+math.sin(angle+math.pi/2-15)*offset,
 		radius*0.3, {1,1,1}, {0,0,0})
@@ -41,11 +41,11 @@ function draw.box(x, y, w, h, angle, colour)
 
 	-- Box fill
 	love.graphics.setColor(colour)
-	rotatedRectangle('fill', x, y, w, h, angle)
+	draw.rotatedRectangle('fill', x, y, w, h, angle)
 
 	-- Box outline
 	love.graphics.setColor(0,0,0)
-	rotatedRectangle('line', x, y, w, h, angle)
+	draw.rotatedRectangle('line', x, y, w, h, angle)
 
 	if dbg.isEnabled('box_pos') then
 		love.graphics.setColor(1,1,1)
@@ -89,5 +89,30 @@ function draw.backgroundLetterbox(r, g, b)
 	love.graphics.setColor(1,1,1)
 
 	-- Restore coordinate transform
+	love.graphics.pop()
+end
+
+-- Draw a line with an arrow at the end.
+-- 'arrlen' controls arrow length, 'angle' arrow angle
+function draw.arrow(x1, y1, x2, y2, arrlen, angle)
+	love.graphics.line(x1, y1, x2, y2)
+	local a = math.atan2(y1 - y2, x1 - x2)
+	love.graphics.line(x2, y2, x2 + arrlen * math.cos(a + angle), y2 + arrlen * math.sin(a + angle))
+	love.graphics.line(x2, y2, x2 + arrlen * math.cos(a - angle), y2 + arrlen * math.sin(a - angle))
+end
+
+function draw.circleOutlined(x, y, radius, oc, fc)
+	love.graphics.setColor(oc)
+	love.graphics.circle("fill", x, y, radius)
+	love.graphics.setColor(fc)
+	love.graphics.circle("line", x, y, radius)
+end
+
+-- Draw rotated rectangle (angle is in radians ^^)
+function draw.rotatedRectangle(mode, x, y, width, height, angle)
+	love.graphics.push()
+	love.graphics.translate(x, y)
+	love.graphics.rotate(angle)
+	love.graphics.rectangle(mode, -width/2, -height/2, width, height)
 	love.graphics.pop()
 end

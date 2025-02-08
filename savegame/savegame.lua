@@ -8,8 +8,7 @@ savegame = {
 
 savegame.data.statistics = {}
 
-local threadChannel = love.thread.getChannel("savegame_channel")
-local saveThread
+local threadChannel, saveThread
 
 -- Load an existing savegame JSON file, if it exists.
 function savegame.load()
@@ -18,6 +17,7 @@ function savegame.load()
 		savegame.data = json.decode(savejson)
 	end
 
+	threadChannel = love.thread.getChannel("savegame_channel")
 	saveThread = love.thread.newThread("savegame/save_thread.lua")
     saveThread:start()
 end
