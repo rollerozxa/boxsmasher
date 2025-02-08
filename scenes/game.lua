@@ -17,7 +17,7 @@ local function newBox(x,y,w,h)
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
 	box:setMass(box:getMass()*0.25)
 
-	box.colour = coolRandomColour()
+	box.colour = colour.random()
 
 	function box:draw()
 		draw.box(self:getX(), self:getY(), w, h, self:getAngle(), box.colour)
@@ -66,7 +66,7 @@ function game.init(data)
 	helddown = false
 	grabbedBall = false
 
-	randc = coolRandomColour()
+	randc = colour.random()
 
 	-- Load level
 	level = data.level or 1
@@ -112,7 +112,7 @@ function game.init(data)
 
 	totalBoxes = boxNum
 
-	randc2 = coolRandomColour()
+	randc2 = colour.random()
 end
 
 function game.back()
@@ -155,7 +155,7 @@ function game.update(dt)
 				-- to prevent it jumping over bodies if the velocity is high enough
 				ball:setBullet(true)
 
-				ball.colour = coolRandomColour()
+				ball.colour = colour.random()
 				ball.debug_step = 0
 
 				function ball:draw()

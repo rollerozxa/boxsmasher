@@ -13,7 +13,7 @@ local boxes = {}
 -- physics properties.
 local function newBox(x,y,w,h)
 	local box = world:newCollider("Rectangle", { x-(w/2),y-(h/2),w,h })
-	box.colour = coolRandomColour()
+	box.colour = colour.random()
 
 	function box:draw()
 		draw.box(self:getX(), self:getY(), w, h, self:getAngle(), box.colour)

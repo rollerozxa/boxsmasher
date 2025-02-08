@@ -46,7 +46,7 @@ function stat.back()
 end
 
 angle = 0
-local coolColours = {coolRandomColour(), coolRandomColour()}
+local coolColours = {colour.random(), colour.random()}
 
 local rows = {
 	{

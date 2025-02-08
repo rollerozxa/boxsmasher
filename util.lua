@@ -62,35 +62,6 @@ function rotatedRectangle(mode, x, y, width, height, angle)
 	love.graphics.pop()
 end
 
--- Generates a cool random colour.
-function coolRandomColour()
-	if dbg.isEnabled("autorestart") then
-		return {0.2, 0.2, 0.8}
-	end
-
-	local happy = false
-	local c
-
-	-- Repeat until I'm happy.
-	while not happy do
-		-- Random RGB values, clamped within 0.3 and 0.9.
-		c = {
-			math.clamp(math.random(0,1), 0.2, 0.8),
-			math.clamp(math.random(0,1), 0.2, 0.8),
-			math.clamp(math.random(0,1), 0.2, 0.8)
-		}
-
-		if (c[1] == 0.2 and c[2] == 0.2 and c[3] == 0.2)
-		or (c[1] == 0.8 and c[2] == 0.8 and c[3] == 0.8) then
-			-- all-black isn't a fun colour (I want something colourful!!!)
-		else
-			happy = true
-		end
-	end
-
-	return c
-end
-
 -- Draw some text that's centered within the specified rectangle
 function drawCenteredText(x, y, w, h, text)
 	-- Get the current font, calculate the width and height of its

@@ -19,6 +19,7 @@ json = r"lib.json"
 
 -- common
 r"assets"
+r"colour"
 r"dbg"
 r"draw"
 r"level"
