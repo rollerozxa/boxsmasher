@@ -174,6 +174,13 @@ end
 
 function love.quit()
 	savegame.save()
+	
+	if love.system.getOS() == "Android" then
+		-- The game is put in a zombie state on quit for some reason, causing it to not be openable
+		-- again. No idea where the issue is, but just exit the old fashioned way. (Principia also
+		-- needs to do this on Android to properly exit, so the issue may lie with SDL2)
+		os.exit()
+	end
 
 	return false
 end
