@@ -63,7 +63,7 @@ function draw.background(r, g, b)
 
 	-- Draw background, keeping in mind the potential offset currently happening.
 	love.graphics.setColor(r, g, b)
-	love.graphics.rectangle('fill', offset.x, offset.y, resolution.x, resolution.y)
+	love.graphics.rectangle('fill', offset.x, offset.y, scaled_res.x, scaled_res.y)
 	love.graphics.setColor(1,1,1)
 
 	-- Restore coordinate transform

@@ -91,23 +91,6 @@ function coolRandomColour()
 	return c
 end
 
--- Convert a scaled coordinate into the internal counterpart. Needed when
--- grabbing the mouse's coordinate and checking against coordinates that
--- expect the internal resolution that the game is running at.
-function unscaled(x, y)
-	return
-		(x - offset.x) / (resolution.x / base_resolution.x),
-		(y - offset.y) / (resolution.y / base_resolution.y)
-end
-
--- Check whether a given position is out of bounds
-function outOfBounds(x,y)
-	local safe = 40
-
-	return (x < -safe or x > base_resolution.x+safe)
-		or (y < -safe or y > base_resolution.y+safe)
-end
-
 -- Draw some text that's centered within the specified rectangle
 function drawCenteredText(x, y, w, h, text)
 	-- Get the current font, calculate the width and height of its
@@ -155,7 +138,7 @@ end
 
 -- Check if mouse is inside of the specified rectangle, give or take a small safe area.
 function mouseCollision(x,y,w,h)
-	-- Safe area around the cursor that still treats it as a press, for fat fingered fucks
+	-- Safe area around the cursor that still treats it as a press
 	local safearea = 8
 	return checkCollision(
 		x+offset.x, y+offset.y, w, h,
@@ -167,13 +150,6 @@ function mouseCollisionScaled(x,y,w,h)
 	local x, y = scaled(x, y)
 	local w, h = scaled(w, h)
 	return mouseCollision(x, y, w, h)
-end
-
--- Convert an internal coordinate into the scaled counterpart.
-function scaled(x,y)
-	return
-		x * resolution.x / base_resolution.x,
-		y * resolution.y / base_resolution.y
 end
 
 -- Sparsified check for mouse click (not held down).

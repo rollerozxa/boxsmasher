@@ -54,7 +54,7 @@ function mainmenu.init()
 	})
 
 	mainmenu.gui:add("settings", Button:new{
-		x = base_resolution.x-80, y = 8,
+		x = resolution.x-80, y = 8,
 		w = 72, h = 72,
 		image = {
 			name = "settings",
@@ -80,7 +80,7 @@ function mainmenu.update(dt)
 	world:update(dt)
 
 	if step % 4 == 0 then
-		local lolo = math.random(0, base_resolution.x)
+		local lolo = math.random(0, resolution.x)
 		--local lolo = (step*10) % base_resolution.x
 		newBox(lolo, -20, 40, 40)
 	end
@@ -91,7 +91,7 @@ function mainmenu.update(dt)
 
 	for key, box in pairs(boxes) do
 		local x, y = box:getPosition()
-		if y > base_resolution.y + 64 then
+		if y > resolution.y + 64 then
 			box:destroy()
 			boxes[key] = nil
 		end
@@ -120,10 +120,10 @@ function mainmenu.draw()
 
 	love.graphics.setColor(1,1,1)
 	love.graphics.setFont(fonts.sans.small)
-	drawRightText(0, base_resolution.y-50, base_resolution.x-5, "© 2023-2025 ROllerozxa")
-	drawRightText(0, base_resolution.y-25, base_resolution.x-5, "Licensed under the GPLv3. Do distribute!")
+	drawRightText(0, resolution.y-50, resolution.x-5, "© 2023-2025 ROllerozxa")
+	drawRightText(0, resolution.y-25, resolution.x-5, "Licensed under the GPLv3. Do distribute!")
 
-	love.graphics.print("Box Smasher v" .. VERSION.string, 5, base_resolution.y-25)
+	love.graphics.print("Box Smasher v" .. VERSION.string, 5, resolution.y-25)
 end
 
 return mainmenu

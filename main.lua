@@ -1,23 +1,5 @@
 -- Main entrypoint file
 
--- Base internal resolution ("canvas" resolution)
-base_resolution = {
-	x = 1280,
-	y = 720
-}
-
--- Resolution that the window is resized to (scaled up from base_resolution)
-resolution = {
-	x = base_resolution.x,
-	y = base_resolution.y
-}
-
--- Canvas offset, if aspect ratio is different
-offset = {
-	x = 0,
-	y = 0
-}
-
 oldmousedown = false
 
 -- Keeps track of held down keys to prevent repeating actions.
@@ -44,6 +26,7 @@ r"overlay"
 r"scene"
 r"sound"
 r"util"
+r"window"
 
 -- savegame
 r"savegame/savegame"
@@ -87,7 +70,7 @@ function love.load()
 	savegame.setDefault('enableSound', true)
 
 	love.window.setFullscreen(savegame.get('fullscreen'))
-	
+
 	if love.system.getOS() == "Android" then
 		-- LÖVE doesn't send a resize event at startup anymore on Android 15+. It is unclear if
 		-- this is how it should work, or if this is a bug in LÖVE. Let's just send a manual
@@ -121,12 +104,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	-- Offset canvas using 'offset', scale up canvas
-	-- using a factor of res / base_res
-	love.graphics.translate(offset.x, offset.y)
-	love.graphics.scale(
-		resolution.x / base_resolution.x,
-		resolution.y / base_resolution.y)
+	window.draw_transformation()
 
 	-- Default font & draw colour
 	love.graphics.setFont(fonts.sans.medium)
@@ -157,24 +135,12 @@ function love.keypressed(key)
 end
 
 function love.resize(w, h)
-	resolution.x = w
-	resolution.y = h
-
-	-- Keep aspect ratio of canvas, don't stretch it if aspect ratio is changed
-	if resolution.y / resolution.x > (base_resolution.y/base_resolution.x) then
-		resolution.y = math.ceil(resolution.x * (base_resolution.y/base_resolution.x))
-	else
-		resolution.x = math.ceil(resolution.y * (base_resolution.x/base_resolution.y))
-	end
-
-	-- Calculate offset (canvas should be in the middle, fill the edges with void)
-	offset.x = (w - resolution.x) / 2
-	offset.y = (h - resolution.y) / 2
+	window.resize(w, h)
 end
 
 function love.quit()
 	savegame.save()
-	
+
 	if love.system.getOS() == "Android" then
 		-- The game is put in a zombie state on quit for some reason, causing it to not be openable
 		-- again. No idea where the issue is, but just exit the old fashioned way. (Principia also

@@ -13,15 +13,15 @@ _dbg.coords = {
 
 		love.graphics.setLineWidth(4)
 		love.graphics.setColor(0,1,0)
-		love.graphics.line(mx, 0, mx, base_resolution.y)
-		love.graphics.line(umx, 0, umx, base_resolution.y)
+		love.graphics.line(mx, 0, mx, resolution.y)
+		love.graphics.line(umx, 0, umx, resolution.y)
 		love.graphics.setColor(1,0.1,0.1)
-		love.graphics.line(0, my, base_resolution.x, my)
-		love.graphics.line(0, umy, base_resolution.x, umy)
+		love.graphics.line(0, my, resolution.x, my)
+		love.graphics.line(0, umy, resolution.x, umy)
 
 		love.graphics.setColor(1,1,0)
+		love.graphics.rectangle("line", 0, 0, scaled_res.x, scaled_res.y)
 		love.graphics.rectangle("line", 0, 0, resolution.x, resolution.y)
-		love.graphics.rectangle("line", 0, 0, base_resolution.x, base_resolution.y)
 
 		love.graphics.setColor(1,1,1)
 		love.graphics.setLineWidth(1)
@@ -40,12 +40,12 @@ _dbg.grid = {
 		love.graphics.setLineWidth(1)
 		local cellSize = 40
 
-		for x = cellSize, base_resolution.x, cellSize do
-			love.graphics.line(x, 0, x, base_resolution.y)
+		for x = cellSize, resolution.x, cellSize do
+			love.graphics.line(x, 0, x, resolution.y)
 		end
 
-		for y = cellSize, base_resolution.y, cellSize do
-			love.graphics.line(0, y, base_resolution.x, y)
+		for y = cellSize, resolution.y, cellSize do
+			love.graphics.line(0, y, resolution.x, y)
 		end
 	end
 }
@@ -55,7 +55,7 @@ _dbg.info = {
 	keybind = 'f',
 	draw = function()
 		love.graphics.setFont(fonts.sans.small)
-		love.graphics.print("FPS: "..love.timer.getFPS()..", Running at "..resolution.x.."x"..resolution.y, 5, 10)
+		love.graphics.print("FPS: "..love.timer.getFPS()..", Running at "..scaled_res.x.."x"..scaled_res.y, 5, 10)
 	end
 }
 
