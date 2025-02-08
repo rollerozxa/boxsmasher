@@ -13,8 +13,8 @@ function love.conf(t)
 	else
 		t.window.resizable = true
 	end
-	t.window.minwidth = 320
-	t.window.minheight = 180
+	--t.window.minwidth = 320
+	--t.window.minheight = 180
 
 	t.modules.video = false
 end
