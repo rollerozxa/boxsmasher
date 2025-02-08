@@ -87,6 +87,13 @@ function love.load()
 	savegame.setDefault('enableSound', true)
 
 	love.window.setFullscreen(savegame.get('fullscreen'))
+	
+	if love.system.getOS() == "Android" then
+		-- LÖVE doesn't send a resize event at startup anymore on Android 15+. It is unclear if
+		-- this is how it should work, or if this is a bug in LÖVE. Let's just send a manual
+		-- resize event to our code to fix it.
+		love.resize(love.graphics.getWidth(), love.graphics.getHeight())
+	end
 
 	images = assets.loadImages()
 	fonts = assets.loadFonts()
