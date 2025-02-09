@@ -19,6 +19,7 @@ AI-free!
 Play it with your Blåhaj!
 Better than Jenga!
 Boxes... o.o
+fosstodon.org/@ROllerozxa
 Wait for the boxes!
 AndroidManifest.xml!
 SMASH SMASH SMASH
@@ -28,16 +29,19 @@ Board2!
 Rub your hands when washing!
 Also try Principia!
 Point of Departure!
+Red terrain = Bouncy!
 Arcane Toaster!
 No boxes were harmed!
 Ralsei!
 Now with 30% less sodium!
 Voxelmanip Forums!
 zombo.com!
+Fascinating!
 Quote!
 Contains infinite genders!
 ^-^
 Soused herring!
+Remarkable!
 Free!
 Open Source!
 Free and Open Source!
@@ -45,6 +49,7 @@ Kino!
 Wow!
 Your gender is valid!
 Just press play already!
+Orange terrain = Very bouncy!
 Have a great day!
 Don't eat too much candy...
 Eek!
@@ -58,3 +63,4 @@ Things have just started.
 I dream, every day.
 cuddles...
 This splash text is ridiculously long, so long that even with the small font size it hits into other elements on the main menu. You're incredibly lucky to get this splash, or incredibly unlucky?
+Now supports Android 15!
