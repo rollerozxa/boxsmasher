@@ -5,6 +5,8 @@ local stat = {
 	gui = Gui:new()
 }
 
+local coolColours
+
 function stat.init()
 	stat.gui:add("back", Button:new{
 		x = 40, y = 40*15.4,
@@ -15,6 +17,8 @@ function stat.init()
 			scene.switch("mainmenu")
 		end
 	})
+
+	coolColours = {colour.random(), colour.random()}
 end
 
 local function formatPlaytime(seconds)
@@ -45,8 +49,7 @@ function stat.back()
 	scene.switch("mainmenu")
 end
 
-angle = 0
-local coolColours = {colour.random(), colour.random()}
+local angle = 0
 
 local rows = {
 	{
