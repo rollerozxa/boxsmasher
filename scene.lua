@@ -48,13 +48,13 @@ end
 
 function scene.runDraw()
 	local bg
+	if scenes[curScene].background then
+		bg = scenes[curScene].background
+
+		draw.background(love.math.colorFromBytes(bg[1], bg[2], bg[3]))
+	end
+
 	if scenes[curScene].draw ~= nil then
-		if scenes[curScene].background then
-			bg = scenes[curScene].background
-
-			draw.background(love.math.colorFromBytes(bg[1], bg[2], bg[3]))
-		end
-
 		scenes[curScene].draw()
 	end
 
