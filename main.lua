@@ -106,7 +106,14 @@ function love.update(dt)
 	savegame.runSaveTimer(dt)
 end
 
+local draw_step = 0
+
 function love.draw()
+	if draw_step > 15 then
+		window.resize(love.graphics.getWidth(), love.graphics.getHeight())
+		draw_step = 0
+	end
+
 	window.draw_transformation()
 
 	-- Default font & draw colour
@@ -118,6 +125,8 @@ function love.draw()
 	dbg.runDraw()
 
 	scene.performTransition()
+
+	draw_step = draw_step + 1
 end
 
 -- All input should use these callbacks in the future, but for now it's only used by the hardcoded Android back button

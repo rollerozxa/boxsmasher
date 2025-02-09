@@ -24,8 +24,10 @@ function settings.init()
 		w = 40*8, h = 40*2,
 		label = getBooleanLabel(love.window.getFullscreen()),
 		onClick = function(self)
-			love.window.setFullscreen(not love.window.getFullscreen())
-			self.label = getBooleanLabel(love.window.getFullscreen())
+			local newState = (not love.window.getFullscreen())
+			love.window.setFullscreen(newState)
+			self.label = getBooleanLabel(newState)
+			savegame.set("fullscreen", newState)
 		end,
 	})
 
