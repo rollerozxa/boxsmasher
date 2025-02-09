@@ -70,7 +70,7 @@ function game.init(data)
 
 	-- Load level
 	level = data.level or 1
-	lvl = loadstring(love.filesystem.read("levels/"..level..".lua"))()
+	lvl = loadstring(love.filesystem.read(levelByNumber(level)))()
 
 	ballsLeft = lvl.totalBalls or 99
 
