@@ -5,7 +5,7 @@ local game = {
 	gui = Gui:new()
 }
 
-local terrain, boxes, ball, boxNum, totalBoxes, joints, helddown, grabbedBall
+local terrain, boxes, boxNum, totalBoxes, joints, grabbedBall
 local randc, randc2
 local level, lvl, ballsLeft, seenTutorial
 local throw = {x = 0, y = 0}
@@ -59,12 +59,10 @@ function game.init(data)
 	-- Reset variables
 	terrain = {}
 	boxes = {}
-	ball = nil
 	boxNum = 0
 	totalBoxes = 0
 	joints = {}
-	helddown = false
-	grabbedBall = false
+	grabbedBall = nil
 
 	randc = coolRandomColour()
 
@@ -147,10 +145,10 @@ function game.update(dt)
 		if (withinBoundary and not oldmousedown) or grabbedBall then
 			-- Just started holding the mouse? Create a ball at the mouse's position,
 			-- add a mouse joint to keep it static until thrown.
-			if not helddown then
+			if not grabbedBall then
 				sound.play("spawn")
 
-				ball = world:newCollider("Circle", {mx, my, 30})
+				local ball = world:newCollider("Circle", {mx, my, 30})
 				-- Set the thrown object to a "bullet", which uses more detailed collision detection
 				-- to prevent it jumping over bodies if the velocity is high enough
 				ball:setBullet(true)
@@ -166,27 +164,23 @@ function game.update(dt)
 				joints.boxMouse:setTarget(mx, my)
 
 				-- We now have a ball grabbed, don't boundary check anymore.
-				grabbedBall = true
+				grabbedBall = ball
 			end
 
-			if ball then
+			if grabbedBall then
 				-- Now we're holding it down...
-				helddown = true
-
 				-- Calculate "throw vector", like a slingshot. It is inverse of the vector
 				-- that is the difference in coordinates between the created ball and mouse.
-				local ox, oy = ball:getPosition()
+				local ox, oy = grabbedBall:getPosition()
 				throw.x = -(mx-ox)
 				throw.y = -(my-oy)
 			end
 		end
 
-	-- When helddown is true, but mouse is not held (i.e. mouse has been released, we're throwing it!)
-	elseif helddown and joints.boxMouse then
+	-- When grabbedBall is defined, but mouse is not held (i.e. mouse has been released, we're throwing it!)
+	elseif grabbedBall and joints.boxMouse then
 		-- Destroy mouse joint, don't make it static anymore.
 		joints.boxMouse:destroy()
-		helddown = false
-		grabbedBall = false
 		ballsLeft = ballsLeft - 1
 
 		sound.play("throw")
@@ -195,7 +189,8 @@ function game.update(dt)
 
 		-- Apply a linear impulse with the throw vector that makes the ball go wheee
 		-- (hopefully crashing into some boxes ^^)
-		ball:applyLinearImpulse(throw.x*30, throw.y*30)
+		grabbedBall:applyLinearImpulse(throw.x * 30, throw.y * 30)
+		grabbedBall = nil
 	end
 
 	for key, box in pairs(boxes) do
@@ -252,8 +247,8 @@ function game.draw()
 	end
 
 	-- If holding down, show the throw vector.
-	if ball and helddown then
-		local ox, oy = ball:getPosition()
+	if grabbedBall then
+		local ox, oy = grabbedBall:getPosition()
 		love.graphics.setColor(1,0,0)
 		love.graphics.arrow(ox, oy, ox+throw.x, oy+throw.y, 10, math.pi/4)
 	end
