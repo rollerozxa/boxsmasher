@@ -14,10 +14,18 @@ function Button:update()
 		return
 	end
 
-	if (mouseCollisionScaled(self.x, self.y, self.w, self.h) and mouseReleased())
+	if mouseClick() and mouseCollisionScaled(self.x, self.y, self.w, self.h) then
+		self._held = true
+	end
+
+	if (mouseCollisionScaled(self.x, self.y, self.w, self.h) and mouseReleased() and self._held)
 	or (self.keybind and love.keyboard.isDown(self.keybind) and not sparsifier[self.keybind]) then
 		sound.play("click")
 		self.onClick(self)
+	end
+
+	if mouseReleased() then
+		self._held = false
 	end
 
 	if self.keybind then
@@ -33,7 +41,7 @@ function Button:draw()
 	local hovering = mouseCollisionScaled(self.x, self.y, self.w, self.h) and (self.isOverlay or not overlay.isActive())
 
 	if hovering then
-		if love.mouse.isDown(1) then
+		if self._held then
 			love.graphics.setColor(0.05,0.05,0.05)
 		else
 			love.graphics.setColor(0.15,0.15,0.25)

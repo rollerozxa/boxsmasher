@@ -5,7 +5,7 @@ function TexButton:draw()
 	local hovering = mouseCollisionScaled(self.x, self.y, self.w, self.h) and (self.is_overlay or not overlay.isActive())
 
 	if hovering then
-		if love.mouse.isDown(1) then
+		if self._held then
 			love.graphics.setColor(0.1,0.1,0.1)
 		else
 			love.graphics.setColor(0.75,0.75,0.75)
