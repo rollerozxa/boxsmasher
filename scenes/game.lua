@@ -156,10 +156,9 @@ function game.update(dt)
 				ball:setBullet(true)
 
 				ball.colour = colour.random()
-				ball.debug_step = 0
 
 				function ball:draw()
-					draw.ball(self:getX(), self:getY(), self:getAngle(), ball.colour)
+					draw.ball(self:getX(), self:getY(), self:getAngle(), self.colour)
 				end
 
 				joints.boxMouse = love.physics.newMouseJoint(ball.body, mx, my)
