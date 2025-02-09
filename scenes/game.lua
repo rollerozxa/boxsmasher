@@ -29,8 +29,8 @@ local function newBox(x, y, w, h)
 end
 
 function game.init(data)
-	game.gui:add("menu", TexButton:new {
-		x = base_resolution.x - (96), y = 0,
+	game.gui:add("menu", TexButton:new{
+		x = resolution.x - (96), y = 0,
 		w = 96, h = 110,
 		texture = "menu",
 		scale = 2.5,
