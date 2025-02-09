@@ -24,7 +24,7 @@ function final.back()
 	scene.switch("selectlevel")
 end
 
-local text = {
+local finalText = {
 	"Congratulations, you've",
 	"completed all the levels",
 	"currently in the game!",
@@ -42,7 +42,7 @@ function final.draw()
 
 	love.graphics.setFont(fonts.sans.medium)
 	local y = 32*5
-	for _,t in pairs(text) do
+	for _,t in pairs(finalText) do
 		text.drawCentered(0, y, resolution.x, 32, t)
 		y = y + 48
 	end
